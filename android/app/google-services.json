@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "908091094638",
+    "project_id": "spacirtrasa",
+    "storage_bucket": "spacirtrasa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908091094638:android:677fee1e9423cde07f987f",
+        "android_client_info": {
+          "package_name": "com.nakladal.spacirtrasa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908091094638-co1upg82ou94jhdgciv442lmkhmq6lh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgcPBUDyjev4nAEAWQrkDoJXESzTd_LEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908091094638-co1upg82ou94jhdgciv442lmkhmq6lh7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "908091094638-nsqi48f9njud63dvtl5c0ckvkgk9vuka.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nakladal.spacirtrasa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
