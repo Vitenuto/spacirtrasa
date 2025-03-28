@@ -7,18 +7,18 @@ import 'package:spacirtrasa/pages/village.dart';
 import '../pages/home.dart';
 import '../pages/profile.dart';
 
-class BottomBarFrame extends StatefulWidget {
+class MainFrame extends StatefulWidget {
   String location;
 
-  BottomBarFrame({super.key, required this.child, required this.location});
+  MainFrame({super.key, required this.child, required this.location});
 
   final Widget child;
 
   @override
-  State<BottomBarFrame> createState() => _BottomBarFrameState();
+  State<MainFrame> createState() => _MainFrameState();
 }
 
-class _BottomBarFrameState extends State<BottomBarFrame> {
+class _MainFrameState extends State<MainFrame> {
   int _currentIndex = 0;
 
   static const List<MyCustomBottomNavBarItem> tabs = [
