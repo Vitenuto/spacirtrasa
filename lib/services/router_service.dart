@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/paths.dart';
-import 'package:spacirtrasa/widgets/bottom_bar_frame.dart';
+import 'package:spacirtrasa/widgets/main_frame.dart';
 
 import '../pages/home.dart';
 import '../pages/interests.dart';
@@ -31,7 +31,7 @@ class RouteService {
         pageBuilder: (context, state, child) {
           log.d("Shell route: ${state.matchedLocation}");
           return NoTransitionPage(
-            child: BottomBarFrame(location: state.matchedLocation, child: child),
+            child: MainFrame(location: state.matchedLocation, child: child),
           );
         },
         routes: [

@@ -7,6 +7,6 @@ class PathsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Paths Page");
+    return Center(child: Text("Paths Page"));
   }
 }
