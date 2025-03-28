@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:spacirtrasa/services/auth_service.dart';
 
 import '../generated/assets.gen.dart';
 
 class LoginPage extends StatelessWidget {
   static const route = "/login";
+  static final log = Logger();
 
   const LoginPage({super.key});
 
@@ -31,12 +33,12 @@ class LoginPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ElevatedButton(
-            onPressed: () async => _signInWithGoogle(context),
+            onPressed: () async => _signInWith(context, AuthService.signInWithGoogle),
             child: const Text("logging.google").tr(),
           ),
           Center(child: Padding(padding: const EdgeInsets.all(4.0), child: const Text("or").tr())),
           ElevatedButton(
-            onPressed: () async => _signInWithGoogle(context),
+            onPressed: () async => _signInWith(context, AuthService.signInAnonymously),
             child: const Text("logging.none").tr(),
           ),
         ],
@@ -44,9 +46,9 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Future<void> _signInWithGoogle(BuildContext context) async {
+  Future<void> _signInWith(BuildContext context, Future<void> Function() signInFunction) async {
     try {
-      await AuthService.signInWithGoogle();
+      await signInFunction();
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -54,5 +56,6 @@ class LoginPage extends StatelessWidget {
         );
       }
     }
+    log.t("User signed in.");
   }
 }
