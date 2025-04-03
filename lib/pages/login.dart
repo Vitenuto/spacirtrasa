@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:spacirtrasa/services/auth_service.dart';
 
 import '../generated/assets.gen.dart';
+import '../services/router_service.dart';
 
 class LoginPage extends StatelessWidget {
   static const route = "/login";
@@ -49,6 +50,7 @@ class LoginPage extends StatelessWidget {
   Future<void> _signInWith(BuildContext context, Future<void> Function() signInFunction) async {
     try {
       await signInFunction();
+      log.t("User signed in.");
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -56,6 +58,6 @@ class LoginPage extends StatelessWidget {
         );
       }
     }
-    log.t("User signed in.");
+    RouteService.router.refresh();
   }
 }

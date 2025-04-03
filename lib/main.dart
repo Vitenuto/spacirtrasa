@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/services/auth_service.dart';
 import 'package:spacirtrasa/services/router_service.dart';
 
 import 'firebase_options.dart';
@@ -15,14 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-
-  // Listen for auth state changes
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    Logger().d(
-      'Auth state changed: ${AuthService.getUserReadable()}',
-    );
-    RouteService.router.refresh();
-  });
 
   runApp(
     EasyLocalization(

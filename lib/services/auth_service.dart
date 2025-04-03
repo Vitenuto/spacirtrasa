@@ -23,8 +23,8 @@ class AuthService {
 
       // Once signed in, return the UserCredential
       await _firebaseAuth.signInWithCredential(credential);
-    } on Exception catch (e) {
-      log.f("FirebaseAuth.signInWithCredential() throws an exception: $e");
+    } catch (e) {
+      log.f("Exception during signing in: $e");
     }
   }
 
@@ -43,7 +43,9 @@ class AuthService {
   }
 
   static Future<void> signOut() async {
+    await GoogleSignIn().signOut();
     await _firebaseAuth.signOut();
+    await signInAnonymously();
     log.t("User is signed out");
   }
 }
