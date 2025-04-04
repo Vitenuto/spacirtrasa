@@ -22,7 +22,7 @@ class RouteService {
     routes: [
       GoRoute(
         parentNavigatorKey: _rootNavKey,
-        path: '/login',
+        path: LoginPage.route,
         builder: (context, state) => LoginPage(),
       ),
 
