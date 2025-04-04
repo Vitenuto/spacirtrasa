@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacirtrasa/pages/interests.dart';
@@ -21,35 +22,35 @@ class MainFrame extends StatefulWidget {
 class _MainFrameState extends State<MainFrame> {
   int _currentIndex = 0;
 
-  static const List<MyCustomBottomNavBarItem> tabs = [
+  static List<MyCustomBottomNavBarItem> tabs = [
     MyCustomBottomNavBarItem(
-      icon: Icon(Icons.home),
-      activeIcon: Icon(Icons.home),
-      label: 'HOME',
+      icon: const Icon(Icons.home_outlined),
+      activeIcon: const Icon(Icons.home),
+      label: "navbar.home".tr().toUpperCase(),
       initialLocation: HomePage.route,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.explore_outlined),
       activeIcon: Icon(Icons.explore),
-      label: 'PATHS',
+      label: "navbar.paths".tr().toUpperCase(),
       initialLocation: PathsPage.route,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.interests_outlined),
       activeIcon: Icon(Icons.interests),
-      label: 'INTERESTS',
+      label: "navbar.interests".tr().toUpperCase(),
       initialLocation: InterestsPage.route,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.villa_outlined),
       activeIcon: Icon(Icons.villa),
-      label: 'VILLAGE',
+      label: "navbar.village".tr().toUpperCase(),
       initialLocation: VillagePage.route,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.account_circle_outlined),
       activeIcon: Icon(Icons.account_circle),
-      label: 'MY',
+      label: "navbar.my".tr().toUpperCase(),
       initialLocation: ProfilePage.route,
     ),
   ];

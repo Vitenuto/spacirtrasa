@@ -1,6 +1,18 @@
 str,en_US,cz_CZ
+navbar.home,Home,Domů
+navbar.paths,Paths,Trasy
+navbar.interests,Interests,Zajímavosti
+navbar.village,Village,Vesnice
+navbar.my,My,Moje
 profile.sign-out,Sign out,Odhlásit se
 profile.sign-in,Sign in through Google,Přihlásit se přes Google
+profile.my-favorites,My favorites,Moje oblíbené
+profile.my-ratings,My ratings,Moje hodnocení
+profile.my-notes,My notes,Moje poznámky
+profile.my-completed-paths,Completed paths,Absolvované trasy
+profile.admin-section,Admin section,Admin sekce
+profile.manage-poi,Manage POIs,Správa zajímavostí
+profile.manage-paths,Manage paths,Správa cest
 error.login,Login failed with error: {error},Přihlášení selhalo s chybou: {error}
 title,Špacírtrasa,Špacírtrasa
 logging.google,Sign in through Google,Přihlásit se přes Google
