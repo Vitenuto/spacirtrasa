@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.images.logo.image(width: 350, height: 350, fit: BoxFit.scaleDown),
+            Assets.images.appLogo.image(width: 350, height: 350, fit: BoxFit.scaleDown),
             const SizedBox(height: 48.0),
             _buildSignInButtons(context),
           ],
