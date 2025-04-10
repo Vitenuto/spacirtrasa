@@ -30,10 +30,8 @@ class _MainMapState extends State<MainMap> {
   // create the cache store as a field variable
   final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
 
-  /// Get the CacheStore as a Future. This method needs to be static so that it
-  /// can be used to initialize a field variable.
   static Future<CacheStore> _getCacheStore() async {
-    final dir = await getTemporaryDirectory();
+    final dir = await getApplicationCacheDirectory();
     return FileCacheStore('${dir.path}${Platform.pathSeparator}MapTiles');
   }
 

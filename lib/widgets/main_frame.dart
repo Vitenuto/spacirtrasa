@@ -9,7 +9,7 @@ import '../pages/home.dart';
 import '../pages/profile.dart';
 
 class MainFrame extends StatefulWidget {
-  String location;
+  late final String location;
 
   MainFrame({super.key, required this.child, required this.location});
 
@@ -72,15 +72,15 @@ class _MainFrameState extends State<MainFrame> {
           _goOtherTab(context, index);
         },
         currentIndex:
-            widget.location == HomePage.route
-                ? 0
-                : widget.location == PathsPage.route
-                ? 1
-                : widget.location == InterestsPage.route
-                ? 2
-                : widget.location == VillagePage.route
-                ? 3
-                : 4,
+        widget.location == HomePage.route
+            ? 0
+            : widget.location == PathsPage.route
+            ? 1
+            : widget.location == InterestsPage.route
+            ? 2
+            : widget.location == VillagePage.route
+            ? 3
+            : 4,
         items: tabs,
       ),
     );

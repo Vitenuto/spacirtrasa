@@ -18,8 +18,8 @@ targets:
         options:
           provider_name_prefix: ""
           provider_family_name_prefix: ""
-          provider_name_suffix: "Provider"
-          provider_family_name_suffix: "Provider"
+          provider_name_suffix: ""
+          provider_family_name_suffix: ""
       json_serializable:
         options:
           # Options configure how source code is generated for every
