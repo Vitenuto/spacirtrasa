@@ -31,25 +31,25 @@ class ProfilePage extends ConsumerWidget {
         children: [
           user == null
               ? SizedBox()
-              : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 16,
-                    backgroundColor: Colors.grey[300], // Placeholder background
-                    backgroundImage:
-                        user?.photoURL != null
-                            ? NetworkImage(user!.photoURL!) // Load image if available
-                            : null, // No image if null
-                    child:
-                        user?.photoURL == null
-                            ? Icon(Icons.person, size: 40, color: Colors.white) // Default icon
-                            : null,
-                  ),
-                  SizedBox(width: 8),
-                  Text(user.displayName ?? user.email ?? user.uid, style: TextStyle(fontSize: 24)),
-                ],
+              : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 48,
+                backgroundColor: Colors.grey[300], // Placeholder background
+                backgroundImage:
+                user.photoURL != null
+                    ? NetworkImage(user.photoURL!) // Load image if available
+                    : null, // No image if null
+                child:
+                user.photoURL == null
+                    ? Icon(Icons.person, size: 40, color: Colors.white) // Default icon
+                    : null,
               ),
+              SizedBox(height: 8),
+              Text(user.displayName ?? user.email ?? user.uid, style: TextStyle(fontSize: 24)),
+            ],
+          ),
           SizedBox(height: 8),
           _buildSignInOutButton(user != null),
         ],
@@ -62,7 +62,7 @@ class ProfilePage extends ConsumerWidget {
       style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
       onPressed:
           () async =>
-              isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
+      isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
       loadingChild: CircularProgressIndicator(),
       widget: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
     );
@@ -73,7 +73,7 @@ class ProfilePage extends ConsumerWidget {
       child: Column(
         spacing: 8,
         children: [
-          SizedBox(width:256),
+          SizedBox(width: 256),
           bodyButton("profile.my-favorites".tr(), () => {}),
           bodyButton("profile.my-ratings".tr(), () => {}),
           bodyButton("profile.my-notes".tr(), () => {}),
@@ -89,5 +89,8 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  OutlinedButton bodyButton(final String text, final VoidCallback onPressed) => OutlinedButton(style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 42)), onPressed: onPressed, child: Text(text));
+  OutlinedButton bodyButton(final String text, final VoidCallback onPressed) =>
+      OutlinedButton(style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 42)),
+          onPressed: onPressed,
+          child: Text(text));
 }
