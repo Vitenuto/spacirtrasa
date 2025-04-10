@@ -1,10 +1,10 @@
 import 'package:async_button_handler/async_button_handler.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/providers/auth_user.dart';
 
+import '../providers/app_user.dart';
 import '../services/auth_service.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -14,18 +14,18 @@ class ProfilePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authUserProvider);
-
     return Center(
       child: Column(
         spacing: 8,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [_buildProfileHeader(user), if (user != null) _buildButtons(user)],
+        children: [_buildProfileHeader(ref), _buildButtons(ref)],
       ),
     );
   }
 
-  Widget _buildProfileHeader(final User? user) {
+  Widget _buildProfileHeader(final WidgetRef ref) {
+    final user = ref.watch(authUserProvider);
+
     return IntrinsicWidth(
       child: Column(
         children: [
@@ -68,7 +68,10 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildButtons(final User user) {
+  Widget _buildButtons(final WidgetRef ref) {
+    final user = ref.watch(appUserProvider);
+    if (user == null) return SizedBox();
+
     return IntrinsicWidth(
       child: Column(
         spacing: 8,
@@ -78,8 +81,9 @@ class ProfilePage extends ConsumerWidget {
           bodyButton("profile.my-ratings".tr(), () => {}),
           bodyButton("profile.my-notes".tr(), () => {}),
           bodyButton("profile.my-completed-paths".tr(), () => {}),
-          if (user != null) ...[
-            const Text("profile.admin-section", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)).tr(),
+          if (user.isAdmin) ...[
+            const Text("profile.admin-section",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)).tr(),
 
             bodyButton("profile.manage-poi".tr(), () => {}),
             bodyButton("profile.manage-paths".tr(), () => {}),

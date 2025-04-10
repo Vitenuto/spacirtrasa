@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 
+import '../models/app_user.dart';
+import '../providers/app_user.dart';
+
 class AuthService {
   static final log = Logger();
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -15,14 +18,15 @@ class AuthService {
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-      // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
 
-      // Once signed in, return the UserCredential
-      await _firebaseAuth.signInWithCredential(credential);
+      final userCredential = await _firebaseAuth.signInWithCredential(credential);
+      if (userCredential.user == null) throw("User is null");
+
+      await _createAppUserIfNeeded(userCredential.user!.uid);
     } catch (e) {
       log.f("Exception during signing in: $e");
     }
@@ -47,5 +51,14 @@ class AuthService {
     await _firebaseAuth.signOut();
     await signInAnonymously();
     log.t("User is signed out");
+  }
+
+  static Future<void> _createAppUserIfNeeded(final String userId) async {
+    final appUser = (await AppUserProvider.appUserCollection.doc(userId).get()).data();
+    if (appUser == null) {
+      final newUser = AppUser(id: userId, isAdmin: false, favoriteIds: [], notes: []);
+      await AppUserProvider.appUserCollection.doc(userId).set(newUser);
+      log.t("New user '$newUser' is successfully created");
+    }
   }
 }
