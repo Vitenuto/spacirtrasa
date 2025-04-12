@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../models/app_user.dart';
-import '../services/utils/converters.dart';
+import '../utils/converters.dart';
 
 part 'generated/app_user.g.dart';
 
@@ -14,9 +14,9 @@ class AppUserProvider extends _$AppUserProvider {
   final log = Logger();
   static const usersCollectionId = 'USERS';
   static final _firebaseAuth = FirebaseAuth.instance;
-  static final _firebaseFirestore = FirebaseFirestore.instance;
+  static final _firestore = FirebaseFirestore.instance;
 
-  static final appUserCollection = _firebaseFirestore
+  static final appUserCollection = _firestore
       .collection(usersCollectionId)
       .withConverter(
         fromFirestore: FirestoreConverters.fromFirestore<AppUser>(AppUser.fromJson),

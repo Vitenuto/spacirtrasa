@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:logger/logger.dart';
 
 class FirestoreConverters {
@@ -26,5 +27,19 @@ class FirestoreConverters {
 
       return json;
     };
+  }
+}
+
+class GeoPointConverter implements JsonConverter<GeoPoint, Map<String, dynamic>> {
+  const GeoPointConverter();
+
+  @override
+  GeoPoint fromJson(Map<String, dynamic> json) {
+    return GeoPoint(json['lat']!, json['lng']!);
+  }
+
+  @override
+  Map<String, double> toJson(GeoPoint point) {
+    return {'lat': point.latitude, 'lng': point.longitude};
   }
 }

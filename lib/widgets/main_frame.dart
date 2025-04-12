@@ -6,7 +6,7 @@ import 'package:spacirtrasa/pages/paths.dart';
 import 'package:spacirtrasa/pages/village.dart';
 
 import '../pages/home.dart';
-import '../pages/profile.dart';
+import '../pages/profile/profile.dart';
 
 class MainFrame extends StatefulWidget {
   late final String location;
