@@ -8,7 +8,7 @@ import 'package:spacirtrasa/widgets/main_frame.dart';
 import '../pages/home.dart';
 import '../pages/interests.dart';
 import '../pages/login.dart';
-import '../pages/profile.dart';
+import '../pages/profile/profile.dart';
 import '../pages/village.dart';
 
 class RouteService {
