@@ -10,6 +10,7 @@ enum PoiFlags { monument, nature, food, transportation }
 
 @freezed
 abstract class Poi with _$Poi {
+  // TODO implement MapEntity interface (shared with future Path class)
   const factory Poi({
     required String id,
     required String title,
