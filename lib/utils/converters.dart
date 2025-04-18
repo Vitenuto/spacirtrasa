@@ -6,7 +6,7 @@ class FirestoreConverters {
   static final log = Logger();
 
   static T Function(DocumentSnapshot<Map<String, dynamic>>, SnapshotOptions?) fromFirestore<T>(
-    Function(Map<String, dynamic>) fromJson,
+    T Function(Map<String, dynamic>) fromJson,
   ) {
     return (snapshot, _) {
       try {

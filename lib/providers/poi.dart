@@ -2,7 +2,7 @@ import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../models/poi.dart';
-import '../services/poi_service.dart';
+import '../services/map_entity/poi_service.dart';
 
 part 'generated/poi.g.dart';
 
@@ -13,10 +13,7 @@ class PoiProvider extends _$PoiProvider {
   @override
   List<Poi> build() {
     log.t("Building POI provider...");
-    final poiSubscription = PoiService.poiCollection
-        .snapshots()
-        .map((poiSnapshot) => poiSnapshot.docs.map((poiDoc) => poiDoc.data()).toList())
-        .listen(poiListener);
+    final poiSubscription = PoiService().entityCollectionStream.listen(poiListener);
     ref.onDispose(() => poiSubscription.cancel());
     return List.empty();
   }

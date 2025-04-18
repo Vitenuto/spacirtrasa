@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Poi {
 
- String get id; String get title; String get imgUrl; String get markdownData;@GeoPointConverter() GeoPoint get location; Set<PoiFlags> get flags;@JsonKey(name: 'creation_date', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp get creationDate;
+ String get id; String get title; String get imgUrl; String get markdownData;@GeoPointConverter() GeoPoint get location; Set<PoiFlags> get flags;@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp get createdAt;
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $PoiCopyWith<Poi> get copyWith => _$PoiCopyWithImpl<Poi>(this as Poi, _$identity
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other.flags, flags)&&(identical(other.creationDate, creationDate) || other.creationDate == creationDate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other.flags, flags)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,imgUrl,markdownData,location,const DeepCollectionEquality().hash(flags),creationDate);
+int get hashCode => Object.hash(runtimeType,id,title,imgUrl,markdownData,location,const DeepCollectionEquality().hash(flags),createdAt);
 
 @override
 String toString() {
-  return 'Poi(id: $id, title: $title, imgUrl: $imgUrl, markdownData: $markdownData, location: $location, flags: $flags, creationDate: $creationDate)';
+  return 'Poi(id: $id, title: $title, imgUrl: $imgUrl, markdownData: $markdownData, location: $location, flags: $flags, createdAt: $createdAt)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $PoiCopyWith<$Res>  {
   factory $PoiCopyWith(Poi value, $Res Function(Poi) _then) = _$PoiCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'creation_date', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp creationDate
+ String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp createdAt
 });
 
 
@@ -66,7 +66,7 @@ class _$PoiCopyWithImpl<$Res>
 
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? imgUrl = null,Object? markdownData = null,Object? location = null,Object? flags = null,Object? creationDate = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? imgUrl = null,Object? markdownData = null,Object? location = null,Object? flags = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,7 @@ as String,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullabl
 as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
 as String,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as GeoPoint,flags: null == flags ? _self.flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<PoiFlags>,creationDate: null == creationDate ? _self.creationDate : creationDate // ignore: cast_nullable_to_non_nullable
+as Set<PoiFlags>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as Timestamp,
   ));
 }
@@ -86,7 +86,7 @@ as Timestamp,
 @JsonSerializable()
 
 class _Poi implements Poi {
-  const _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required final  Set<PoiFlags> flags, @JsonKey(name: 'creation_date', fromJson: _dateFromJson, toJson: _dateToJson) required this.creationDate}): _flags = flags;
+  const _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required final  Set<PoiFlags> flags, @JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) required this.createdAt}): _flags = flags;
   factory _Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
 
 @override final  String id;
@@ -101,7 +101,7 @@ class _Poi implements Poi {
   return EqualUnmodifiableSetView(_flags);
 }
 
-@override@JsonKey(name: 'creation_date', fromJson: _dateFromJson, toJson: _dateToJson) final  Timestamp creationDate;
+@override@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) final  Timestamp createdAt;
 
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
@@ -116,16 +116,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other._flags, _flags)&&(identical(other.creationDate, creationDate) || other.creationDate == creationDate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other._flags, _flags)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,imgUrl,markdownData,location,const DeepCollectionEquality().hash(_flags),creationDate);
+int get hashCode => Object.hash(runtimeType,id,title,imgUrl,markdownData,location,const DeepCollectionEquality().hash(_flags),createdAt);
 
 @override
 String toString() {
-  return 'Poi(id: $id, title: $title, imgUrl: $imgUrl, markdownData: $markdownData, location: $location, flags: $flags, creationDate: $creationDate)';
+  return 'Poi(id: $id, title: $title, imgUrl: $imgUrl, markdownData: $markdownData, location: $location, flags: $flags, createdAt: $createdAt)';
 }
 
 
@@ -136,7 +136,7 @@ abstract mixin class _$PoiCopyWith<$Res> implements $PoiCopyWith<$Res> {
   factory _$PoiCopyWith(_Poi value, $Res Function(_Poi) _then) = __$PoiCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'creation_date', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp creationDate
+ String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp createdAt
 });
 
 
@@ -153,7 +153,7 @@ class __$PoiCopyWithImpl<$Res>
 
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? imgUrl = null,Object? markdownData = null,Object? location = null,Object? flags = null,Object? creationDate = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? imgUrl = null,Object? markdownData = null,Object? location = null,Object? flags = null,Object? createdAt = null,}) {
   return _then(_Poi(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -161,7 +161,7 @@ as String,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullabl
 as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
 as String,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as GeoPoint,flags: null == flags ? _self._flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<PoiFlags>,creationDate: null == creationDate ? _self.creationDate : creationDate // ignore: cast_nullable_to_non_nullable
+as Set<PoiFlags>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as Timestamp,
   ));
 }

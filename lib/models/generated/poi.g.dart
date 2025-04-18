@@ -18,7 +18,7 @@ _Poi _$PoiFromJson(Map<String, dynamic> json) => _Poi(
       (json['flags'] as List<dynamic>)
           .map((e) => $enumDecode(_$PoiFlagsEnumMap, e))
           .toSet(),
-  creationDate: _dateFromJson((json['creation_date'] as num).toInt()),
+  createdAt: _dateFromJson((json['created_at'] as num).toInt()),
 );
 
 Map<String, dynamic> _$PoiToJson(_Poi instance) => <String, dynamic>{
@@ -28,7 +28,7 @@ Map<String, dynamic> _$PoiToJson(_Poi instance) => <String, dynamic>{
   'markdownData': instance.markdownData,
   'location': const GeoPointConverter().toJson(instance.location),
   'flags': instance.flags.map((e) => _$PoiFlagsEnumMap[e]!).toList(),
-  'creation_date': _dateToJson(instance.creationDate),
+  'created_at': _dateToJson(instance.createdAt),
 };
 
 const _$PoiFlagsEnumMap = {

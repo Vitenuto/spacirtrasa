@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../utils/converters.dart';
+import 'map_entity.dart';
 
 part 'generated/poi.freezed.dart';
 part 'generated/poi.g.dart';
@@ -9,8 +10,7 @@ part 'generated/poi.g.dart';
 enum PoiFlags { monument, nature, food, transportation }
 
 @freezed
-abstract class Poi with _$Poi {
-  // TODO implement MapEntity interface (shared with future Path class)
+abstract class Poi with _$Poi implements MapEntity {
   const factory Poi({
     required String id,
     required String title,
@@ -18,8 +18,8 @@ abstract class Poi with _$Poi {
     required String markdownData,
     @GeoPointConverter() required GeoPoint location,
     required Set<PoiFlags> flags,
-    @JsonKey(name: 'creation_date', fromJson: _dateFromJson, toJson: _dateToJson)
-    required Timestamp creationDate,
+    @JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson)
+    required Timestamp createdAt,
   }) = _Poi;
 
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
