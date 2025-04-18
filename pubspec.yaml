@@ -47,7 +47,6 @@ dependencies:
   logger: ^2.5.0
   google_sign_in: ^6.3.0
   easy_localization_loader: ^2.0.2
-  async_button_handler: ^0.1.0+2
   flutter_map: ^8.1.1
   latlong2: ^0.9.1
   flutter_dotenv: ^5.2.1

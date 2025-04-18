@@ -1,4 +1,3 @@
-import 'package:async_button_handler/async_button_handler.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +7,7 @@ import 'package:spacirtrasa/providers/auth_user.dart';
 import '../../providers/app_user.dart';
 import '../../services/auth_service.dart';
 import '../../services/map_entity/poi_service.dart';
+import '../../widgets/async_button_handler.dart';
 
 class ProfilePage extends ConsumerWidget {
   static const route = "/profile";
@@ -59,13 +59,12 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  AsyncButtonHandler _buildSignInOutButton(final bool isSignedIn) {
-    return AsyncButtonHandler(
+  OutlinedAsyncButton _buildSignInOutButton(final bool isSignedIn) {
+    return OutlinedAsyncButton(
       style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
       onPressed:
           () async =>
-      isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
-      loadingChild: CircularProgressIndicator(),
+              isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
       widget: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
     );
   }
