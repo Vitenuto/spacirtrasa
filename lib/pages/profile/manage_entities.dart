@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/providers/poi.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../models/map_entity.dart';
 import '../../services/map_entity/map_entity_service.dart';
 
-class ManagePois extends ConsumerStatefulWidget {
+class ManageEntities<T extends MapEntity> extends ConsumerStatefulWidget {
   final MapEntityService entityService;
+  final ProviderListenable<List<MapEntity>> provider;
 
-  const ManagePois(this.entityService, {super.key});
+  const ManageEntities(this.entityService, this.provider, {super.key});
 
   @override
-  ConsumerState<ManagePois> createState() => _ManagePoisState();
+  ConsumerState<ManageEntities> createState() => _ManageEntitiesState<T>();
 }
 
-class _ManagePoisState extends ConsumerState<ManagePois> {
+class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEntities> {
   final Set<String> _selectedIds = {};
 
   bool _isSelectionMode = false;
@@ -30,13 +31,18 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
     });
   }
 
+  late List<MapEntity> mapEntities;
+
+  get selectedEntites =>
+      mapEntities.where((mapEntity) => _selectedIds.contains(mapEntity.id)).toList();
+
   @override
   Widget build(BuildContext context) {
-    final mapEntities = ref.watch(poiProvider);
+    mapEntities = ref.watch(widget.provider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isSelectionMode ? '${_selectedIds.length} selected' : 'Manage POIs'),
+        title: Text(_isSelectionMode ? '${_selectedIds.length} selected' : 'Manage ${T}s'),
         leading:
             _isSelectionMode
                 ? IconButton(icon: const Icon(Icons.close), onPressed: _clearSelection)
@@ -56,14 +62,7 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
             IconButton(
               icon: const Icon(Icons.delete),
               tooltip: 'Delete Selected',
-              onPressed: () async {
-                final confirm = await _showConfirmDeleteDialog(context, count: _selectedIds.length);
-                if (confirm) {
-                  final entitiesToRemove = mapEntities.where((entity) => _selectedIds.contains(entity.id));
-                  widget.entityService.removeEntities(entitiesToRemove);
-                  _clearSelection();
-                }
-              },
+              onPressed: () async => await _removeEntities(context),
             ),
         ],
       ),
@@ -71,19 +70,31 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
       persistentFooterButtons: [
         if (_isSelectionMode)
           ElevatedButton(
-            onPressed: () => _exportPoiClicked(mapEntities),
-            child: const Text('Export POIs'),
+            onPressed: () async => await _exportEntities(mapEntities),
+            child: Text('Export ${T}s'),
           ),
-        ElevatedButton(onPressed: () => widget.entityService.addDummy(), child: const Text('Add dummy POI')),
-        ElevatedButton(onPressed: () => widget.entityService.importEntities(), child: const Text('Import POIs')),
+        ElevatedButton(
+          onPressed: () async => await widget.entityService.addDummy(),
+          statesController: WidgetStatesController(),
+          child: Text('Add dummy $T'),
+        ),
+        ElevatedButton(onPressed: () async => await _importEntities(), child: Text('Import ${T}s')),
       ],
     );
   }
 
-  void _exportPoiClicked(List<MapEntity> mapEntities) {
-    final selectedEntites =
-        mapEntities.where((mapEntity) => _selectedIds.contains(mapEntity.id)).toList();
-    widget.entityService.exportEntities(selectedEntites);
+  Future<void> _importEntities() async {
+    final importedCount = await widget.entityService.importEntities();
+    if (importedCount == 0) return;
+    Fluttertoast.showToast(msg: "$importedCount ${T}s are successfully imported");
+  }
+
+  Future<void> _exportEntities(List<MapEntity> mapEntities) async {
+    final selectedDir = await widget.entityService.exportEntities(selectedEntites);
+    if (selectedDir == null) return;
+    Fluttertoast.showToast(
+      msg: "${selectedEntites.length} ${T}s are successfully exported to $selectedDir",
+    );
     _clearSelection();
   }
 
@@ -107,7 +118,7 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
 
   Widget _buildListView(List<MapEntity> mapEntities) {
     return mapEntities.isEmpty
-        ? const Center(child: Text('No POIs found'))
+        ? Center(child: Text('No ${T}s found'))
         : ListView.builder(
           itemCount: mapEntities.length,
           itemBuilder: (context, index) {
@@ -126,7 +137,7 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
               confirmDismiss: (_) async {
                 return await _showConfirmDeleteDialog(context, itemName: mapEntity.title);
               },
-              onDismissed: (_) async => await widget.entityService.removeEntity(mapEntity),
+              onDismissed: (_) async => _removeEntity(mapEntity),
               child: ListTile(
                 title: Text(mapEntity.title),
                 subtitle: Text("Created ${mapEntity.createdAt.toDate().toString()}"),
@@ -137,9 +148,7 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
                           onChanged: (_) => _toggleSelection(mapEntity.id),
                         )
                         : null,
-                onLongPress: () {
-                  _toggleSelection(mapEntity.id);
-                },
+                onLongPress: () => _toggleSelection(mapEntity.id),
                 onTap: _isSelectionMode ? () => _toggleSelection(mapEntity.id) : null,
               ),
             );
@@ -159,7 +168,7 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
                 title: const Text("Confirm Deletion"),
                 content: Text(
                   count != null
-                      ? "Are you sure you want to delete $count selected POIs?"
+                      ? "Are you sure you want to delete $count selected ${T}s?"
                       : "Are you sure you want to delete '$itemName'?",
                 ),
                 actions: [
@@ -175,5 +184,20 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
               ),
         ) ??
         false;
+  }
+
+  Future<void> _removeEntity(MapEntity mapEntity) async {
+    await widget.entityService.removeEntity(mapEntity);
+    Fluttertoast.showToast(msg: "$T '${mapEntity.title}' was successfully deleted");
+  }
+
+  Future<void> _removeEntities(BuildContext context) async {
+    final confirm = await _showConfirmDeleteDialog(context, count: _selectedIds.length);
+    if (confirm) {
+      final removeEntitiesCount = selectedEntites.length;
+      await widget.entityService.removeEntities(selectedEntites);
+      Fluttertoast.showToast(msg: "$removeEntitiesCount $T were successfully deleted");
+      _clearSelection();
+    }
   }
 }

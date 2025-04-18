@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/pages/profile/manage_pois.dart';
 import 'package:spacirtrasa/providers/auth_user.dart';
 
+import '../../models/poi.dart';
 import '../../providers/app_user.dart';
+import '../../providers/poi.dart';
 import '../../services/auth_service.dart';
 import '../../services/map_entity/poi_service.dart';
 import '../../widgets/async_button_handler.dart';
+import 'manage_entities.dart';
 
 class ProfilePage extends ConsumerWidget {
   static const route = "/profile";
@@ -88,7 +90,10 @@ class ProfilePage extends ConsumerWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ).tr(),
 
-            bodyButton("profile.manage-poi".tr(), () => _showFullDialog(context, ManagePois(PoiService()))),
+            bodyButton(
+              "profile.manage-poi".tr(),
+              () => _showFullDialog(context, ManageEntities<Poi>(PoiService(), poiProvider)),
+            ),
             bodyButton("profile.manage-paths".tr(), () => {}),
           ],
         ],
