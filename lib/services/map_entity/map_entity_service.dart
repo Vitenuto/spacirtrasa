@@ -46,23 +46,19 @@ abstract class MapEntityService<T extends MapEntity> {
 
   Future<void> removeEntity(final T entity) async {
     await entityCollection.doc(entity.id).delete();
-
-    Fluttertoast.showToast(msg: "$T with id: ${entity.title} was successfully deleted");
+    log.i("Removed $entity from the database");
   }
 
-  Future<void> removeEntities(final Iterable<T> entities) async {
-    for (var entity in entities) {
-      await removeEntity(entity);
-    }
-
-    Fluttertoast.showToast(msg: "${entities.length} $T were successfully deleted");
+  Future<void> removeEntities(final List<T> entities) async {
+    await Future.wait(entities.map(removeEntity));
+    log.i("Removed ${entities.length} ${T}s from the database");
   }
 
-  Future<void> exportEntities(List<MapEntity> entities) async {
+  Future<String?> exportEntities(List<MapEntity> entities) async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
     if (selectedDirectory == null) {
       log.w("User canceled the folder picking, no export is done");
-      return;
+      return null;
     }
 
     final List<Map<String, dynamic>> jsonList = entities.map((entity) => entity.toJson()).toList();
@@ -72,16 +68,15 @@ abstract class MapEntityService<T extends MapEntity> {
     final File file = File('$selectedDirectory/${T}s_export_$dateTimeString.json');
     await file.writeAsString(jsonString);
 
-    Fluttertoast.showToast(
-      msg: "${entities.length} ${T}s are successfully exported to $selectedDirectory",
-    );
+    log.i("Exported ${entities.length} ${T}s to $selectedDirectory");
+    return selectedDirectory;
   }
 
-  Future<void> importEntities() async {
+  Future<int> importEntities() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result == null) {
       log.w("User canceled the folder picking, no export is done");
-      return;
+      return 0;
     }
 
     final List<T> entities;
@@ -95,16 +90,18 @@ abstract class MapEntityService<T extends MapEntity> {
         msg: "Importing of ${T}s failed with: ${e.message}",
       );
       log.e("FormatException during $T import", error: e);
-      return;
+      return 0;
     } catch (e, stack) {
       Fluttertoast.showToast(
         toastLength: Toast.LENGTH_LONG,
         msg: "Failed to import ${T}s, discuss with administrator",
       );
       log.e("Error during $T import", error: e, stackTrace: stack);
-      return;
+      return 0;
     }
-    Fluttertoast.showToast(msg: "${entities.length} ${T}s are successfully imported");
+
+    log.i("${entities.length} ${T}s are successfully imported");
+    return entities.length;
   }
 
   Future<List<T>> _decodeEntity(File file) async {
