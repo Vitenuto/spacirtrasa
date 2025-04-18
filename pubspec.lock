@@ -57,14 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
-  async_button_handler:
-    dependency: "direct main"
-    description:
-      name: async_button_handler
-      sha256: "5f45a7fc700c4b4a43859eafe9fd392e2cd021895e95dab977bea82582f81fd1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0+2"
   boolean_selector:
     dependency: transitive
     description:
