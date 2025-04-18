@@ -7,6 +7,7 @@ import 'package:spacirtrasa/providers/auth_user.dart';
 
 import '../../providers/app_user.dart';
 import '../../services/auth_service.dart';
+import '../../services/map_entity/poi_service.dart';
 
 class ProfilePage extends ConsumerWidget {
   static const route = "/profile";
@@ -88,7 +89,7 @@ class ProfilePage extends ConsumerWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ).tr(),
 
-            bodyButton("profile.manage-poi".tr(), () => _showFullDialog(context, ManagePois())),
+            bodyButton("profile.manage-poi".tr(), () => _showFullDialog(context, ManagePois(PoiService()))),
             bodyButton("profile.manage-paths".tr(), () => {}),
           ],
         ],

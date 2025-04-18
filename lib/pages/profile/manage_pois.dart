@@ -1,13 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/models/poi.dart';
 import 'package:spacirtrasa/providers/poi.dart';
 
-import '../../services/poi_service.dart';
+import '../../models/map_entity.dart';
+import '../../services/map_entity/map_entity_service.dart';
 
 class ManagePois extends ConsumerStatefulWidget {
-  const ManagePois({super.key});
+  final MapEntityService entityService;
+
+  const ManagePois(this.entityService, {super.key});
 
   @override
   ConsumerState<ManagePois> createState() => _ManagePoisState();
@@ -31,23 +32,25 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
 
   @override
   Widget build(BuildContext context) {
-    final pois = ref.watch(poiProvider);
+    final mapEntities = ref.watch(poiProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(_isSelectionMode ? '${_selectedIds.length} selected' : 'Manage POIs'),
         leading:
-        _isSelectionMode
-            ? IconButton(icon: const Icon(Icons.close), onPressed: _clearSelection)
-            : null,
+            _isSelectionMode
+                ? IconButton(icon: const Icon(Icons.close), onPressed: _clearSelection)
+                : null,
         actions: [
           if (_isSelectionMode)
             IconButton(
               icon: Icon(
-                _selectedIds.length == pois.length ? Icons.select_all_outlined : Icons.done_all,
+                _selectedIds.length == mapEntities.length
+                    ? Icons.select_all_outlined
+                    : Icons.done_all,
               ),
-              tooltip: _selectedIds.length == pois.length ? 'Deselect All' : 'Select All',
-              onPressed: () => _selectAll(pois),
+              tooltip: _selectedIds.length == mapEntities.length ? 'Deselect All' : 'Select All',
+              onPressed: () => _selectAll(mapEntities),
             ),
           if (_isSelectionMode)
             IconButton(
@@ -56,30 +59,31 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
               onPressed: () async {
                 final confirm = await _showConfirmDeleteDialog(context, count: _selectedIds.length);
                 if (confirm) {
-                  for (var id in _selectedIds) {
-                    PoiService.removePoi(id);
-                  }
+                  final entitiesToRemove = mapEntities.where((entity) => _selectedIds.contains(entity.id));
+                  widget.entityService.removeEntities(entitiesToRemove);
                   _clearSelection();
                 }
               },
             ),
         ],
       ),
-      body: _buildListView(pois),
+      body: _buildListView(mapEntities),
       persistentFooterButtons: [
-        if (_isSelectionMode) ElevatedButton(
-          onPressed: () => _exportPoiClicked(pois),
-          child: const Text('Export POIs'),
-        ),
-        ElevatedButton(onPressed: () => _addDummyPoi(), child: const Text('Add dummy POI')),
-        ElevatedButton(onPressed: () => PoiService.importPois(), child: const Text('Import POIs')),
+        if (_isSelectionMode)
+          ElevatedButton(
+            onPressed: () => _exportPoiClicked(mapEntities),
+            child: const Text('Export POIs'),
+          ),
+        ElevatedButton(onPressed: () => widget.entityService.addDummy(), child: const Text('Add dummy POI')),
+        ElevatedButton(onPressed: () => widget.entityService.importEntities(), child: const Text('Import POIs')),
       ],
     );
   }
 
-  void _exportPoiClicked(List<Poi> pois) {
-    final selectedPois = pois.where((poi) => _selectedIds.contains(poi.id)).toList();
-    PoiService.exportPois(selectedPois);
+  void _exportPoiClicked(List<MapEntity> mapEntities) {
+    final selectedEntites =
+        mapEntities.where((mapEntity) => _selectedIds.contains(mapEntity.id)).toList();
+    widget.entityService.exportEntities(selectedEntites);
     _clearSelection();
   }
 
@@ -90,106 +94,86 @@ class _ManagePoisState extends ConsumerState<ManagePois> {
     });
   }
 
-  void _selectAll(List<Poi> pois) {
+  void _selectAll(List<MapEntity> mapEntities) {
     setState(() {
-      final allSelected = _selectedIds.length == pois.length;
+      final allSelected = _selectedIds.length == mapEntities.length;
       if (allSelected) {
         _selectedIds.clear();
       } else {
-        _selectedIds.addAll(pois.map((e) => e.id));
+        _selectedIds.addAll(mapEntities.map((e) => e.id));
       }
     });
   }
 
-  Widget _buildListView(List<Poi> pois) {
-    return pois.isEmpty
+  Widget _buildListView(List<MapEntity> mapEntities) {
+    return mapEntities.isEmpty
         ? const Center(child: Text('No POIs found'))
         : ListView.builder(
-      itemCount: pois.length,
-      itemBuilder: (context, index) {
-        final poi = pois[index];
-        final isSelected = _selectedIds.contains(poi.id);
+          itemCount: mapEntities.length,
+          itemBuilder: (context, index) {
+            final mapEntity = mapEntities[index];
+            final isSelected = _selectedIds.contains(mapEntity.id);
 
-        return Dismissible(
-          key: Key(poi.id),
-          background: Container(
-            color: Colors.red,
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 20),
-            child: const Icon(Icons.delete, color: Colors.white),
-          ),
-          direction: _isSelectionMode ? DismissDirection.none : DismissDirection.startToEnd,
-          confirmDismiss: (_) async {
-            return await _showConfirmDeleteDialog(context, itemName: poi.title);
+            return Dismissible(
+              key: Key(mapEntity.id),
+              background: Container(
+                color: Colors.red,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(left: 20),
+                child: const Icon(Icons.delete, color: Colors.white),
+              ),
+              direction: _isSelectionMode ? DismissDirection.none : DismissDirection.startToEnd,
+              confirmDismiss: (_) async {
+                return await _showConfirmDeleteDialog(context, itemName: mapEntity.title);
+              },
+              onDismissed: (_) async => await widget.entityService.removeEntity(mapEntity),
+              child: ListTile(
+                title: Text(mapEntity.title),
+                subtitle: Text("Created ${mapEntity.createdAt.toDate().toString()}"),
+                trailing:
+                    _isSelectionMode
+                        ? Checkbox(
+                          value: isSelected,
+                          onChanged: (_) => _toggleSelection(mapEntity.id),
+                        )
+                        : null,
+                onLongPress: () {
+                  _toggleSelection(mapEntity.id);
+                },
+                onTap: _isSelectionMode ? () => _toggleSelection(mapEntity.id) : null,
+              ),
+            );
           },
-          onDismissed: (_) async => await PoiService.removePoi(poi.id),
-          child: ListTile(
-            title: Text(poi.title),
-            subtitle: Text("Created ${poi.creationDate.toDate().toString()}"),
-            trailing:
-            _isSelectionMode
-                ? Checkbox(value: isSelected, onChanged: (_) => _toggleSelection(poi.id))
-                : null,
-            onLongPress: () {
-              _toggleSelection(poi.id);
-            },
-            onTap: _isSelectionMode ? () => _toggleSelection(poi.id) : null,
-          ),
         );
-      },
-    );
   }
 
-  Future<bool> _showConfirmDeleteDialog(BuildContext context, {
+  Future<bool> _showConfirmDeleteDialog(
+    BuildContext context, {
     int? count,
     String? itemName,
   }) async {
     return await showDialog<bool>(
-      context: context,
-      builder:
-          (context) =>
-          AlertDialog(
-            title: const Text("Confirm Deletion"),
-            content: Text(
-              count != null
-                  ? "Are you sure you want to delete $count selected POIs?"
-                  : "Are you sure you want to delete '$itemName'?",
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text("Cancel"),
+          context: context,
+          builder:
+              (context) => AlertDialog(
+                title: const Text("Confirm Deletion"),
+                content: Text(
+                  count != null
+                      ? "Are you sure you want to delete $count selected POIs?"
+                      : "Are you sure you want to delete '$itemName'?",
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: const Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: const Text("Delete"),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text("Delete"),
-              ),
-            ],
-          ),
-    ) ??
+        ) ??
         false;
-  }
-
-  Future<void> _addDummyPoi() async {
-    final newPoi = Poi(
-      id: 'WillBeReplacedByUniqueOneAutomatically',
-      title: 'DummyPoi',
-      imgUrl: 'https://www.orechovubrna.cz/data/kategorie/545_658_galerie.jpg',
-      creationDate: Timestamp.now(),
-      flags: {PoiFlags.monument, PoiFlags.food, PoiFlags.nature, PoiFlags.transportation},
-      location: GeoPoint(49.1118439, 16.5184100),
-      markdownData: """## Kaple sv. Peregrina
-    ![Kaplicka](https://www.orechovubrna.cz/data/kategorie/545_658_galerie.jpg)
-    Kaple se nachází na kopci mezi obcemi Ořechov, Nebovidy a Želešice. Místo, kde kaple stojí, sehrálo důležitou úlohu při měření tzv. vídeňského poledníku v roce 1759, kdy byla jedním z pomocných trigonometrických bodů (smyslem měření bylo určení tvaru a velikosti Země). V roce 1863 zde byla vybudována zděná kaple, zasvěcená sv. Peregrinovi a váže se k ní stoletá tradice pěších poutí z Brna a okolí do Mariazell. Kaple byla první zastávkou na cestě, kde poutníci před obrazem Matky Boží a sv. Peregrina prosili o Boží pomoc a šťastný návrat domů.
-
-    Tradice poutí je stále živá. Poutě byly v historii přerušeny v době válek a také v době komunistické vlády. Ale i tehdy se poutníci potají scházeli nadále, aby se u kapličky alespoň pomodlili.
-
-    Každým rokem v květnu se koná pěší pouť ke kapličce, kde se farníci z blízkého okolí schází ke společné bohoslužbě. Je to jediná pouť ke cti sv. Peregrina, patrona při bolestech nohou a nemocech rakoviny, která se v naší zemi koná pravidelně.
-
-        Ke kapli však zavítají poutníci i během celého roku, svědčí o tom vzkazy a svěřené úmysly modliteb, srdečné pozdravy a zapálené svíčky.
-        """,
-    );
-
-    await PoiService.persistPoi(newPoi);
   }
 }
