@@ -67,7 +67,7 @@ class ProfilePage extends ConsumerWidget {
       onPressed:
           () async =>
               isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
-      widget: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
+      child: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
     );
   }
 

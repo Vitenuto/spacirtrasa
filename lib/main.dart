@@ -18,7 +18,7 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), Locale('cz', 'CZ')],
+      supportedLocales: [Locale('en', 'US'), Locale('cs', 'CZ')],
       path: 'assets/translations/langs.csv',
       assetLoader: CsvAssetLoader(),
       child: ProviderScope(child: const App()),

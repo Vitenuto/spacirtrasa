@@ -87,14 +87,14 @@ abstract class MapEntityService<T extends MapEntity> {
     } on FormatException catch (e) {
       Fluttertoast.showToast(
         toastLength: Toast.LENGTH_LONG,
-        msg: "Importing of ${T}s failed with: ${e.message}",
+        msg: 'services.map_entity.map_entity_service.import-failed.$T'.tr(args: [e.message]),
       );
       log.e("FormatException during $T import", error: e);
       return 0;
     } catch (e, stack) {
       Fluttertoast.showToast(
         toastLength: Toast.LENGTH_LONG,
-        msg: "Failed to import ${T}s, discuss with administrator",
+        msg: 'services.map_entity.map_entity_service.import-failed-general.$T'.tr(),
       );
       log.e("Error during $T import", error: e, stackTrace: stack);
       return 0;

@@ -7,7 +7,7 @@ typedef ButtonBuilder =
 class AsyncButtonHandler<T> extends StatefulWidget {
   final T Function() onPressed;
   final Widget? loadingChild;
-  final Widget? widget;
+  final Widget? child;
   final ButtonStyle? style;
   final bool overlayLoading;
   final ButtonBuilder builder;
@@ -16,7 +16,7 @@ class AsyncButtonHandler<T> extends StatefulWidget {
     super.key,
     required this.onPressed,
     this.loadingChild,
-    this.widget,
+    this.child,
     this.style,
     this.overlayLoading = false,
     required this.builder,
@@ -37,7 +37,7 @@ class _AsyncButtonHandlerState<T> extends State<AsyncButtonHandler<T>> {
       child:
           isLoading
               ? widget.loadingChild ?? const CircularProgressIndicator()
-              : widget.widget ?? const Text('Button'),
+              : widget.child ?? const Text('Button'),
     );
   }
 
@@ -78,21 +78,41 @@ class _AsyncButtonHandlerState<T> extends State<AsyncButtonHandler<T>> {
 }
 
 class OutlinedAsyncButton extends StatelessWidget {
-  const OutlinedAsyncButton({super.key, this.style, required this.onPressed, required this.widget});
+  const OutlinedAsyncButton({super.key, this.style, required this.onPressed, required this.child});
 
   final ButtonStyle? style;
   final Future<void> Function() onPressed;
-  final Text widget;
+  final Text child;
 
   @override
   Widget build(BuildContext context) {
     return AsyncButtonHandler(
       style: style,
       onPressed: onPressed,
-      widget: widget,
+      child: child,
       builder:
           ({required onPressed, required child, style}) =>
-              OutlinedButton(onPressed: onPressed, style: style, child: child),
+          OutlinedButton(onPressed: onPressed, style: style, child: child),
+    );
+  }
+}
+
+class ElevatedAsyncButton extends StatelessWidget {
+  const ElevatedAsyncButton({super.key, this.style, required this.onPressed, required this.child});
+
+  final ButtonStyle? style;
+  final Future<void> Function() onPressed;
+  final Text child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AsyncButtonHandler(
+      style: style,
+      onPressed: onPressed,
+      child: child,
+      builder:
+          ({required onPressed, required child, style}) =>
+          ElevatedButton(onPressed: onPressed, style: style, child: child),
     );
   }
 }

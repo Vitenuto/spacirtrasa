@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../models/map_entity.dart';
 import '../../services/map_entity/map_entity_service.dart';
+import '../../widgets/async_button_handler.dart';
 
 class ManageEntities<T extends MapEntity> extends ConsumerStatefulWidget {
   final MapEntityService entityService;
@@ -18,19 +20,6 @@ class ManageEntities<T extends MapEntity> extends ConsumerStatefulWidget {
 class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEntities> {
   final Set<String> _selectedIds = {};
 
-  bool _isSelectionMode = false;
-
-  void _toggleSelection(String id) {
-    setState(() {
-      _isSelectionMode = true;
-      if (_selectedIds.contains(id)) {
-        _selectedIds.remove(id);
-      } else {
-        _selectedIds.add(id);
-      }
-    });
-  }
-
   late List<MapEntity> mapEntities;
 
   get selectedEntites =>
@@ -42,58 +31,112 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isSelectionMode ? '${_selectedIds.length} selected' : 'Manage ${T}s'),
+        title: Text(
+          _isSelectionMode
+              ? 'profile.manage_entities.selected-title'.tr(args: [_selectedIds.length.toString()])
+              : 'profile.manage_entities.title.$T'.tr(),
+        ),
         leading:
             _isSelectionMode
                 ? IconButton(icon: const Icon(Icons.close), onPressed: _clearSelection)
                 : null,
-        actions: [
-          if (_isSelectionMode)
-            IconButton(
-              icon: Icon(
-                _selectedIds.length == mapEntities.length
-                    ? Icons.select_all_outlined
-                    : Icons.done_all,
-              ),
-              tooltip: _selectedIds.length == mapEntities.length ? 'Deselect All' : 'Select All',
-              onPressed: () => _selectAll(mapEntities),
-            ),
-          if (_isSelectionMode)
-            IconButton(
-              icon: const Icon(Icons.delete),
-              tooltip: 'Delete Selected',
-              onPressed: () async => await _removeEntities(context),
-            ),
-        ],
+        actions: _buildActions(context),
       ),
       body: _buildListView(mapEntities),
-      persistentFooterButtons: [
-        if (_isSelectionMode)
-          ElevatedButton(
-            onPressed: () async => await _exportEntities(mapEntities),
-            child: Text('Export ${T}s'),
-          ),
-        ElevatedButton(
-          onPressed: () async => await widget.entityService.addDummy(),
-          statesController: WidgetStatesController(),
-          child: Text('Add dummy $T'),
-        ),
-        ElevatedButton(onPressed: () async => await _importEntities(), child: Text('Import ${T}s')),
-      ],
+      persistentFooterButtons: _buildExportButton(),
     );
+  }
+
+  List<Widget> _buildActions(BuildContext context) {
+    if (_isSelectionMode) {
+      return [
+        IconButton(
+          icon: Icon(
+            _selectedIds.length == mapEntities.length ? Icons.select_all_outlined : Icons.done_all,
+          ),
+          tooltip:
+              _selectedIds.length == mapEntities.length
+                  ? 'profile.manage_entities.selected-none'.tr()
+                  : 'profile.manage_entities.selected-all'.tr(),
+          onPressed: () => _selectAll(mapEntities),
+        ),
+        IconButton(
+          icon: const Icon(Icons.delete),
+          tooltip: 'profile.manage_entities.delete-selected'.tr(),
+          onPressed: () async => await _removeEntities(context),
+        ),
+      ];
+    }
+
+    return [
+      MenuAnchor(
+        builder: (context, controller, child) {
+          return IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {
+              if (controller.isOpen) {
+                controller.close();
+              } else {
+                controller.open();
+              }
+            },
+          );
+        },
+        menuChildren: [
+          MenuItemButton(
+            onPressed: () async => await widget.entityService.addDummy(),
+            child: Text('profile.manage_entities.add-dummy.$T'.tr()),
+          ),
+          MenuItemButton(
+            onPressed: () async => await _importEntities(),
+            child: Text('profile.manage_entities.import.$T'.tr()),
+          ),
+        ],
+      ),
+    ];
+  }
+
+  bool _isSelectionMode = false;
+
+  void _toggleSelection(String id) {
+    setState(() {
+      _isSelectionMode = true;
+      if (_selectedIds.contains(id)) {
+        _selectedIds.remove(id);
+        if (_selectedIds.isEmpty) {
+          _isSelectionMode = false;
+        }
+      } else {
+        _selectedIds.add(id);
+      }
+    });
+  }
+
+  List<Widget>? _buildExportButton() {
+    if (!_isSelectionMode) return null;
+
+    return [
+      ElevatedAsyncButton(
+        onPressed: () async => await _exportEntities(mapEntities),
+        child: Text('profile.manage_entities.export.$T'.tr()),
+      ),
+    ];
   }
 
   Future<void> _importEntities() async {
     final importedCount = await widget.entityService.importEntities();
     if (importedCount == 0) return;
-    Fluttertoast.showToast(msg: "$importedCount ${T}s are successfully imported");
+    Fluttertoast.showToast(msg: 'profile.manage_entities.import-success.$T'.plural(importedCount));
   }
 
   Future<void> _exportEntities(List<MapEntity> mapEntities) async {
     final selectedDir = await widget.entityService.exportEntities(selectedEntites);
     if (selectedDir == null) return;
     Fluttertoast.showToast(
-      msg: "${selectedEntites.length} ${T}s are successfully exported to $selectedDir",
+      msg: 'profile.manage_entities.export-success.$T'.plural(
+        selectedEntites.length,
+        args: [selectedDir],
+      ),
     );
     _clearSelection();
   }
@@ -118,7 +161,7 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
 
   Widget _buildListView(List<MapEntity> mapEntities) {
     return mapEntities.isEmpty
-        ? Center(child: Text('No ${T}s found'))
+        ? Center(child: Text('profile.manage_entities.no-entities-found.$T'.tr()))
         : ListView.builder(
           itemCount: mapEntities.length,
           itemBuilder: (context, index) {
@@ -140,7 +183,7 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
               onDismissed: (_) async => _removeEntity(mapEntity),
               child: ListTile(
                 title: Text(mapEntity.title),
-                subtitle: Text("Created ${mapEntity.createdAt.toDate().toString()}"),
+                subtitle: Text('created'.tr(args: [mapEntity.createdAt.toDate().toString()])),
                 trailing:
                     _isSelectionMode
                         ? Checkbox(
@@ -165,20 +208,24 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
           context: context,
           builder:
               (context) => AlertDialog(
-                title: const Text("Confirm Deletion"),
+                title: Text('profile.manage_entities.delete-confirmation-title'.tr()),
                 content: Text(
                   count != null
-                      ? "Are you sure you want to delete $count selected ${T}s?"
-                      : "Are you sure you want to delete '$itemName'?",
+                      ? 'profile.manage_entities.delete-confirmation-message-multiple.$T'.plural(
+                        count,
+                      )
+                      : 'profile.manage_entities.delete-confirmation-message-single'.tr(
+                        args: [itemName ?? 'invalid'],
+                      ),
                 ),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, false),
-                    child: const Text("Cancel"),
+                    child: Text('cancel'.tr()),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context, true),
-                    child: const Text("Delete"),
+                    child: Text('delete'.tr()),
                   ),
                 ],
               ),
@@ -188,7 +235,9 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
 
   Future<void> _removeEntity(MapEntity mapEntity) async {
     await widget.entityService.removeEntity(mapEntity);
-    Fluttertoast.showToast(msg: "$T '${mapEntity.title}' was successfully deleted");
+    Fluttertoast.showToast(
+      msg: 'profile.manage_entities.delete-success-single.$T'.tr(args: [mapEntity.title]),
+    );
   }
 
   Future<void> _removeEntities(BuildContext context) async {
@@ -196,7 +245,11 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
     if (confirm) {
       final removeEntitiesCount = selectedEntites.length;
       await widget.entityService.removeEntities(selectedEntites);
-      Fluttertoast.showToast(msg: "$removeEntitiesCount $T were successfully deleted");
+      Fluttertoast.showToast(
+        msg: 'profile.manage_entities.delete-success-multiple.$T'.tr(
+          args: [removeEntitiesCount.toString()],
+        ),
+      );
       _clearSelection();
     }
   }

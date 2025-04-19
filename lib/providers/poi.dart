@@ -18,8 +18,9 @@ class PoiProvider extends _$PoiProvider {
     return List.empty();
   }
 
-  void poiListener(pois) {
+  void poiListener(List<Poi> pois) {
     log.t("POIs were updated: $pois");
+    pois.sort((a, b) => b.createdAt.compareTo(a.createdAt)); // sort by being newest first
     state = pois;
   }
 }
