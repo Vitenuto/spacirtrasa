@@ -75,10 +75,14 @@ abstract class MapEntityService<T extends MapEntity> {
   Future<int> importEntities() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result == null) {
-      log.w("User canceled the folder picking, no export is done");
+      log.w("User canceled the file picking, no import is done");
       return 0;
     }
 
+    return await importEntitiesFromJsonFile(result);
+  }
+
+  Future<int> importEntitiesFromJsonFile(FilePickerResult result) async {
     final List<T> entities;
     try {
       entities = await _decodeEntity(File(result.files.single.path!));
