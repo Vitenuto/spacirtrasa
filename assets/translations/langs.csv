@@ -14,43 +14,44 @@ profile.admin-section,Admin section,Admin sekce
 profile.manage-poi,Manage POIs,Správa zajímavostí
 profile.manage-paths,Manage paths,Správa cest
 profile.manage_entities.title.Poi,Manage POIs,Správa zajímavostí
-profile.manage_entities.title.Path,Manage paths,Správa cest
+profile.manage_entities.title.Trail,Manage paths,Správa cest
 profile.manage_entities.selected-title,{} selected,{} vybráno
 profile.manage_entities.selected-all,Select all,Vybrat vše
 profile.manage_entities.selected-none,Select none,Zrušit výběr
 profile.manage_entities.delete-selected,Delete selected,Smazat vybrané
 profile.manage_entities.export.Poi,Export POIs,Exportovat zajímavosti
-profile.manage_entities.export.Path,Export paths,Exportovat trasy
+profile.manage_entities.export.Trail,Export paths,Exportovat trasy
 profile.manage_entities.add-dummy.Poi,Add testing POI,Přidat testovací zajímavost
-profile.manage_entities.add-dummy.Path,Add testing path,Přidat testovací trasu
+profile.manage_entities.add-dummy.Trail,Add testing path,Přidat testovací trasu
 profile.manage_entities.import.Poi,Import POIs,Importovat zajímavosti
-profile.manage_entities.import.Path,Import paths,Importovat trasy
+profile.manage_entities.import.Trail,Import paths,Importovat trasy
 profile.manage_entities.import-success.Poi.zero,No POIs were imported,Žádné zajímavosti nebyly importovány
 profile.manage_entities.import-success.Poi.one,1 POI successfully imported,1 zajímavost úspěšně importována
 profile.manage_entities.import-success.Poi.other,{} POIs successfully imported,{} zajímavosti úspěšně importovány
-profile.manage_entities.import-success.Path.zero,No paths were imported,Žádné trasy nebyly importovány
-profile.manage_entities.import-success.Path.one,1 path successfully imported,1 trasa úspěšně importována
-profile.manage_entities.import-success.Path.other,{} paths successfully imported,{} trasy úspěšně importovány
+profile.manage_entities.import-success.Trail.zero,No paths were imported,Žádné trasy nebyly importovány
+profile.manage_entities.import-success.Trail.one,1 path successfully imported,1 trasa úspěšně importována
+profile.manage_entities.import-success.Trail.other,{} paths successfully imported,{} trasy úspěšně importovány
 profile.manage_entities.export-success.Poi.one,1 POI successfully exported to {},1 zajímavost úspěšně exportována do {}
 profile.manage_entities.export-success.Poi.other,{} POIs successfully exported to {},{} zajímavosti úspěšně exportováno do {}
-profile.manage_entities.export-success.Path.one,1 path successfully exported to {},1 trasa úspěšně exportována do {}
-profile.manage_entities.export-success.Path.other,{} paths successfully exported to {},{} tras úspěšně exportováno do {}
+profile.manage_entities.export-success.Trail.one,1 path successfully exported to {},1 trasa úspěšně exportována do {}
+profile.manage_entities.export-success.Trail.other,{} paths successfully exported to {},{} tras úspěšně exportováno do {}
 profile.manage_entities.no-entities-found.Poi,No POIs found,Žádné zajímavosti nenalezeny
-profile.manage_entities.no-entities-found.Path,No paths found,Žádné trasy nenalezeny
+profile.manage_entities.no-entities-found.Trail,No paths found,Žádné trasy nenalezeny
 profile.manage_entities.delete-confirmation-title,Confirm deletion,Potvrďte smazání
 profile.manage_entities.delete-confirmation-message-multiple.Poi.one,Are you sure you want to delete 1 POI?,Opravdu chcete smazat 1 zajímavost?
 profile.manage_entities.delete-confirmation-message-multiple.Poi.other,Are you sure you want to delete {} POIs?,Opravdu chcete smazat {} zajímavosti?
-profile.manage_entities.delete-confirmation-message-multiple.Path.one,Are you sure you want to delete 1 path?,Opravdu chcete smazat 1 trasu?
-profile.manage_entities.delete-confirmation-message-multiple.Path.other,Are you sure you want to delete {} paths?,Opravdu chcete smazat {} tras?
+profile.manage_entities.delete-confirmation-message-multiple.Trail.one,Are you sure you want to delete 1 path?,Opravdu chcete smazat 1 trasu?
+profile.manage_entities.delete-confirmation-message-multiple.Trail.other,Are you sure you want to delete {} paths?,Opravdu chcete smazat {} tras?
 profile.manage_entities.delete-confirmation-message-single,Are you sure you want to delete '{}'?,Opravdu chcete smazat '{}'?
 profile.manage_entities.delete-success-single.Poi,POI '{}' successfully deleted,Zajímavost '{}' byla úspěšně smazána
-profile.manage_entities.delete-success-single.Path,Path '{}' successfully deleted,Trasa '{}' byla úspěšně smazána
+profile.manage_entities.delete-success-single.Trail,Path '{}' successfully deleted,Trasa '{}' byla úspěšně smazána
 profile.manage_entities.delete-success-multiple.Poi,{} POIs successfully deleted,{} zajímavosti byly úspěšně smazány
-profile.manage_entities.delete-success-multiple.Path,{} paths successfully deleted,{} trasy byly úspěšně smazány
+profile.manage_entities.delete-success-multiple.Trail,{} paths successfully deleted,{} trasy byly úspěšně smazány
 services.map_entity.map_entity_service.import-failed.Poi,POIs import failed with: {},Import zajímavostí selhal s chybou: {}
-services.map_entity.map_entity_service.import-failed.Path,Paths import failed with: {},Import tras selhal s chybou: {}
+services.map_entity.map_entity_service.import-failed.Trail,Paths import failed with: {},Import tras selhal s chybou: {}
+services.map_entity.map_entity_service.import-failed.unsupported-file,Only .gpx or .json file extension is allowed,Pouze .gpx nebo .json soubor je povolen
 services.map_entity.map_entity_service.import-failed-general.Poi,"POIs import failed, discuss with administrator","Import zajímavostí selhal, kontaktujte administrátora"
-services.map_entity.map_entity_service.import-failed-general.Path,"Paths import failed, discuss with administrator","Import tras selhal, kontaktujte administrátora"
+services.map_entity.map_entity_service.import-failed-general.Trail,"Paths import failed, discuss with administrator","Import tras selhal, kontaktujte administrátora"
 error.login,Login failed with error: {error},Přihlášení selhalo s chybou: {error}
 title,Špacírtrasa,Špacírtrasa
 logging.google,Sign in through Google,Přihlásit se přes Google

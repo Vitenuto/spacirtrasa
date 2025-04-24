@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/providers/auth_user.dart';
 
 import '../../models/poi.dart';
+import '../../models/trail.dart';
 import '../../providers/app_user.dart';
 import '../../providers/poi.dart';
+import '../../providers/trail.dart';
 import '../../services/auth_service.dart';
 import '../../services/map_entity/poi_service.dart';
+import '../../services/map_entity/trail_service.dart';
 import '../../widgets/async_button_handler.dart';
 import 'manage_entities.dart';
 
@@ -94,7 +97,10 @@ class ProfilePage extends ConsumerWidget {
               "profile.manage-poi".tr(),
               () => _showFullDialog(context, ManageEntities<Poi>(PoiService(), poiProvider)),
             ),
-            bodyButton("profile.manage-paths".tr(), () => {}),
+            bodyButton(
+              "profile.manage-paths".tr(),
+              () => _showFullDialog(context, ManageEntities<Trail>(TrailService(), trailProvider)),
+            ),
           ],
         ],
       ),
