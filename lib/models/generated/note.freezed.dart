@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Note {
 
- String get id; String get text;@JsonKey(name: "owner_id") String get ownerId;
+@JsonKey(name: "map_entity_id") String get mapEntityId; String get text; MapEntityType get type;
 /// Create a copy of Note
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $NoteCopyWith<Note> get copyWith => _$NoteCopyWithImpl<Note>(this as Note, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Note&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Note&&(identical(other.mapEntityId, mapEntityId) || other.mapEntityId == mapEntityId)&&(identical(other.text, text) || other.text == text)&&(identical(other.type, type) || other.type == type));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,ownerId);
+int get hashCode => Object.hash(runtimeType,mapEntityId,text,type);
 
 @override
 String toString() {
-  return 'Note(id: $id, text: $text, ownerId: $ownerId)';
+  return 'Note(mapEntityId: $mapEntityId, text: $text, type: $type)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $NoteCopyWith<$Res>  {
   factory $NoteCopyWith(Note value, $Res Function(Note) _then) = _$NoteCopyWithImpl;
 @useResult
 $Res call({
- String id, String text,@JsonKey(name: "owner_id") String ownerId
+@JsonKey(name: "map_entity_id") String mapEntityId, String text, MapEntityType type
 });
 
 
@@ -66,12 +66,12 @@ class _$NoteCopyWithImpl<$Res>
 
 /// Create a copy of Note
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? ownerId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? mapEntityId = null,Object? text = null,Object? type = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+mapEntityId: null == mapEntityId ? _self.mapEntityId : mapEntityId // ignore: cast_nullable_to_non_nullable
 as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as String,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as MapEntityType,
   ));
 }
 
@@ -82,12 +82,12 @@ as String,
 @JsonSerializable()
 
 class _Note implements Note {
-  const _Note({required this.id, required this.text, @JsonKey(name: "owner_id") required this.ownerId});
+  const _Note({@JsonKey(name: "map_entity_id") required this.mapEntityId, required this.text, required this.type});
   factory _Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
-@override final  String id;
+@override@JsonKey(name: "map_entity_id") final  String mapEntityId;
 @override final  String text;
-@override@JsonKey(name: "owner_id") final  String ownerId;
+@override final  MapEntityType type;
 
 /// Create a copy of Note
 /// with the given fields replaced by the non-null parameter values.
@@ -102,16 +102,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Note&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Note&&(identical(other.mapEntityId, mapEntityId) || other.mapEntityId == mapEntityId)&&(identical(other.text, text) || other.text == text)&&(identical(other.type, type) || other.type == type));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,ownerId);
+int get hashCode => Object.hash(runtimeType,mapEntityId,text,type);
 
 @override
 String toString() {
-  return 'Note(id: $id, text: $text, ownerId: $ownerId)';
+  return 'Note(mapEntityId: $mapEntityId, text: $text, type: $type)';
 }
 
 
@@ -122,7 +122,7 @@ abstract mixin class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
   factory _$NoteCopyWith(_Note value, $Res Function(_Note) _then) = __$NoteCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String text,@JsonKey(name: "owner_id") String ownerId
+@JsonKey(name: "map_entity_id") String mapEntityId, String text, MapEntityType type
 });
 
 
@@ -139,12 +139,12 @@ class __$NoteCopyWithImpl<$Res>
 
 /// Create a copy of Note
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? ownerId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mapEntityId = null,Object? text = null,Object? type = null,}) {
   return _then(_Note(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+mapEntityId: null == mapEntityId ? _self.mapEntityId : mapEntityId // ignore: cast_nullable_to_non_nullable
 as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as String,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as MapEntityType,
   ));
 }
 
