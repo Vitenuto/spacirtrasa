@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppUser {
 
- String get id;@JsonKey(name: 'is_admin') bool get isAdmin;@JsonKey(name: 'favorite_ids') List<String> get favoriteIds; List<Note> get notes;
+ String get id;@JsonKey(name: 'is_admin') bool get isAdmin;@JsonKey(name: 'favorite_poi_ids') List<String> get favoritePoiIds;@JsonKey(name: 'favorite_trail_ids') List<String> get favoriteTrailIds;@JsonKey(name: 'finished_trail_ids') List<String> get finishedTrailIds; List<Note> get notes;
 /// Create a copy of AppUser
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AppUserCopyWith<AppUser> get copyWith => _$AppUserCopyWithImpl<AppUser>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUser&&(identical(other.id, id) || other.id == id)&&(identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin)&&const DeepCollectionEquality().equals(other.favoriteIds, favoriteIds)&&const DeepCollectionEquality().equals(other.notes, notes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUser&&(identical(other.id, id) || other.id == id)&&(identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin)&&const DeepCollectionEquality().equals(other.favoritePoiIds, favoritePoiIds)&&const DeepCollectionEquality().equals(other.favoriteTrailIds, favoriteTrailIds)&&const DeepCollectionEquality().equals(other.finishedTrailIds, finishedTrailIds)&&const DeepCollectionEquality().equals(other.notes, notes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,isAdmin,const DeepCollectionEquality().hash(favoriteIds),const DeepCollectionEquality().hash(notes));
+int get hashCode => Object.hash(runtimeType,id,isAdmin,const DeepCollectionEquality().hash(favoritePoiIds),const DeepCollectionEquality().hash(favoriteTrailIds),const DeepCollectionEquality().hash(finishedTrailIds),const DeepCollectionEquality().hash(notes));
 
 @override
 String toString() {
-  return 'AppUser(id: $id, isAdmin: $isAdmin, favoriteIds: $favoriteIds, notes: $notes)';
+  return 'AppUser(id: $id, isAdmin: $isAdmin, favoritePoiIds: $favoritePoiIds, favoriteTrailIds: $favoriteTrailIds, finishedTrailIds: $finishedTrailIds, notes: $notes)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AppUserCopyWith<$Res>  {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) _then) = _$AppUserCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'is_admin') bool isAdmin,@JsonKey(name: 'favorite_ids') List<String> favoriteIds, List<Note> notes
+ String id,@JsonKey(name: 'is_admin') bool isAdmin,@JsonKey(name: 'favorite_poi_ids') List<String> favoritePoiIds,@JsonKey(name: 'favorite_trail_ids') List<String> favoriteTrailIds,@JsonKey(name: 'finished_trail_ids') List<String> finishedTrailIds, List<Note> notes
 });
 
 
@@ -66,11 +66,13 @@ class _$AppUserCopyWithImpl<$Res>
 
 /// Create a copy of AppUser
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? isAdmin = null,Object? favoriteIds = null,Object? notes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? isAdmin = null,Object? favoritePoiIds = null,Object? favoriteTrailIds = null,Object? finishedTrailIds = null,Object? notes = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,isAdmin: null == isAdmin ? _self.isAdmin : isAdmin // ignore: cast_nullable_to_non_nullable
-as bool,favoriteIds: null == favoriteIds ? _self.favoriteIds : favoriteIds // ignore: cast_nullable_to_non_nullable
+as bool,favoritePoiIds: null == favoritePoiIds ? _self.favoritePoiIds : favoritePoiIds // ignore: cast_nullable_to_non_nullable
+as List<String>,favoriteTrailIds: null == favoriteTrailIds ? _self.favoriteTrailIds : favoriteTrailIds // ignore: cast_nullable_to_non_nullable
+as List<String>,finishedTrailIds: null == finishedTrailIds ? _self.finishedTrailIds : finishedTrailIds // ignore: cast_nullable_to_non_nullable
 as List<String>,notes: null == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
 as List<Note>,
   ));
@@ -83,16 +85,30 @@ as List<Note>,
 @JsonSerializable()
 
 class _AppUser implements AppUser {
-  const _AppUser({required this.id, @JsonKey(name: 'is_admin') this.isAdmin = false, @JsonKey(name: 'favorite_ids') required final  List<String> favoriteIds, required final  List<Note> notes}): _favoriteIds = favoriteIds,_notes = notes;
+  const _AppUser({required this.id, @JsonKey(name: 'is_admin') this.isAdmin = false, @JsonKey(name: 'favorite_poi_ids') required final  List<String> favoritePoiIds, @JsonKey(name: 'favorite_trail_ids') required final  List<String> favoriteTrailIds, @JsonKey(name: 'finished_trail_ids') required final  List<String> finishedTrailIds, required final  List<Note> notes}): _favoritePoiIds = favoritePoiIds,_favoriteTrailIds = favoriteTrailIds,_finishedTrailIds = finishedTrailIds,_notes = notes;
   factory _AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
 
 @override final  String id;
 @override@JsonKey(name: 'is_admin') final  bool isAdmin;
- final  List<String> _favoriteIds;
-@override@JsonKey(name: 'favorite_ids') List<String> get favoriteIds {
-  if (_favoriteIds is EqualUnmodifiableListView) return _favoriteIds;
+ final  List<String> _favoritePoiIds;
+@override@JsonKey(name: 'favorite_poi_ids') List<String> get favoritePoiIds {
+  if (_favoritePoiIds is EqualUnmodifiableListView) return _favoritePoiIds;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_favoriteIds);
+  return EqualUnmodifiableListView(_favoritePoiIds);
+}
+
+ final  List<String> _favoriteTrailIds;
+@override@JsonKey(name: 'favorite_trail_ids') List<String> get favoriteTrailIds {
+  if (_favoriteTrailIds is EqualUnmodifiableListView) return _favoriteTrailIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_favoriteTrailIds);
+}
+
+ final  List<String> _finishedTrailIds;
+@override@JsonKey(name: 'finished_trail_ids') List<String> get finishedTrailIds {
+  if (_finishedTrailIds is EqualUnmodifiableListView) return _finishedTrailIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_finishedTrailIds);
 }
 
  final  List<Note> _notes;
@@ -116,16 +132,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppUser&&(identical(other.id, id) || other.id == id)&&(identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin)&&const DeepCollectionEquality().equals(other._favoriteIds, _favoriteIds)&&const DeepCollectionEquality().equals(other._notes, _notes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppUser&&(identical(other.id, id) || other.id == id)&&(identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin)&&const DeepCollectionEquality().equals(other._favoritePoiIds, _favoritePoiIds)&&const DeepCollectionEquality().equals(other._favoriteTrailIds, _favoriteTrailIds)&&const DeepCollectionEquality().equals(other._finishedTrailIds, _finishedTrailIds)&&const DeepCollectionEquality().equals(other._notes, _notes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,isAdmin,const DeepCollectionEquality().hash(_favoriteIds),const DeepCollectionEquality().hash(_notes));
+int get hashCode => Object.hash(runtimeType,id,isAdmin,const DeepCollectionEquality().hash(_favoritePoiIds),const DeepCollectionEquality().hash(_favoriteTrailIds),const DeepCollectionEquality().hash(_finishedTrailIds),const DeepCollectionEquality().hash(_notes));
 
 @override
 String toString() {
-  return 'AppUser(id: $id, isAdmin: $isAdmin, favoriteIds: $favoriteIds, notes: $notes)';
+  return 'AppUser(id: $id, isAdmin: $isAdmin, favoritePoiIds: $favoritePoiIds, favoriteTrailIds: $favoriteTrailIds, finishedTrailIds: $finishedTrailIds, notes: $notes)';
 }
 
 
@@ -136,7 +152,7 @@ abstract mixin class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   factory _$AppUserCopyWith(_AppUser value, $Res Function(_AppUser) _then) = __$AppUserCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'is_admin') bool isAdmin,@JsonKey(name: 'favorite_ids') List<String> favoriteIds, List<Note> notes
+ String id,@JsonKey(name: 'is_admin') bool isAdmin,@JsonKey(name: 'favorite_poi_ids') List<String> favoritePoiIds,@JsonKey(name: 'favorite_trail_ids') List<String> favoriteTrailIds,@JsonKey(name: 'finished_trail_ids') List<String> finishedTrailIds, List<Note> notes
 });
 
 
@@ -153,11 +169,13 @@ class __$AppUserCopyWithImpl<$Res>
 
 /// Create a copy of AppUser
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? isAdmin = null,Object? favoriteIds = null,Object? notes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? isAdmin = null,Object? favoritePoiIds = null,Object? favoriteTrailIds = null,Object? finishedTrailIds = null,Object? notes = null,}) {
   return _then(_AppUser(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,isAdmin: null == isAdmin ? _self.isAdmin : isAdmin // ignore: cast_nullable_to_non_nullable
-as bool,favoriteIds: null == favoriteIds ? _self._favoriteIds : favoriteIds // ignore: cast_nullable_to_non_nullable
+as bool,favoritePoiIds: null == favoritePoiIds ? _self._favoritePoiIds : favoritePoiIds // ignore: cast_nullable_to_non_nullable
+as List<String>,favoriteTrailIds: null == favoriteTrailIds ? _self._favoriteTrailIds : favoriteTrailIds // ignore: cast_nullable_to_non_nullable
+as List<String>,finishedTrailIds: null == finishedTrailIds ? _self._finishedTrailIds : finishedTrailIds // ignore: cast_nullable_to_non_nullable
 as List<String>,notes: null == notes ? _self._notes : notes // ignore: cast_nullable_to_non_nullable
 as List<Note>,
   ));

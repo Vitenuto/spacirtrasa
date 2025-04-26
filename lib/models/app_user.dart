@@ -1,5 +1,5 @@
-import 'package:spacirtrasa/models/note.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spacirtrasa/models/note.dart';
 
 part 'generated/app_user.freezed.dart';
 part 'generated/app_user.g.dart';
@@ -9,7 +9,9 @@ abstract class AppUser with _$AppUser {
   const factory AppUser({
     required String id,
     @JsonKey(name: 'is_admin') @Default(false) bool isAdmin,
-    @JsonKey(name: 'favorite_ids') required List<String> favoriteIds,
+    @JsonKey(name: 'favorite_poi_ids') required List<String> favoritePoiIds,
+    @JsonKey(name: 'favorite_trail_ids') required List<String> favoriteTrailIds,
+    @JsonKey(name: 'finished_trail_ids') required List<String> finishedTrailIds,
     required List<Note> notes,
   }) = _AppUser;
 
