@@ -56,7 +56,7 @@ class AuthService {
   static Future<void> _createAppUserIfNeeded(final String userId) async {
     final appUser = (await AppUserProvider.appUserCollection.doc(userId).get()).data();
     if (appUser == null) {
-      final newUser = AppUser(id: userId, isAdmin: false, favoriteIds: [], notes: []);
+      final newUser = AppUser(id: userId, isAdmin: false, favoritePoiIds: [], favoriteTrailIds: [], finishedTrailIds: [], notes: []);
       await AppUserProvider.appUserCollection.doc(userId).set(newUser);
       log.t("New user '$newUser' is successfully created");
     }
