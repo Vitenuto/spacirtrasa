@@ -43,3 +43,7 @@ class GeoPointConverter implements JsonConverter<GeoPoint, Map<String, dynamic>>
     return {'lat': point.latitude, 'lng': point.longitude};
   }
 }
+
+Timestamp dateFromJson(int timestamp) => Timestamp.fromMillisecondsSinceEpoch(timestamp);
+
+int dateToJson(Timestamp timestamp) => timestamp.millisecondsSinceEpoch;

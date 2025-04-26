@@ -1,14 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'map_entity.dart';
+
 part 'generated/note.freezed.dart';
 part 'generated/note.g.dart';
 
 @freezed
 abstract class Note with _$Note {
   const factory Note({
-    required String id,
+    @JsonKey(name: "map_entity_id") required String mapEntityId,
     required String text,
-    @JsonKey(name: "owner_id") required String ownerId,
+    required MapEntityType type,
   }) = _Note;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);

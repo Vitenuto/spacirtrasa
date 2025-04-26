@@ -19,13 +19,9 @@ abstract class Trail with _$Trail implements MapEntity {
     required String markdownData,
     @GeoPointConverter() required List<GeoPoint> path,
     required Set<TrailFlags> flags,
-    @JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson)
+    @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)
     required Timestamp createdAt,
   }) = _Trail;
 
   factory Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
 }
-
-Timestamp _dateFromJson(int timestamp) => Timestamp.fromMillisecondsSinceEpoch(timestamp);
-
-int _dateToJson(Timestamp timestamp) => timestamp.millisecondsSinceEpoch;

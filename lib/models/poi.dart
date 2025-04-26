@@ -18,13 +18,9 @@ abstract class Poi with _$Poi implements MapEntity {
     required String markdownData,
     @GeoPointConverter() required GeoPoint location,
     required Set<PoiFlags> flags,
-    @JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson)
+    @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)
     required Timestamp createdAt,
   }) = _Poi;
 
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
 }
-
-Timestamp _dateFromJson(int timestamp) => Timestamp.fromMillisecondsSinceEpoch(timestamp);
-
-int _dateToJson(Timestamp timestamp) => timestamp.millisecondsSinceEpoch;

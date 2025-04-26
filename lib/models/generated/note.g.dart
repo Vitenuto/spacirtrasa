@@ -7,13 +7,18 @@ part of '../note.dart';
 // **************************************************************************
 
 _Note _$NoteFromJson(Map<String, dynamic> json) => _Note(
-  id: json['id'] as String,
+  mapEntityId: json['map_entity_id'] as String,
   text: json['text'] as String,
-  ownerId: json['owner_id'] as String,
+  type: $enumDecode(_$MapEntityTypeEnumMap, json['type']),
 );
 
 Map<String, dynamic> _$NoteToJson(_Note instance) => <String, dynamic>{
-  'id': instance.id,
+  'map_entity_id': instance.mapEntityId,
   'text': instance.text,
-  'owner_id': instance.ownerId,
+  'type': _$MapEntityTypeEnumMap[instance.type]!,
+};
+
+const _$MapEntityTypeEnumMap = {
+  MapEntityType.poi: 'poi',
+  MapEntityType.trail: 'trail',
 };
