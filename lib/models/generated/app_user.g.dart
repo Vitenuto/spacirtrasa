@@ -17,9 +17,9 @@ _AppUser _$AppUserFromJson(Map<String, dynamic> json) => _AppUser(
       (json['favorite_trail_ids'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-  finishedTrailIds:
-      (json['finished_trail_ids'] as List<dynamic>)
-          .map((e) => e as String)
+  finishedTrails:
+      (json['finished_trails'] as List<dynamic>)
+          .map((e) => FinishedTrail.fromJson(e as Map<String, dynamic>))
           .toList(),
   notes:
       (json['notes'] as List<dynamic>)
@@ -32,6 +32,6 @@ Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
   'is_admin': instance.isAdmin,
   'favorite_poi_ids': instance.favoritePoiIds,
   'favorite_trail_ids': instance.favoriteTrailIds,
-  'finished_trail_ids': instance.finishedTrailIds,
+  'finished_trails': instance.finishedTrails.map((e) => e.toJson()).toList(),
   'notes': instance.notes.map((e) => e.toJson()).toList(),
 };

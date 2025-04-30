@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FinishedTrail {
 
- String get trailId;@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get finishedAt;
+@JsonKey(name: 'trail_id') String get trailId;@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get finishedAt;
 /// Create a copy of FinishedTrail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $FinishedTrailCopyWith<$Res>  {
   factory $FinishedTrailCopyWith(FinishedTrail value, $Res Function(FinishedTrail) _then) = _$FinishedTrailCopyWithImpl;
 @useResult
 $Res call({
- String trailId,@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp finishedAt
+@JsonKey(name: 'trail_id') String trailId,@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp finishedAt
 });
 
 
@@ -81,10 +81,10 @@ as Timestamp,
 @JsonSerializable()
 
 class _FinishedTrail implements FinishedTrail {
-  const _FinishedTrail({required this.trailId, @JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) required this.finishedAt});
+  const _FinishedTrail({@JsonKey(name: 'trail_id') required this.trailId, @JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) required this.finishedAt});
   factory _FinishedTrail.fromJson(Map<String, dynamic> json) => _$FinishedTrailFromJson(json);
 
-@override final  String trailId;
+@override@JsonKey(name: 'trail_id') final  String trailId;
 @override@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) final  Timestamp finishedAt;
 
 /// Create a copy of FinishedTrail
@@ -120,7 +120,7 @@ abstract mixin class _$FinishedTrailCopyWith<$Res> implements $FinishedTrailCopy
   factory _$FinishedTrailCopyWith(_FinishedTrail value, $Res Function(_FinishedTrail) _then) = __$FinishedTrailCopyWithImpl;
 @override @useResult
 $Res call({
- String trailId,@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp finishedAt
+@JsonKey(name: 'trail_id') String trailId,@JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp finishedAt
 });
 
 

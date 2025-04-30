@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Poi {
 
- String get id; String get title; String get imgUrl; String get markdownData;@GeoPointConverter() GeoPoint get location; Set<PoiFlags> get flags;@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp get createdAt;
+ String get id; String get title; String get imgUrl; String get markdownData;@GeoPointConverter() GeoPoint get location; Set<PoiFlags> get flags;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $PoiCopyWith<$Res>  {
   factory $PoiCopyWith(Poi value, $Res Function(Poi) _then) = _$PoiCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp createdAt
+ String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -85,8 +85,8 @@ as Timestamp,
 /// @nodoc
 @JsonSerializable()
 
-class _Poi implements Poi {
-  const _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required final  Set<PoiFlags> flags, @JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) required this.createdAt}): _flags = flags;
+class _Poi extends Poi {
+  const _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required final  Set<PoiFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _flags = flags,super._();
   factory _Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
 
 @override final  String id;
@@ -101,7 +101,7 @@ class _Poi implements Poi {
   return EqualUnmodifiableSetView(_flags);
 }
 
-@override@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) final  Timestamp createdAt;
+@override@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) final  Timestamp createdAt;
 
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
@@ -136,7 +136,7 @@ abstract mixin class _$PoiCopyWith<$Res> implements $PoiCopyWith<$Res> {
   factory _$PoiCopyWith(_Poi value, $Res Function(_Poi) _then) = __$PoiCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp createdAt
+ String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, Set<PoiFlags> flags,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
