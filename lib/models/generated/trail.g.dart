@@ -21,7 +21,7 @@ _Trail _$TrailFromJson(Map<String, dynamic> json) => _Trail(
       (json['flags'] as List<dynamic>)
           .map((e) => $enumDecode(_$TrailFlagsEnumMap, e))
           .toSet(),
-  createdAt: _dateFromJson((json['created_at'] as num).toInt()),
+  createdAt: dateFromJson((json['created_at'] as num).toInt()),
 );
 
 Map<String, dynamic> _$TrailToJson(_Trail instance) => <String, dynamic>{
@@ -30,7 +30,7 @@ Map<String, dynamic> _$TrailToJson(_Trail instance) => <String, dynamic>{
   'markdownData': instance.markdownData,
   'path': instance.path.map(const GeoPointConverter().toJson).toList(),
   'flags': instance.flags.map((e) => _$TrailFlagsEnumMap[e]!).toList(),
-  'created_at': _dateToJson(instance.createdAt),
+  'created_at': dateToJson(instance.createdAt),
 };
 
 const _$TrailFlagsEnumMap = {

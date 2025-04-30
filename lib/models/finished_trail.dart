@@ -9,7 +9,7 @@ part 'generated/finished_trail.g.dart';
 @freezed
 abstract class FinishedTrail with _$FinishedTrail {
   const factory FinishedTrail({
-    required String trailId,
+    @JsonKey(name: 'trail_id') required String trailId,
     @JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson)
     required Timestamp finishedAt,
   }) = _FinishedTrail;

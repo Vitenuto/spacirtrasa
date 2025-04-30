@@ -1,11 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spacirtrasa/models/note.dart';
+import 'package:spacirtrasa/pages/profile/favorite_tile.dart';
+import 'package:spacirtrasa/pages/profile/finished_trail_tile.dart';
+import 'package:spacirtrasa/pages/profile/list_screen.dart';
 import 'package:spacirtrasa/providers/auth_user.dart';
+import 'package:spacirtrasa/providers/favorite_map_entity.dart';
+import 'package:spacirtrasa/providers/finished_trails.dart';
 
+import '../../models/finished_trail.dart';
+import '../../models/map_entity.dart';
 import '../../models/poi.dart';
 import '../../models/trail.dart';
 import '../../providers/app_user.dart';
+import '../../providers/note.dart';
 import '../../providers/poi.dart';
 import '../../providers/trail.dart';
 import '../../services/auth_service.dart';
@@ -13,6 +22,7 @@ import '../../services/map_entity/poi_service.dart';
 import '../../services/map_entity/trail_service.dart';
 import '../../widgets/async_button_handler.dart';
 import 'manage_entities.dart';
+import 'note_tile.dart';
 
 class ProfilePage extends ConsumerWidget {
   static const route = "/profile";
@@ -44,14 +54,8 @@ class ProfilePage extends ConsumerWidget {
                   CircleAvatar(
                     radius: 48,
                     backgroundColor: Colors.grey[300], // Placeholder background
-                    backgroundImage:
-                        user.photoURL != null
-                            ? NetworkImage(user.photoURL!) // Load image if available
-                            : null, // No image if null
-                    child:
-                        user.photoURL == null
-                            ? Icon(Icons.person, size: 40, color: Colors.white) // Default icon
-                            : null,
+                    backgroundImage: user.photoURL != null ? NetworkImage(user.photoURL!) : null,
+                    child: user.photoURL == null ? Icon(Icons.person, size: 40, color: Colors.white) : null,
                   ),
                   SizedBox(height: 8),
                   Text(user.displayName ?? user.email ?? user.uid, style: TextStyle(fontSize: 24)),
@@ -67,9 +71,7 @@ class ProfilePage extends ConsumerWidget {
   OutlinedAsyncButton _buildSignInOutButton(final bool isSignedIn) {
     return OutlinedAsyncButton(
       style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
-      onPressed:
-          () async =>
-              isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
+      onPressed: () async => isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
       child: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
     );
   }
@@ -83,21 +85,29 @@ class ProfilePage extends ConsumerWidget {
         spacing: 8,
         children: [
           SizedBox(width: 256),
-          bodyButton("profile.my-favorites".tr(), () => {}),
-          bodyButton("profile.my-ratings".tr(), () => {}),
-          bodyButton("profile.my-notes".tr(), () => {}),
-          bodyButton("profile.my-completed-paths".tr(), () => {}),
+          _bodyButton("profile.my-favorites".tr(), () => _showFullDialog(context, ListScreen<MapEntity>(
+            title: "profile.my-favorites".tr(),
+            provider: favoriteMapEntityProvider,
+            itemBuilder: (context, mapEntity) => FavoriteTile(mapEntity: mapEntity),
+          ))),
+          _bodyButton("profile.my-notes".tr(), () => _showFullDialog(context, ListScreen<Note>(
+            title: "profile.my-notes".tr(),
+            provider: noteProvider,
+            itemBuilder: (context, note) => NoteTile(note: note, ref: ref),
+          ))),
+          _bodyButton("profile.my-completed-paths".tr(), () => _showFullDialog(context, ListScreen<FinishedTrail>(
+            title: "profile.my-completed-paths".tr(),
+            provider: finishedTrailsProvider,
+            itemBuilder: (context, finishedTrail) => FinishedTrailTile(finishedTrail: finishedTrail, ref: ref),
+          ))),
           if (user.isAdmin) ...[
-            const Text(
-              "profile.admin-section",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ).tr(),
+            Text("profile.admin-section".tr(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
-            bodyButton(
+            _bodyButton(
               "profile.manage-poi".tr(),
               () => _showFullDialog(context, ManageEntities<Poi>(PoiService(), poiProvider)),
             ),
-            bodyButton(
+            _bodyButton(
               "profile.manage-paths".tr(),
               () => _showFullDialog(context, ManageEntities<Trail>(TrailService(), trailProvider)),
             ),
@@ -108,13 +118,10 @@ class ProfilePage extends ConsumerWidget {
   }
 
   Future<String?> _showFullDialog(BuildContext context, final Widget child) {
-    return showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => Dialog.fullscreen(child: child),
-    );
+    return showDialog<String>(context: context, builder: (BuildContext context) => Dialog.fullscreen(child: child));
   }
 
-  OutlinedButton bodyButton(final String text, final VoidCallback onPressed) => OutlinedButton(
+  OutlinedButton _bodyButton(final String text, final VoidCallback onPressed) => OutlinedButton(
     style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 42)),
     onPressed: onPressed,
     child: Text(text),

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Trail {
 
- String get id; String get title; String get markdownData;@GeoPointConverter() List<GeoPoint> get path; Set<TrailFlags> get flags;@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp get createdAt;
+ String get id; String get title; String get markdownData;@GeoPointConverter() List<GeoPoint> get path; Set<TrailFlags> get flags;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
 /// Create a copy of Trail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TrailCopyWith<$Res>  {
   factory $TrailCopyWith(Trail value, $Res Function(Trail) _then) = _$TrailCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, Set<TrailFlags> flags,@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp createdAt
+ String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, Set<TrailFlags> flags,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -85,7 +85,7 @@ as Timestamp,
 @JsonSerializable()
 
 class _Trail extends Trail {
-  const _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required final  Set<TrailFlags> flags, @JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) required this.createdAt}): _path = path,_flags = flags,super._();
+  const _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required final  Set<TrailFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _path = path,_flags = flags,super._();
   factory _Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
 
 @override final  String id;
@@ -105,7 +105,7 @@ class _Trail extends Trail {
   return EqualUnmodifiableSetView(_flags);
 }
 
-@override@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) final  Timestamp createdAt;
+@override@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) final  Timestamp createdAt;
 
 /// Create a copy of Trail
 /// with the given fields replaced by the non-null parameter values.
@@ -140,7 +140,7 @@ abstract mixin class _$TrailCopyWith<$Res> implements $TrailCopyWith<$Res> {
   factory _$TrailCopyWith(_Trail value, $Res Function(_Trail) _then) = __$TrailCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, Set<TrailFlags> flags,@JsonKey(name: 'created_at', fromJson: _dateFromJson, toJson: _dateToJson) Timestamp createdAt
+ String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, Set<TrailFlags> flags,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../utils/converters.dart';
@@ -11,6 +12,8 @@ enum PoiFlags { monument, nature, food, transportation }
 
 @freezed
 abstract class Poi with _$Poi implements MapEntity {
+  const Poi._();
+
   const factory Poi({
     required String id,
     required String title,
@@ -22,5 +25,9 @@ abstract class Poi with _$Poi implements MapEntity {
     required Timestamp createdAt,
   }) = _Poi;
 
+  static Icon getIcon() => const Icon(Icons.pin_drop_outlined);
+
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
+  @override
+  Icon get icon => getIcon();
 }
