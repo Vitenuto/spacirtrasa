@@ -5,13 +5,13 @@ import 'package:spacirtrasa/pages/interests.dart';
 import 'package:spacirtrasa/pages/paths.dart';
 import 'package:spacirtrasa/pages/village.dart';
 
-import '../pages/home.dart';
+import '../pages/home/home.dart';
 import '../pages/profile/profile.dart';
 
 class MainFrame extends StatefulWidget {
-  late final String location;
+  final String location;
 
-  MainFrame({super.key, required this.child, required this.location});
+  const MainFrame({super.key, required this.child, required this.location});
 
   final Widget child;
 

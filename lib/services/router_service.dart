@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/paths.dart';
 import 'package:spacirtrasa/widgets/main_frame.dart';
 
-import '../pages/home.dart';
+import '../pages/home/home.dart';
 import '../pages/interests.dart';
 import '../pages/login.dart';
 import '../pages/profile/profile.dart';

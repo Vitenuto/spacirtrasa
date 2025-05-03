@@ -63,6 +63,7 @@ dependencies:
   fluttertoast: ^8.2.12
   gpx: ^2.3.0
   remove_markdown: ^0.0.2
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

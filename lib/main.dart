@@ -10,7 +10,7 @@ import 'package:spacirtrasa/services/router_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  Logger.level = Level.debug;
+  Logger.level = Level.all;
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -38,8 +38,15 @@ class App extends StatelessWidget {
       title: 'Špacírtrasa vokolo Ořechova',
       theme: ThemeData(
         // TODO
-        buttonTheme: Theme.of(context).buttonTheme.copyWith(highlightColor: Colors.deepPurple),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.red,
+        buttonTheme: Theme
+            .of(context)
+            .buttonTheme
+            .copyWith(highlightColor: Colors.deepOrange),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.red,
+          brightness: Brightness.light,
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routerConfig: RouteService.router,
