@@ -86,7 +86,7 @@ as Timestamp,
 @JsonSerializable()
 
 class _Poi extends Poi {
-  const _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required final  Set<PoiFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _flags = flags,super._();
+   _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required final  Set<PoiFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _flags = flags,super._();
   factory _Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
 
 @override final  String id;

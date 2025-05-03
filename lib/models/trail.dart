@@ -11,10 +11,10 @@ part 'generated/trail.g.dart';
 enum TrailFlags { stroller, tourist, hill }
 
 @freezed
-abstract class Trail with _$Trail implements MapEntity {
-  const Trail._();
+abstract class Trail extends MapEntity with _$Trail {
+  Trail._();
 
-  const factory Trail({
+  factory Trail({
     required String id,
     required String title,
     required String markdownData,

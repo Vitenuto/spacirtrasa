@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:remove_markdown/remove_markdown.dart';
 
 import '../../models/map_entity.dart';
 
@@ -23,7 +22,7 @@ class FavoriteTile extends ListTile {
         children: [Text(mapEntity.title), mapEntity.icon],
       ),
       subtitle: Text(
-        mapEntity.markdownData.removeMarkdown(useImgAltText: false, replaceLinksWithURL: false),
+        mapEntity.markdownLessData,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
