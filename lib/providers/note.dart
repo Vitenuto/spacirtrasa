@@ -12,7 +12,7 @@ class NoteProvider extends _$NoteProvider {
 
   @override
   List<Note> build() {
-    log.t("Building MapEntity provider...");
+    log.t("Building Note provider...");
     final appUser = ref.watch(appUserProvider);
     if (appUser == null) return List.empty();
 
