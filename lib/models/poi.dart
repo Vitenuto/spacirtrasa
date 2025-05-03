@@ -11,10 +11,10 @@ part 'generated/poi.g.dart';
 enum PoiFlags { monument, nature, food, transportation }
 
 @freezed
-abstract class Poi with _$Poi implements MapEntity {
-  const Poi._();
+abstract class Poi extends MapEntity with _$Poi {
+  Poi._();
 
-  const factory Poi({
+  factory Poi({
     required String id,
     required String title,
     required String imgUrl,

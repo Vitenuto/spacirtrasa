@@ -85,7 +85,7 @@ as Timestamp,
 @JsonSerializable()
 
 class _Trail extends Trail {
-  const _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required final  Set<TrailFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _path = path,_flags = flags,super._();
+   _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required final  Set<TrailFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _path = path,_flags = flags,super._();
   factory _Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
 
 @override final  String id;

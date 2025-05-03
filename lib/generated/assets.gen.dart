@@ -20,8 +20,12 @@ class $AssetsImagesGen {
   AssetGenImage get mapyLogo =>
       const AssetGenImage('assets/images/mapy_logo.png');
 
+  /// File path: assets/images/poi_placeholder.png
+  AssetGenImage get poiPlaceholder =>
+      const AssetGenImage('assets/images/poi_placeholder.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo, mapyLogo];
+  List<AssetGenImage> get values => [appLogo, mapyLogo, poiPlaceholder];
 }
 
 class $AssetsTranslationsGen {

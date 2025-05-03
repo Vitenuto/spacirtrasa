@@ -112,9 +112,6 @@ abstract class MapEntityService<T extends MapEntity> {
     final String content = await file.readAsString();
     final List<dynamic> jsonList = jsonDecode(content);
 
-    // Validate the structure
-    if (jsonList is! List) throw FormatException("The file does not contain a JSON list.");
-
     final importedEntities =
         jsonList.map((item) {
           if (item is! Map<String, dynamic>) {

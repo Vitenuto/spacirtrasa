@@ -1,27 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../poi.dart';
+part of '../selected_poi.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$poiProviderHash() => r'15739dbc2806d77413b646ea0ec901cfa4b01e2f';
+String _$selectedPoiProviderHash() =>
+    r'1746e69b4a9b547bf77f0df5a2179726cba08264';
 
-/// See also [PoiProvider].
-@ProviderFor(PoiProvider)
-final poiProvider =
-    AutoDisposeNotifierProvider<PoiProvider, List<Poi>>.internal(
-      PoiProvider.new,
-      name: r'poiProvider',
+/// See also [SelectedPoiProvider].
+@ProviderFor(SelectedPoiProvider)
+final selectedPoiProvider =
+    AutoDisposeNotifierProvider<SelectedPoiProvider, Poi?>.internal(
+      SelectedPoiProvider.new,
+      name: r'selectedPoiProvider',
       debugGetCreateSourceHash:
           const bool.fromEnvironment('dart.vm.product')
               ? null
-              : _$poiProviderHash,
+              : _$selectedPoiProviderHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$PoiProvider = AutoDisposeNotifier<List<Poi>>;
+typedef _$SelectedPoiProvider = AutoDisposeNotifier<Poi?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

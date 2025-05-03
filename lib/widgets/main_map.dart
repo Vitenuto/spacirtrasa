@@ -17,7 +17,7 @@ class MainMap extends StatefulWidget {
   const MainMap({super.key});
 
   @override
-  _MainMapState createState() => _MainMapState();
+  State<MainMap> createState() => _MainMapState();
 }
 
 class _MainMapState extends State<MainMap> {

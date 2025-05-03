@@ -38,13 +38,9 @@ class App extends StatelessWidget {
       title: 'Špacírtrasa vokolo Ořechova',
       theme: ThemeData(
         // TODO
-        primarySwatch: Colors.red,
-        buttonTheme: Theme
-            .of(context)
-            .buttonTheme
-            .copyWith(highlightColor: Colors.deepOrange),
+        primarySwatch: Colors.yellow,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
+          seedColor: Colors.yellow,
           brightness: Brightness.light,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
