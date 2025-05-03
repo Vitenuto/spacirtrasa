@@ -12,7 +12,7 @@ class FinishedTrailsProvider extends _$FinishedTrailsProvider {
 
   @override
   List<FinishedTrail> build() {
-    log.t("Building MapEntity provider...");
+    log.t("Building FinishedTrails provider...");
     final appUser = ref.watch(appUserProvider);
     if (appUser == null) return List.empty();
 
