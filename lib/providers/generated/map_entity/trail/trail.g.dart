@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../map_entity/trail.dart';
+part of '../../../map_entity/trail/trail.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trailProviderHash() => r'809048c9a738342567f5af03f1c34fa7d77e2edb';
+String _$trailProviderHash() => r'cf87009bfc288942c6eb6db5c7bf87a4550e53e7';
 
 /// See also [TrailProvider].
 @ProviderFor(TrailProvider)

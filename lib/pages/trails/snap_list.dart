@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/generated/assets.gen.dart';
-import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
-import 'package:spacirtrasa/providers/map_entity/poi/sorted_poi.dart';
-import 'package:spacirtrasa/providers/map_entity/position.dart';
+import 'package:spacirtrasa/models/trail.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/sorted_trail.dart';
 
 const _itemHeight = 45.0;
 const _itemPadding = 4.0;
@@ -23,7 +23,7 @@ class _SnapListState extends ConsumerState<SnapList> {
   final ScrollController _scrollController = ScrollController();
 
   double get _fullItemHeight => _itemHeight + (_itemPadding * 2);
-  late List<PoiWithDistance> _poisWithDistance;
+  late List<TrailWithLength> trailsWithLength;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _SnapListState extends ConsumerState<SnapList> {
 
   @override
   Widget build(BuildContext context) {
-    _poisWithDistance = ref.watch(sortedPoiProvider);
+    trailsWithLength = ref.watch(sortedTrailProvider);
 
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
@@ -45,7 +45,7 @@ class _SnapListState extends ConsumerState<SnapList> {
         cacheExtent: _fullItemHeight * 15,
         controller: _scrollController,
         padding: EdgeInsets.all(8),
-        itemCount: _poisWithDistance.length + 2,
+        itemCount: trailsWithLength.length + 2,
         // +2 for the title and spacer
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -54,15 +54,15 @@ class _SnapListState extends ConsumerState<SnapList> {
               curve: Curves.easeInOut,
               alignment: Alignment.center,
               height: widget.isExpanded ? 0 : _itemHeight,
-              child: Text('Interests around:', style: Theme.of(context).textTheme.titleMedium),
+              child: Text('Stiskem připnete:', style: Theme.of(context).textTheme.titleMedium),
             );
-          } else if (index == _poisWithDistance.length + 1) {
+          } else if (index == trailsWithLength.length + 1) {
             // Spacer to allow last item to reach top
             return SizedBox(height: _fullItemHeight * 3);
           }
 
-          final poiWithDistance = _poisWithDistance[index - 1];
-          return PoiTile(poiWithDistance: poiWithDistance, isExpanded: widget.isExpanded);
+          final trailWithLength = trailsWithLength[index - 1];
+          return TrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
         },
       ),
     );
@@ -74,20 +74,20 @@ class _SnapListState extends ConsumerState<SnapList> {
     final offset = _scrollController.offset;
     var index = (offset / _fullItemHeight).round();
     if (index <= 1) index = 1;
-    if (ref.read(selectedPoiProvider)?.id == _poisWithDistance[index - 1].poi.id) {
+    if (ref.read(selectedTrailProvider)?.id == trailsWithLength[index - 1].trail.id) {
       return; // Skip if the same item is selected
     }
-    ref.read(selectedPoiProvider.notifier).setSelected(_poisWithDistance[index - 1].poi);
+    ref.read(selectedTrailProvider.notifier).setSelected(trailsWithLength[index - 1].trail);
   }
 
   Future<void> _handleSnap() async {
     if (widget.isExpanded || _scrollController.position.isScrollingNotifier.value) return;
 
-    final selectedPoi = ref.watch(selectedPoiProvider);
-    if (selectedPoi == null) return;
+    final selectedTrail = ref.watch(selectedTrailProvider);
+    if (selectedTrail == null) return;
 
-    final poiIndex = _poisWithDistance.indexWhere((poiWithDistance) => poiWithDistance.poi.id == selectedPoi.id);
-    final elementIndex = poiIndex + 1;
+    final trailIndex = trailsWithLength.indexWhere((trailWithLength) => trailWithLength.trail.id == selectedTrail.id);
+    final elementIndex = trailIndex + 1;
     final snappedOffset = (elementIndex * _fullItemHeight).clamp(
       0.0,
       _scrollController.position.maxScrollExtent,
@@ -98,7 +98,7 @@ class _SnapListState extends ConsumerState<SnapList> {
     }
 
     log.t(
-      'With offset: ${_scrollController.offset} and calculated snappedOffset: $snappedOffset, snapping to POI: ${selectedPoi.title}',
+      'With offset: ${_scrollController.offset} and calculated snappedOffset: $snappedOffset, snapping to Trail: ${selectedTrail.title}',
     );
     await _scrollController.animateTo(
       snappedOffset,
@@ -108,66 +108,77 @@ class _SnapListState extends ConsumerState<SnapList> {
   }
 }
 
-class PoiTile extends ConsumerWidget {
-  final PoiWithDistance poiWithDistance;
+class TrailTile extends ConsumerWidget {
+  final TrailWithLength trailWithLength;
   final bool isExpanded;
 
-  const PoiTile({super.key, required this.poiWithDistance, required this.isExpanded});
+  const TrailTile({super.key, required this.trailWithLength, required this.isExpanded});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isHighlighted = !isExpanded && ref.watch(selectedPoiProvider)?.id == poiWithDistance.poi.id;
+    final isHighlighted = !isExpanded && ref.watch(selectedTrailProvider)?.id == trailWithLength.trail.id;
+    final isPinned = ref.watch(pinnedTrailProvider)?.id == trailWithLength.trail.id;
 
-    return AnimatedContainer(
-      duration: kThemeAnimationDuration,
-      height: isExpanded ? _itemHeight * 2 : _itemHeight,
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(vertical: _itemPadding),
-      decoration: BoxDecoration(
-        color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          if (isHighlighted)
-            BoxShadow(
-              color: colorScheme.primary.withValues(alpha: 0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+
+    return InkWell(
+      onTap: () => onTrailClicked(trailWithLength.trail, ref),
+      child: AnimatedContainer(
+        duration: kThemeAnimationDuration,
+        height: isExpanded ? _itemHeight * 2 : _itemHeight,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(vertical: _itemPadding),
+        decoration: BoxDecoration(
+          color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+          border: isPinned
+              ? Border.all(color: colorScheme.primary, width: 2)
+              : Border.all(color: Colors.transparent, width: 2),
+          boxShadow: [
+            if (isHighlighted)
+              BoxShadow(
+                color: colorScheme.primary.withValues(alpha: 0.3),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+          ],
+        ),
+        child: Row(
+          spacing: 4,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedTitle(isExpanded: isExpanded, trailWithLength: trailWithLength),
+                  AnimatedDescription(
+                    isExpanded: isExpanded,
+                    data: trailWithLength.trail.markdownLessData,
+                  ),
+                ],
+              ),
             ),
-        ],
-      ),
-      child: Row(
-        spacing: 4,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedTitle(isExpanded: isExpanded, poiWithDistance: poiWithDistance),
-                AnimatedDescription(
-                  isExpanded: isExpanded,
-                  data: poiWithDistance.poi.markdownLessData,
-                ),
-              ],
-            ),
-          ),
-          AnimatedImage(isExpanded: isExpanded, imgUrl: poiWithDistance.poi.imgUrl),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  onTrailClicked(Trail trail, WidgetRef ref) {
+    ref.read(pinnedTrailProvider.notifier).setPinned(trail);
+    ref.read(selectedTrailProvider.notifier).setSelected(trail);
   }
 }
 
 class AnimatedTitle extends ConsumerWidget {
-  const AnimatedTitle({super.key, required this.isExpanded, required this.poiWithDistance});
+  const AnimatedTitle({super.key, required this.isExpanded, required this.trailWithLength});
 
   final bool isExpanded;
-  final PoiWithDistance poiWithDistance;
+  final TrailWithLength trailWithLength;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final userPosition = ref.watch(positionProvider);
 
     return AnimatedAlign(
       alignment: isExpanded ? Alignment.centerLeft : Alignment.center,
@@ -184,9 +195,9 @@ class AnimatedTitle extends ConsumerWidget {
               fontSize: isExpanded ? 14 : 18,
               fontWeight: isExpanded ? FontWeight.w500 : FontWeight.w400,
             ),
-            child: Text(poiWithDistance.poi.title),
+            child: Text(trailWithLength.trail.title),
           ),
-          userPosition != null ? Text(' (${poiWithDistance.distance.toStringAsFixed(0)} m)') : SizedBox.shrink(),
+          Text(' (${(trailWithLength.length / 1000).toStringAsFixed(2)} km)'),
         ],
       ),
     );
@@ -213,34 +224,6 @@ class AnimatedDescription extends StatelessWidget {
         ),
         secondChild: SizedBox.shrink(),
       ),
-    );
-  }
-}
-
-class AnimatedImage extends StatelessWidget {
-  final bool isExpanded;
-  final String imgUrl;
-
-  const AnimatedImage({super.key, required this.isExpanded, required this.imgUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final maxHeight = constraints.maxHeight;
-        return AnimatedContainer(
-          duration: kThemeAnimationDuration,
-          curve: Curves.easeInOut,
-          height: isExpanded ? maxHeight : 0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: FadeInImage.assetNetwork(
-              placeholder: Assets.images.poiPlaceholder.keyName,
-              image: imgUrl,
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -15,10 +15,10 @@ class SortedPoiProvider extends _$SortedPoiProvider {
 
   @override
   List<PoiWithDistance> build() {
+    log.t("Building SortedPoi provider...");
     final pois = ref.watch(poiProvider);
     final currentPosition = ref.watch(positionProvider)?.toLatLng() ?? defaultPosition;
 
-    log.t("Building SortedPoi provider...");
     return pois.map((poi) {
         final distance = Geolocator.distanceBetween(
           poi.location.latitude,

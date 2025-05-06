@@ -9,7 +9,10 @@ class SelectedPoiProvider extends _$SelectedPoiProvider {
   static final log = Logger();
 
   @override
-  Poi? build() => null;
+  Poi? build() {
+    log.t("Building SelectedPoi provider...");
+    return null;
+  }
 
   void setSelected(Poi? poi) {
     log.t("Setting selected POI: ${poi?.title}");
