@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../selected_poi.dart';
+part of '../../../map_entity/poi/selected_poi.dart';
 
 // **************************************************************************
 // RiverpodGenerator

@@ -1,9 +1,8 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:spacirtrasa/models/poi.dart';
 
-import '../models/poi.dart';
-
-part 'generated/selected_poi.g.dart';
+part '../../generated/map_entity/poi/selected_poi.g.dart';
 
 @riverpod
 class SelectedPoiProvider extends _$SelectedPoiProvider {

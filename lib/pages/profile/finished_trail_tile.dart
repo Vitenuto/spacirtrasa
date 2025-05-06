@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/finished_trail.dart';
 import 'package:spacirtrasa/models/trail.dart';
-
-import '../../providers/trail.dart';
+import 'package:spacirtrasa/providers/map_entity/trail.dart';
 
 class FinishedTrailTile extends ListTile {
   final FinishedTrail finishedTrail;

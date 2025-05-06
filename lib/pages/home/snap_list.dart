@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/models/poi.dart';
-
-import '../../providers/poi.dart';
-import '../../providers/selected_poi.dart';
+import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
+import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 
 const _itemHeight = 50.0;
 const _itemPadding = 4.0;

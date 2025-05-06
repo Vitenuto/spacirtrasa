@@ -51,7 +51,7 @@ class _AsyncButtonHandlerState<T> extends State<AsyncButtonHandler<T>> {
       } else {
         _showOverlayLoading(context);
         await (widget.onPressed as Future Function())();
-        if (mounted) _hideOverlayLoading(context);
+        if (context.mounted) _hideOverlayLoading(context);
       }
     } else {
       widget.onPressed();

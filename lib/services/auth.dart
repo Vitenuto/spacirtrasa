@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
-
-import '../models/app_user.dart';
-import '../providers/app_user.dart';
+import 'package:spacirtrasa/models/app_user.dart';
+import 'package:spacirtrasa/providers/app_user.dart';
 
 class AuthService {
   static final log = Logger();
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  static String? getUserReadable() => _firebaseAuth.currentUser != null ? ("${_firebaseAuth.currentUser!.displayName ?? 'Anonymous'}, UID: ${_firebaseAuth.currentUser!.uid}") : null;
+
+  static String? getUserReadable() =>
+      _firebaseAuth.currentUser != null ? ("${_firebaseAuth.currentUser!.displayName ??
+          'Anonymous'}, UID: ${_firebaseAuth.currentUser!.uid}") : null;
 
   static Future<void> signInWithGoogle() async {
     try {
@@ -56,7 +58,12 @@ class AuthService {
   static Future<void> _createAppUserIfNeeded(final String userId) async {
     final appUser = (await AppUserProvider.appUserCollection.doc(userId).get()).data();
     if (appUser == null) {
-      final newUser = AppUser(id: userId, isAdmin: false, favoritePoiIds: [], favoriteTrailIds: [], finishedTrails: [], notes: []);
+      final newUser = AppUser(id: userId,
+          isAdmin: false,
+          favoritePoiIds: [],
+          favoriteTrailIds: [],
+          finishedTrails: [],
+          notes: []);
       await AppUserProvider.appUserCollection.doc(userId).set(newUser);
       log.t("New user '$newUser' is successfully created");
     }

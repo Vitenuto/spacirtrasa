@@ -5,9 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpx/gpx.dart';
+import 'package:spacirtrasa/models/trail.dart';
 
-import '../../models/trail.dart';
-import 'map_entity_service.dart';
+import 'map_entity.dart';
 
 class TrailService extends MapEntityService<Trail> {
   static const trailsCollectionId = 'TRAILS';

@@ -1,10 +1,9 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:spacirtrasa/models/poi.dart';
+import 'package:spacirtrasa/services/map_entity/poi.dart';
 
-import '../models/poi.dart';
-import '../services/map_entity/poi_service.dart';
-
-part 'generated/poi.g.dart';
+part '../../generated/map_entity/poi/poi.g.dart';
 
 @riverpod
 class PoiProvider extends _$PoiProvider {
@@ -20,7 +19,6 @@ class PoiProvider extends _$PoiProvider {
 
   void poiListener(List<Poi> pois) {
     log.t("${pois.length} POIs were updated");
-    pois.sort((a, b) => b.createdAt.compareTo(a.createdAt)); // sort by being newest first
     state = pois;
   }
 }

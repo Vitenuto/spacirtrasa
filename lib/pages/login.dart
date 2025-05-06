@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/services/auth_service.dart';
-
-import '../generated/assets.gen.dart';
-import '../services/router_service.dart';
+import 'package:spacirtrasa/services/auth.dart';
+import 'package:spacirtrasa/generated/assets.gen.dart';
+import 'package:spacirtrasa/services/router.dart';
 
 class LoginPage extends StatelessWidget {
   static const route = "/login";
