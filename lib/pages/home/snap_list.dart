@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
-import 'package:spacirtrasa/models/poi.dart';
-import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
+import 'package:spacirtrasa/providers/map_entity/poi/sorted_poi.dart';
+import 'package:spacirtrasa/providers/map_entity/position.dart';
 
-const _itemHeight = 50.0;
+const _itemHeight = 45.0;
 const _itemPadding = 4.0;
 
 class SnapList extends ConsumerStatefulWidget {
@@ -23,7 +23,7 @@ class _SnapListState extends ConsumerState<SnapList> {
   final ScrollController _scrollController = ScrollController();
 
   double get _fullItemHeight => _itemHeight + (_itemPadding * 2);
-  late List<Poi> pois;
+  late List<PoiWithDistance> pois;
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _SnapListState extends ConsumerState<SnapList> {
 
   @override
   Widget build(BuildContext context) {
-    pois = ref.watch(poiProvider);
+    pois = ref.watch(sortedPoiProvider);
 
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
@@ -73,9 +73,8 @@ class _SnapListState extends ConsumerState<SnapList> {
             return SizedBox(height: _fullItemHeight * 3);
           }
 
-          final poi = pois[index - 1];
-
-          return PoiTile(poi: poi, isExpanded: widget.isExpanded);
+          final poiWithDistance = pois[index - 1];
+          return PoiTile(poiWithDistance: poiWithDistance, isExpanded: widget.isExpanded);
         },
       ),
     );
@@ -87,10 +86,10 @@ class _SnapListState extends ConsumerState<SnapList> {
     final offset = _scrollController.offset;
     var index = (offset / _fullItemHeight).round();
     if (index <= 1) index = 1;
-    if (ref.read(selectedPoiProvider)?.id == pois[index - 1].id) {
+    if (ref.read(selectedPoiProvider)?.id == pois[index - 1].poi.id) {
       return; // Skip if the same item is selected
     }
-    ref.read(selectedPoiProvider.notifier).setSelected(pois[index - 1]);
+    ref.read(selectedPoiProvider.notifier).setSelected(pois[index - 1].poi);
   }
 
   Future<void> _handleSnap() async {
@@ -99,7 +98,7 @@ class _SnapListState extends ConsumerState<SnapList> {
     final selectedPoi = ref.watch(selectedPoiProvider);
     if (selectedPoi == null) return;
 
-    final poiIndex = pois.indexOf(selectedPoi);
+    final poiIndex = pois.indexWhere((poiWithDistance) => poiWithDistance.poi.id == selectedPoi.id);
     final elementIndex = poiIndex + 1;
     final snappedOffset = (elementIndex * _fullItemHeight).clamp(
       0.0,
@@ -122,15 +121,15 @@ class _SnapListState extends ConsumerState<SnapList> {
 }
 
 class PoiTile extends ConsumerWidget {
-  final Poi poi;
+  final PoiWithDistance poiWithDistance;
   final bool isExpanded;
 
-  const PoiTile({super.key, required this.poi, required this.isExpanded});
+  const PoiTile({super.key, required this.poiWithDistance, required this.isExpanded});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isTopItem = ref.watch(selectedPoiProvider)?.id == poi.id;
+    final isTopItem = ref.watch(selectedPoiProvider)?.id == poiWithDistance.poi.id;
 
     return AnimatedContainer(
       duration: kThemeAnimationDuration,
@@ -154,42 +153,53 @@ class PoiTile extends ConsumerWidget {
         children: [
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AnimatedTitle(isExpanded: isExpanded, poi: poi),
-                AnimatedDescription(isExpanded: isExpanded, poi: poi),
+                AnimatedTitle(isExpanded: isExpanded, poiWithDistance: poiWithDistance),
+                AnimatedDescription(
+                  isExpanded: isExpanded,
+                  data: poiWithDistance.poi.markdownLessData,
+                ),
               ],
             ),
           ),
-          AnimatedImage(isExpanded: isExpanded, poi: poi),
+          AnimatedImage(isExpanded: isExpanded, imgUrl: poiWithDistance.poi.imgUrl),
         ],
       ),
     );
   }
 }
 
-class AnimatedTitle extends StatelessWidget {
-  const AnimatedTitle({super.key, required this.isExpanded, required this.poi});
+class AnimatedTitle extends ConsumerWidget {
+  const AnimatedTitle({super.key, required this.isExpanded, required this.poiWithDistance});
 
   final bool isExpanded;
-  final Poi poi;
+  final PoiWithDistance poiWithDistance;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
+    final userPosition = ref.watch(positionProvider);
 
     return AnimatedAlign(
       alignment: isExpanded ? Alignment.centerLeft : Alignment.center,
       duration: kThemeAnimationDuration,
       curve: Curves.easeInOut,
-      child: AnimatedDefaultTextStyle(
-        duration: kThemeAnimationDuration,
-        curve: Curves.easeInOut,
-        style: TextStyle(
-          color: colorScheme.onSurface, // Adjust if needed
-          fontSize: isExpanded ? 16 : 20,
-          fontWeight: isExpanded ? FontWeight.bold : FontWeight.w600,
-        ),
-        child: Text(poi.title),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AnimatedDefaultTextStyle(
+            duration: kThemeAnimationDuration,
+            curve: Curves.easeInOut,
+            style: TextStyle(
+              color: colorScheme.onSurface,
+              fontSize: isExpanded ? 14 : 18,
+              fontWeight: isExpanded ? FontWeight.w500 : FontWeight.w400,
+            ),
+            child: Text(poiWithDistance.poi.title),
+          ),
+          userPosition != null ? Text(' (${poiWithDistance.distance.toStringAsFixed(0)} m)') : SizedBox.shrink(),
+        ],
       ),
     );
   }
@@ -197,18 +207,18 @@ class AnimatedTitle extends StatelessWidget {
 
 class AnimatedDescription extends StatelessWidget {
   final bool isExpanded;
-  final Poi poi;
+  final String data;
 
-  const AnimatedDescription({super.key, required this.isExpanded, required this.poi});
+  const AnimatedDescription({super.key, required this.isExpanded, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: AnimatedCrossFade(
         crossFadeState: isExpanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         duration: kThemeAnimationDuration,
         firstChild: Text(
-          poi.markdownLessData,
+          data,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 14, color: Colors.grey[800]),
@@ -221,9 +231,9 @@ class AnimatedDescription extends StatelessWidget {
 
 class AnimatedImage extends StatelessWidget {
   final bool isExpanded;
-  final Poi poi;
+  final String imgUrl;
 
-  const AnimatedImage({super.key, required this.isExpanded, required this.poi});
+  const AnimatedImage({super.key, required this.isExpanded, required this.imgUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +248,7 @@ class AnimatedImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: FadeInImage.assetNetwork(
               placeholder: Assets.images.poiPlaceholder.keyName,
-              image: poi.imgUrl,
+              image: imgUrl,
             ),
           ),
         );
