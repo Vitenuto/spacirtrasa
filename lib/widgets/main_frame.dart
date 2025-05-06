@@ -31,7 +31,7 @@ class _MainFrameState extends State<MainFrame> {
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.explore_outlined),
       activeIcon: Icon(Icons.explore),
-      label: "navbar.paths".tr().toUpperCase(),
+      label: "navbar.trails".tr().toUpperCase(),
       initialLocation: PathsPage.route,
     ),
     MyCustomBottomNavBarItem(

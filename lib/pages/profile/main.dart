@@ -95,8 +95,8 @@ class ProfilePage extends ConsumerWidget {
             provider: noteProvider,
             itemBuilder: (context, note) => NoteTile(note: note, ref: ref),
           ))),
-          _bodyButton("profile.my-completed-paths".tr(), () => _showFullDialog(context, ListScreen<FinishedTrail>(
-            title: "profile.my-completed-paths".tr(),
+          _bodyButton("profile.my-completed-trails".tr(), () => _showFullDialog(context, ListScreen<FinishedTrail>(
+            title: "profile.my-completed-trails".tr(),
             provider: finishedTrailsProvider,
             itemBuilder: (context, finishedTrail) => FinishedTrailTile(finishedTrail: finishedTrail, ref: ref),
           ))),
@@ -108,7 +108,7 @@ class ProfilePage extends ConsumerWidget {
               () => _showFullDialog(context, ManageEntities<Poi>(PoiService(), poiProvider)),
             ),
             _bodyButton(
-              "profile.manage-paths".tr(),
+              "profile.manage-trails".tr(),
               () => _showFullDialog(context, ManageEntities<Trail>(TrailService(), trailProvider)),
             ),
           ],
