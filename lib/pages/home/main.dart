@@ -11,6 +11,9 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(children: [const MainMap(), Align(alignment: Alignment.bottomCenter, child: ExpandableSheet())]);
+    return Stack(children: [
+      const MainMap(),
+      Align(alignment: Alignment.bottomCenter, child: ExpandableSheet()),
+    ]);
   }
 }

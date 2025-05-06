@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/interests.dart';
-import 'package:spacirtrasa/pages/paths.dart';
+import 'package:spacirtrasa/pages/paths/main.dart';
+import 'package:spacirtrasa/pages/profile/main.dart';
 import 'package:spacirtrasa/pages/village.dart';
-
-import '../pages/home/home.dart';
-import '../pages/profile/profile.dart';
 
 class MainFrame extends StatefulWidget {
   final String location;
