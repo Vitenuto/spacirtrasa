@@ -6,7 +6,7 @@ part of '../../map_entity/position.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$positionProviderHash() => r'99fa40867c3b82b71770e3e316ca04948b7ed744';
+String _$positionProviderHash() => r'ebb26c2248b27b37e60c9379c8467445a78dcb20';
 
 /// See also [PositionProvider].
 @ProviderFor(PositionProvider)
