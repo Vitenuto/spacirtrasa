@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:spacirtrasa/models/poi.dart';
 
-import '../../models/poi.dart';
-import 'map_entity_service.dart';
+import 'map_entity.dart';
 
 class PoiService extends MapEntityService<Poi> {
   static const poisCollectionId = 'POIS';

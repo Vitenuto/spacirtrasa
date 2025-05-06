@@ -1,10 +1,9 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:spacirtrasa/models/trail.dart';
+import 'package:spacirtrasa/services/map_entity/trail.dart';
 
-import '../models/trail.dart';
-import '../services/map_entity/trail_service.dart';
-
-part 'generated/trail.g.dart';
+part '../generated/map_entity/trail.g.dart';
 
 @riverpod
 class TrailProvider extends _$TrailProvider {

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/home/snap_list.dart';
-
-import '../../providers/selected_poi.dart';
+import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 
 class ExpandableSheet extends ConsumerStatefulWidget {
   const ExpandableSheet({super.key});
