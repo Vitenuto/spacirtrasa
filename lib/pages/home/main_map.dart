@@ -14,6 +14,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
+import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
+import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
 import 'package:spacirtrasa/utils/constants.dart';
@@ -98,7 +100,12 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
                   store: cacheStore,
                 ),
               ),
-              MarkerLayer(markers: [if (currentLoc != null) _buildUserLocationMarker(currentLoc)]),
+              MarkerLayer(
+                markers: [
+                  if (currentLoc != null) _buildUserLocationMarker(currentLoc),
+                  ..._buildPoiMarkers(currentLoc),
+                ],
+              ),
               const MapCompass.cupertino(hideIfRotatedNorth: true),
               ..._buildContributions(),
             ],
@@ -168,5 +175,19 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
   static Future<CacheStore> _getCacheStore() async {
     final dir = await getApplicationCacheDirectory();
     return FileCacheStore('${dir.path}${Platform.pathSeparator}MapTiles');
+  }
+
+  List<Marker> _buildPoiMarkers(Position? currentLoc) {
+    final pois = ref.watch(poiProvider);
+    final selectedPoi = ref.watch(selectedPoiProvider);
+    return pois.map((poi) {
+      final isSelected = selectedPoi?.id == poi.id;
+
+      return Marker(
+
+        point: LatLng(poi.location.latitude, poi.location.longitude),
+        child: Icon(Icons.location_on, color: isSelected ? Colors.red : Colors.grey, size: isSelected ? 30 : 20,),
+      );
+    }).toList();
   }
 }

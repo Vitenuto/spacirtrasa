@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 
 class FirestoreConverters {
@@ -47,3 +49,9 @@ class GeoPointConverter implements JsonConverter<GeoPoint, Map<String, dynamic>>
 Timestamp dateFromJson(int timestamp) => Timestamp.fromMillisecondsSinceEpoch(timestamp);
 
 int dateToJson(Timestamp timestamp) => timestamp.millisecondsSinceEpoch;
+
+extension PositionConversion on Position {
+   LatLng toLatLng() {
+    return LatLng(latitude, longitude);
+  }
+}
