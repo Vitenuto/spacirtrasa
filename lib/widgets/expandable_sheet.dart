@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/pages/home/snap_list.dart';
-import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 
 class ExpandableSheet extends ConsumerStatefulWidget {
-  const ExpandableSheet({super.key});
+  final void Function(bool)? _onExpansionCallback;
+  final Widget Function(bool) _childBuilder;
+
+  const ExpandableSheet(this._childBuilder, {void Function(bool)? onExpansionCallback, super.key})
+    : _onExpansionCallback = onExpansionCallback;
 
   @override
   ConsumerState<ExpandableSheet> createState() => _ExpandableSheetState();
@@ -48,27 +50,22 @@ class _ExpandableSheetState extends ConsumerState<ExpandableSheet> {
                             ? const BorderRadius.all(Radius.zero)
                             : const BorderRadius.vertical(top: Radius.circular(16)),
                   ),
-                  child: SnapList(isExpanded),
+                  child: widget._childBuilder(isExpanded),
                 ),
               ),
             ],
           ),
 
-          ExpandButton(isExpanded, onTap: _handleExpanded),
+          ExpandButton(isExpanded, onTap: _onTap),
         ],
       ),
     );
   }
 
-  void _handleExpanded() {
-    setState(() {
-    if (!isExpanded) {
-      ref.read(selectedPoiProvider.notifier).setSelected(null);
-      isExpanded = true;
-      return;
-    }
-    isExpanded = false;
-  });
+  void _onTap() {
+    setState(() => isExpanded = !isExpanded);
+
+    if (widget._onExpansionCallback != null) widget._onExpansionCallback!(isExpanded);
   }
 }
 
