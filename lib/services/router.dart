@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/pages/home/home.dart';
+import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/interests.dart';
 import 'package:spacirtrasa/pages/login.dart';
-import 'package:spacirtrasa/pages/paths.dart';
-import 'package:spacirtrasa/pages/profile/profile.dart';
+import 'package:spacirtrasa/pages/paths/main.dart';
+import 'package:spacirtrasa/pages/profile/main.dart';
 import 'package:spacirtrasa/pages/village.dart';
 import 'package:spacirtrasa/widgets/main_frame.dart';
 
