@@ -1,1 +1,10 @@
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+
 const double kDefaultPadding = 12;
+final defaultPosition = LatLng(49.1118439, 16.5184100); // OÚ Ořechova u Brna
+final defaultBounds = LatLngBounds(
+  // Bounds around Ořechov u Brna
+  LatLng(49.05, 16.46),
+  LatLng(49.15, 16.56),
+);
