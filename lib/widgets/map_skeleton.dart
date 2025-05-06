@@ -15,14 +15,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 class MapSkeleton extends StatefulWidget {
   final AnimatedMapController? _animatedMapController;
-  final MarkerLayer? _markerLayer;
+  final List<Widget>? _mapChildLayer;
 
   const MapSkeleton({
     super.key,
     AnimatedMapController? animatedMapController,
-    MarkerLayer? markerLayer,
+    List<Widget>? mapChildLayers,
   }) : _animatedMapController = animatedMapController,
-       _markerLayer = markerLayer;
+       _mapChildLayer = mapChildLayers;
 
   @override
   State<MapSkeleton> createState() => _MapSkeletonState();
@@ -62,7 +62,7 @@ class _MapSkeletonState extends State<MapSkeleton> {
                   store: cacheStore,
                 ),
               ),
-              if (widget._markerLayer != null) widget._markerLayer!,
+              if (widget._mapChildLayer != null) ...widget._mapChildLayer!,
               const MapCompass.cupertino(hideIfRotatedNorth: true),
               ..._buildContributions(),
             ],

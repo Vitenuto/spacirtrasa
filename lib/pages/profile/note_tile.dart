@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
-import 'package:spacirtrasa/providers/map_entity/trail.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 
 class NoteTile extends ListTile {
   final Note note;

@@ -51,7 +51,27 @@ Timestamp dateFromJson(int timestamp) => Timestamp.fromMillisecondsSinceEpoch(ti
 int dateToJson(Timestamp timestamp) => timestamp.millisecondsSinceEpoch;
 
 extension PositionConversion on Position {
-   LatLng toLatLng() {
+  LatLng toLatLng() {
     return LatLng(latitude, longitude);
+  }
+}
+extension GeoPoinListConverter on List<GeoPoint> {
+  static final log = Logger();
+  List<LatLng> toLatLngList() {
+    return map((geoPoint) => LatLng(geoPoint.latitude, geoPoint.longitude)).toList();
+  }
+
+  double toLength() {
+    if (isEmpty) return 0.0;
+    double pathLength = 0.0;
+    for (int i = 1; i < length; i++) {
+      pathLength += Geolocator.distanceBetween(
+        this[i - 1].latitude,
+        this[i - 1].longitude,
+        this[i].latitude,
+        this[i].longitude,
+      );
+    }
+    return pathLength;
   }
 }

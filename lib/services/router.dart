@@ -5,8 +5,8 @@ import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/interests.dart';
 import 'package:spacirtrasa/pages/login.dart';
-import 'package:spacirtrasa/pages/paths/main.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
+import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/pages/village.dart';
 import 'package:spacirtrasa/widgets/main_frame.dart';
 
@@ -40,9 +40,9 @@ class RouteService {
             pageBuilder: (context, state) => NoTransitionPage(child: HomePage()),
           ),
           GoRoute(
-            path: PathsPage.route,
+            path: TrailsPage.route,
             parentNavigatorKey: _shellNavKey,
-            pageBuilder: (context, state) => NoTransitionPage(child: PathsPage()),
+            pageBuilder: (context, state) => NoTransitionPage(child: TrailsPage()),
           ),
           GoRoute(
             path: InterestsPage.route,

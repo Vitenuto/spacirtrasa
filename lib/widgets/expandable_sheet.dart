@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 class ExpandableSheet extends ConsumerStatefulWidget {
-  final void Function(bool)? _onExpansionCallback;
   final Widget Function(bool) _childBuilder;
 
-  const ExpandableSheet(this._childBuilder, {void Function(bool)? onExpansionCallback, super.key})
-    : _onExpansionCallback = onExpansionCallback;
+  const ExpandableSheet(this._childBuilder, {super.key});
 
   @override
   ConsumerState<ExpandableSheet> createState() => _ExpandableSheetState();
@@ -56,16 +54,10 @@ class _ExpandableSheetState extends ConsumerState<ExpandableSheet> {
             ],
           ),
 
-          ExpandButton(isExpanded, onTap: _onTap),
+          ExpandButton(isExpanded, onTap: () => setState(() => isExpanded = !isExpanded)),
         ],
       ),
     );
-  }
-
-  void _onTap() {
-    setState(() => isExpanded = !isExpanded);
-
-    if (widget._onExpansionCallback != null) widget._onExpansionCallback!(isExpanded);
   }
 }
 

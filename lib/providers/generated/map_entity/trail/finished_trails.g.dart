@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../map_entity/finished_trails.dart';
+part of '../../../map_entity/trail/finished_trails.dart';
 
 // **************************************************************************
 // RiverpodGenerator

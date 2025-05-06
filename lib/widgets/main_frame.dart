@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/interests.dart';
-import 'package:spacirtrasa/pages/paths/main.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
+import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/pages/village.dart';
 
 class MainFrame extends StatefulWidget {
@@ -32,7 +32,7 @@ class _MainFrameState extends State<MainFrame> {
       icon: Icon(Icons.explore_outlined),
       activeIcon: Icon(Icons.explore),
       label: "navbar.trails".tr().toUpperCase(),
-      initialLocation: PathsPage.route,
+      initialLocation: TrailsPage.route,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.interests_outlined),
@@ -73,7 +73,7 @@ class _MainFrameState extends State<MainFrame> {
         currentIndex:
         widget.location == HomePage.route
             ? 0
-            : widget.location == PathsPage.route
+            : widget.location == TrailsPage.route
             ? 1
             : widget.location == InterestsPage.route
             ? 2

@@ -9,6 +9,8 @@ import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
+import 'package:spacirtrasa/utils/converters.dart';
 import 'package:spacirtrasa/widgets/map_skeleton.dart';
 
 class MainMap extends ConsumerStatefulWidget {
@@ -39,17 +41,34 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     ref.listen(positionPermissionStatusProvider, _onPermissionChanged);
 
-    return MapSkeleton(animatedMapController: _animatedMapController, markerLayer: _buildMarkerLayer());
+    return MapSkeleton(
+      animatedMapController: _animatedMapController,
+      mapChildLayers: _buildChildLayers(),
+    );
   }
 
-  MarkerLayer _buildMarkerLayer() {
+  List<Widget>? _buildChildLayers() {
     final currentLoc = ref.watch(positionProvider);
-    return MarkerLayer(
-      markers: [
-        if (currentLoc != null) _buildUserLocationMarker(currentLoc),
-        ..._buildPoiMarkers(currentLoc),
-      ],
-    );
+    final pinnedTrail = ref.watch(pinnedTrailProvider);
+
+    return [
+      MarkerLayer(
+        markers: [
+          if (currentLoc != null) _buildUserLocationMarker(currentLoc),
+          ..._buildPoiMarkers(currentLoc),
+        ],
+      ),
+      if (pinnedTrail != null)
+        PolylineLayer(
+          polylines: [
+            Polyline(
+              points: pinnedTrail.path.toLatLngList(),
+              strokeWidth: 6,
+              color: Colors.blueAccent.withValues(alpha: 0.9),
+            ),
+          ],
+        ),
+    ];
   }
 
   Marker _buildUserLocationMarker(final Position currentLoc) {
