@@ -8,6 +8,6 @@ abstract class TrailFilter with _$TrailFilter {
   const factory TrailFilter({
     required (double, double) bounds,
     required String searchText,
-    required List<TrailFlags> flags,
+    required Set<TrailFlags> flags,
   }) = _TrailFilter;
 }
