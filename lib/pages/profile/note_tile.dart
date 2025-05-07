@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
+import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 
@@ -15,6 +16,7 @@ class NoteTile extends ConsumerWidget {
 
   @override
   ListTile build(BuildContext context, WidgetRef ref) {
+    log.t("Building NoteTile for note: $note");
     String? title;
     VoidCallback? openDetail;
     Icon? icon;
@@ -28,10 +30,11 @@ class NoteTile extends ConsumerWidget {
       }
     } else {
       final trails = ref.watch(trailProvider);
+      log.i("Trails: $trails");
       final trail = trails.where((trail) => trail.id == note.mapEntityId).firstOrNull;
       title = trail?.title;
       if (trail != null) {
-        // openDetail = () => showTrailDetail(context, trail);
+        openDetail = () => showTrailDetail(context, trail);
         icon = trail.icon;
       }
     }

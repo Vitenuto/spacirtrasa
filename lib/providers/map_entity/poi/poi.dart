@@ -11,6 +11,7 @@ class PoiProvider extends _$PoiProvider {
 
   @override
   List<Poi> build() {
+    ref.keepAlive();
     log.t("Building POI provider...");
     final poiSubscription = PoiService().entityCollectionStream.listen(poiListener);
     ref.onDispose(() => poiSubscription.cancel());

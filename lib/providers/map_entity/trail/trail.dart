@@ -11,6 +11,7 @@ class TrailProvider extends _$TrailProvider {
 
   @override
   List<Trail> build() {
+    ref.keepAlive();
     log.t("Building Trail provider...");
     final trailSubscription = TrailService().entityCollectionStream.listen(trailListener);
     ref.onDispose(() => trailSubscription.cancel());

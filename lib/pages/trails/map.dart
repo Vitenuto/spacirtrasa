@@ -24,6 +24,18 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(selectedTrailProvider, (_, selectedTrail) {
+      if (selectedTrail != null) {
+        final latLngList = selectedTrail.path.toLatLngList();
+        _animatedMapController.animatedFitCamera(
+          cameraFit: CameraFit.coordinates(
+            coordinates: latLngList,
+            padding: EdgeInsets.all(16).copyWith(bottom: 250),
+          ),
+        );
+      }
+    });
+
     return MapSkeleton(
       animatedMapController: _animatedMapController,
       mapChildLayers: _buildChildLayers(),
@@ -35,12 +47,6 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     if (selectedTrail == null) return null;
 
     final latLngList = selectedTrail.path.toLatLngList();
-    _animatedMapController.animatedFitCamera(
-      cameraFit: CameraFit.coordinates(
-        coordinates: latLngList,
-        padding: EdgeInsets.all(16).copyWith(bottom: 250),
-      ),
-    );
     return [
       PolylineLayer(
         polylines: [

@@ -6,6 +6,7 @@ import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
 import 'package:spacirtrasa/pages/trails/animated_description.dart';
 import 'package:spacirtrasa/pages/trails/animated_filter.dart';
 import 'package:spacirtrasa/pages/trails/animated_title.dart';
+import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
@@ -137,7 +138,7 @@ class TrailTile extends ConsumerWidget {
     final isPinned = ref.watch(pinnedTrailProvider)?.id == trailWithLength.trail.id;
 
     return InkWell(
-      onTap: () => onTrailClicked(trailWithLength.trail, ref),
+      onTap: isExpanded ? () => showTrailDetail(context, trailWithLength.trail) : () => onTrailClicked(trailWithLength.trail, ref),
       child: AnimatedContainer(
         duration: kThemeAnimationDuration,
         height: isExpanded ? _itemHeight * 2 : _itemHeight,

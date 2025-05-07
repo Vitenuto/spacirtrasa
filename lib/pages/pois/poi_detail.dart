@@ -37,7 +37,6 @@ class PoiDetail extends ConsumerWidget {
           const SizedBox(height: 8),
           MarkdownBody(data: poi.markdownData),
           if (appUser != null) _buildEditableNoteField(ref, appUser),
-          // _buildBottomButtons(ref, appUser),
         ],
       ),
     );

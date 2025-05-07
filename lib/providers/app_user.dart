@@ -28,13 +28,11 @@ class AppUserProvider extends _$AppUserProvider {
     // Remove the note if it already exists
     final newNotes =
         state!.notes.where((existingNote) => existingNote.mapEntityId != note.mapEntityId).toList();
-    newNotes.add(note);
+    if (note.text.isNotEmpty) newNotes.add(note);
 
     state = state!.copyWith(notes: newNotes);
 
-    appUserCollection
-        .doc(state!.id)
-        .update(state!.toJson());
+    appUserCollection.doc(state!.id).update(state!.toJson());
   }
 
   void setFavoritePoi(final String poiId) {
@@ -53,8 +51,25 @@ class AppUserProvider extends _$AppUserProvider {
 
     state = state!.copyWith(favoritePoiIds: newFavoritePoiIds);
 
-    appUserCollection
-        .doc(state!.id)
-        .update(state!.toJson());
+    appUserCollection.doc(state!.id).update(state!.toJson());
+  }
+
+  void setFavoriteTrail(final String trailId) {
+    log.t("Setting favorite Trail: $trailId, for user: ${state?.id}");
+    if (state == null) {
+      log.w("AppUser is null, cannot set favorite POI");
+      return;
+    }
+
+    final newFavoriteTrailIds = List<String>.from(state!.favoriteTrailIds);
+    if (newFavoriteTrailIds.contains(trailId)) {
+      newFavoriteTrailIds.remove(trailId);
+    } else {
+      newFavoriteTrailIds.add(trailId);
+    }
+
+    state = state!.copyWith(favoriteTrailIds: newFavoriteTrailIds);
+
+    appUserCollection.doc(state!.id).update(state!.toJson());
   }
 }
