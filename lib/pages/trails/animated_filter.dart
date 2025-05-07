@@ -88,7 +88,7 @@ class TrailFlagsToggleRow extends ConsumerWidget {
             return IconButton(
               icon: flag.icon,
               onPressed: () {
-                final List<TrailFlags> updatedFlags = List.from(selectedFlags);
+                final Set<TrailFlags> updatedFlags = Set<TrailFlags>.from(selectedFlags);
                 if (isSelected) {
                   updatedFlags.remove(flag);
                 } else {

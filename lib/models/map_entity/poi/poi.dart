@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi_flags.dart';
 import 'package:spacirtrasa/utils/converters.dart';
 
 part '../../generated/map_entity/poi/poi.freezed.dart';
 part '../../generated/map_entity/poi/poi.g.dart';
-
-enum PoiFlags { monument, nature, food, transportation }
 
 @freezed
 abstract class Poi extends MapEntity with _$Poi {

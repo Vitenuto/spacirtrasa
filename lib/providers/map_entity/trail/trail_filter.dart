@@ -13,26 +13,17 @@ class TrailFilterProvider extends _$TrailFilterProvider {
   TrailFilter build() {
     log.t("Building TrailFilter provider...");
     return TrailFilter(
-      flags: List.empty(),
+      flags: {},
       bounds: (double.negativeInfinity, double.infinity),
       searchText: "",
     );
   }
 
-  void setFilter({(double, double)? bounds, String? searchText, List<TrailFlags>? flags}) {
+  void setFilter({(double, double)? bounds, String? searchText, Set<TrailFlags>? flags}) {
     state = state.copyWith(
       bounds: bounds ?? state.bounds,
       searchText: searchText ?? state.searchText,
       flags: flags ?? state.flags,
-    );
-  }
-
-  void clearFilter() {
-    log.t("Clearing TrailFilter");
-    state = TrailFilter(
-      flags: List.empty(),
-      bounds: (double.negativeInfinity, double.infinity),
-      searchText: "",
     );
   }
 }
