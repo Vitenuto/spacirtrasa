@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/pages/home/snap_list.dart';
+import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 
 class PoiTile extends ConsumerWidget {
@@ -14,26 +15,32 @@ class PoiTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      height: itemHeight * 2,
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(vertical: itemPadding),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        spacing: 4,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Title(poiWithDistance), Description(poiWithDistance.poi.markdownLessData)],
+    return InkWell(
+      onTap: () => showPoiDetail(context, poiWithDistance.poi),
+      child: Container(
+        height: itemHeight * 2,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(vertical: itemPadding),
+        decoration: BoxDecoration(
+          color: colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          spacing: 4,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Title(poiWithDistance),
+                  Description(poiWithDistance.poi.markdownLessData),
+                ],
+              ),
             ),
-          ),
-          AnimatedImage(poiWithDistance.poi.imgUrl),
-        ],
+            AnimatedImage(poiWithDistance.poi.imgUrl),
+          ],
+        ),
       ),
     );
   }

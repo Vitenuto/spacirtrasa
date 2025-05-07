@@ -10,6 +10,7 @@ class SelectedPoiProvider extends _$SelectedPoiProvider {
 
   @override
   Poi? build() {
+    ref.keepAlive();
     log.t("Building SelectedPoi provider...");
     return null;
   }

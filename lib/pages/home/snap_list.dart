@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/pages/home/animated_poi_tile.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
@@ -31,13 +32,18 @@ class _SnapListState extends ConsumerState<SnapList> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.addListener(_setSelected);
-      _scrollController.position.isScrollingNotifier.addListener(_handleSnap);
+      _scrollController.position.isScrollingNotifier.addListener(() => _handleSnap(ref.read(selectedPoiProvider)));
+      final initialSelected = ref.read(selectedPoiProvider);
+      _handleSnap(initialSelected);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     _poisWithDistance = ref.watch(sortedPoiProvider);
+    if (!widget.isExpanded) {
+      ref.listen(selectedPoiProvider, ((_, selectedPoi) => _handleSnap(selectedPoi)));
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
@@ -80,13 +86,15 @@ class _SnapListState extends ConsumerState<SnapList> {
     ref.read(selectedPoiProvider.notifier).setSelected(_poisWithDistance[index - 1].poi);
   }
 
-  Future<void> _handleSnap() async {
-    if (widget.isExpanded || _scrollController.position.isScrollingNotifier.value) return;
+  Future<void> _handleSnap(Poi? selectedPoi) async {
+    if (_scrollController.position.isScrollingNotifier.value) return;
+    log.d('Snapping to POI: ${selectedPoi?.title}');
 
-    final selectedPoi = ref.watch(selectedPoiProvider);
     if (selectedPoi == null) return;
 
-    final poiIndex = _poisWithDistance.indexWhere((poiWithDistance) => poiWithDistance.poi.id == selectedPoi.id);
+    final poiIndex = _poisWithDistance.indexWhere(
+      (poiWithDistance) => poiWithDistance.poi.id == selectedPoi.id,
+    );
     final elementIndex = poiIndex + 1;
     final snappedOffset = (elementIndex * _fullItemHeight).clamp(
       0.0,

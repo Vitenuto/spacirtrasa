@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/pages/home/snap_list.dart';
+import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 
@@ -15,42 +16,46 @@ class AnimatedPoiTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isHighlighted = !isExpanded && ref.watch(selectedPoiProvider)?.id == poiWithDistance.poi.id;
+    final isHighlighted =
+        !isExpanded && ref.watch(selectedPoiProvider)?.id == poiWithDistance.poi.id;
 
-    return AnimatedContainer(
-      duration: kThemeAnimationDuration,
-      height: isExpanded ? itemHeight * 2 : itemHeight,
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(vertical: itemPadding),
-      decoration: BoxDecoration(
-        color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          if (isHighlighted)
-            BoxShadow(
-              color: colorScheme.primary.withValues(alpha: 0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+    return InkWell(
+      onTap: () => showPoiDetail(context, poiWithDistance.poi),
+      child: AnimatedContainer(
+        duration: kThemeAnimationDuration,
+        height: isExpanded ? itemHeight * 2 : itemHeight,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(vertical: itemPadding),
+        decoration: BoxDecoration(
+          color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            if (isHighlighted)
+              BoxShadow(
+                color: colorScheme.primary.withValues(alpha: 0.3),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+          ],
+        ),
+        child: Row(
+          spacing: 4,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedTitle(isExpanded: isExpanded, poiWithDistance: poiWithDistance),
+                  AnimatedDescription(
+                    isExpanded: isExpanded,
+                    data: poiWithDistance.poi.markdownLessData,
+                  ),
+                ],
+              ),
             ),
-        ],
-      ),
-      child: Row(
-        spacing: 4,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedTitle(isExpanded: isExpanded, poiWithDistance: poiWithDistance),
-                AnimatedDescription(
-                  isExpanded: isExpanded,
-                  data: poiWithDistance.poi.markdownLessData,
-                ),
-              ],
-            ),
-          ),
-          AnimatedImage(isExpanded: isExpanded, imgUrl: poiWithDistance.poi.imgUrl),
-        ],
+            AnimatedImage(isExpanded: isExpanded, imgUrl: poiWithDistance.poi.imgUrl),
+          ],
+        ),
       ),
     );
   }
@@ -84,7 +89,9 @@ class AnimatedTitle extends ConsumerWidget {
             ),
             child: Text(poiWithDistance.poi.title),
           ),
-          userPosition != null ? Text(' (${poiWithDistance.distance.toStringAsFixed(0)} m)') : SizedBox.shrink(),
+          userPosition != null
+              ? Text(' (${poiWithDistance.distance.toStringAsFixed(0)} m)')
+              : SizedBox.shrink(),
         ],
       ),
     );

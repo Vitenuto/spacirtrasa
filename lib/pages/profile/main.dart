@@ -19,6 +19,7 @@ import 'package:spacirtrasa/providers/note.dart';
 import 'package:spacirtrasa/services/auth.dart';
 import 'package:spacirtrasa/services/map_entity/poi.dart';
 import 'package:spacirtrasa/services/map_entity/trail.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/async_button_handler.dart';
 
 import 'manage_entities.dart';
@@ -85,31 +86,31 @@ class ProfilePage extends ConsumerWidget {
         spacing: 8,
         children: [
           SizedBox(width: 256),
-          _bodyButton("profile.my-favorites".tr(), () => _showFullDialog(context, ListScreen<MapEntity>(
+          _buildBodyButton("profile.my-favorites".tr(), () => showFullDialog(context, ListScreen<MapEntity>(
             title: "profile.my-favorites".tr(),
             provider: favoriteMapEntityProvider,
             itemBuilder: (context, mapEntity) => FavoriteTile(mapEntity: mapEntity),
           ))),
-          _bodyButton("profile.my-notes".tr(), () => _showFullDialog(context, ListScreen<Note>(
+          _buildBodyButton("profile.my-notes".tr(), () => showFullDialog(context, ListScreen<Note>(
             title: "profile.my-notes".tr(),
             provider: noteProvider,
-            itemBuilder: (context, note) => NoteTile(note: note, ref: ref),
+            itemBuilder: (context, note) => NoteTile(note: note),
           ))),
-          _bodyButton("profile.my-completed-trails".tr(), () => _showFullDialog(context, ListScreen<FinishedTrail>(
+          _buildBodyButton("profile.my-completed-trails".tr(), () => showFullDialog(context, ListScreen<FinishedTrail>(
             title: "profile.my-completed-trails".tr(),
             provider: finishedTrailsProvider,
-            itemBuilder: (context, finishedTrail) => FinishedTrailTile(finishedTrail: finishedTrail, ref: ref),
+            itemBuilder: (context, finishedTrail) => FinishedTrailTile(finishedTrail: finishedTrail),
           ))),
           if (user.isAdmin) ...[
             Text("profile.admin-section".tr(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
-            _bodyButton(
+            _buildBodyButton(
               "profile.manage-poi".tr(),
-              () => _showFullDialog(context, ManageEntities<Poi>(PoiService(), poiProvider)),
+              () => showFullDialog(context, ManageEntities<Poi>(PoiService(), poiProvider)),
             ),
-            _bodyButton(
+            _buildBodyButton(
               "profile.manage-trails".tr(),
-              () => _showFullDialog(context, ManageEntities<Trail>(TrailService(), trailProvider)),
+              () => showFullDialog(context, ManageEntities<Trail>(TrailService(), trailProvider)),
             ),
           ],
         ],
@@ -117,11 +118,7 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Future<String?> _showFullDialog(BuildContext context, final Widget child) {
-    return showDialog<String>(context: context, builder: (BuildContext context) => Dialog.fullscreen(child: child));
-  }
-
-  OutlinedButton _bodyButton(final String text, final VoidCallback onPressed) => OutlinedButton(
+  OutlinedButton _buildBodyButton(final String text, final VoidCallback onPressed) => OutlinedButton(
     style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 42)),
     onPressed: onPressed,
     child: Text(text),

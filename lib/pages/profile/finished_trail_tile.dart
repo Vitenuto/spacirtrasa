@@ -4,19 +4,16 @@ import 'package:spacirtrasa/models/map_entity/trail/finished_trail.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 
-class FinishedTrailTile extends ListTile {
+class FinishedTrailTile extends ConsumerWidget {
   final FinishedTrail finishedTrail;
-  final WidgetRef ref;
 
-  const FinishedTrailTile({super.key, required this.finishedTrail, required this.ref});
+  const FinishedTrailTile({super.key, required this.finishedTrail});
 
   @override
-  ListTile build(BuildContext context) {
+  ListTile build(BuildContext context, WidgetRef ref) {
     Trail? trail;
     final trails = ref.watch(trailProvider);
-    trail = trails
-        .where((trail) => trail.id == finishedTrail.trailId)
-        .firstOrNull;
+    trail = trails.where((trail) => trail.id == finishedTrail.trailId).firstOrNull;
 
     return ListTile(
       title: Text(trail?.title ?? "Object does not exists anymore"),
