@@ -16,6 +16,10 @@ class $AssetsImagesGen {
   AssetGenImage get appLogo =>
       const AssetGenImage('assets/images/app_logo.png');
 
+  /// File path: assets/images/logo_vesnice_roku.png
+  AssetGenImage get logoVesniceRoku =>
+      const AssetGenImage('assets/images/logo_vesnice_roku.png');
+
   /// File path: assets/images/mapy_logo.png
   AssetGenImage get mapyLogo =>
       const AssetGenImage('assets/images/mapy_logo.png');
@@ -25,7 +29,12 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/poi_placeholder.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo, mapyLogo, poiPlaceholder];
+  List<AssetGenImage> get values => [
+    appLogo,
+    logoVesniceRoku,
+    mapyLogo,
+    poiPlaceholder,
+  ];
 }
 
 class $AssetsTranslationsGen {
