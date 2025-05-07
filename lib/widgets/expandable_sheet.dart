@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:spacirtrasa/providers/expanded.dart';
 
-class ExpandableSheet extends ConsumerStatefulWidget {
+class ExpandableSheet extends ConsumerWidget {
   final Widget Function(bool) _childBuilder;
-
-  const ExpandableSheet(this._childBuilder, {super.key});
-
-  @override
-  ConsumerState<ExpandableSheet> createState() => _ExpandableSheetState();
-}
-
-class _ExpandableSheetState extends ConsumerState<ExpandableSheet> {
   final log = Logger();
   final shrinkedSize = 0.3;
 
-  bool isExpanded = false;
+  ExpandableSheet(this._childBuilder, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isExpanded = ref.watch(expandedProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -48,13 +42,13 @@ class _ExpandableSheetState extends ConsumerState<ExpandableSheet> {
                             ? const BorderRadius.all(Radius.zero)
                             : const BorderRadius.vertical(top: Radius.circular(16)),
                   ),
-                  child: widget._childBuilder(isExpanded),
+                  child: _childBuilder(isExpanded),
                 ),
               ),
             ],
           ),
 
-          ExpandButton(isExpanded, onTap: () => setState(() => isExpanded = !isExpanded)),
+          ExpandButton(isExpanded, onTap: () => ref.read(expandedProvider.notifier).setExpanded(!isExpanded)),
         ],
       ),
     );

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
+import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 
 class FavoriteTile extends ConsumerWidget {
   final MapEntity mapEntity;
@@ -16,7 +18,7 @@ class FavoriteTile extends ConsumerWidget {
     if (mapEntity is Poi) {
       openDetail = () => showPoiDetail(context, mapEntity as Poi);
     } else {
-
+      openDetail = () => showTrailDetail(context, mapEntity as Trail);
     }
 
     return ListTile(

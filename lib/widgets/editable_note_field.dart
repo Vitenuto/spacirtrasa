@@ -38,38 +38,41 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade400),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Vlastní poznámky:',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 8),
-          TextField(
-            controller: _controller,
-            minLines: 3,
-            maxLines: null,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Sem napište své poznámky...',
-              isDense: true,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade400),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Vlastní poznámky:',
+              style: Theme.of(context).textTheme.titleMedium,
             ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: ElevatedButton(
-              onPressed: _submitNote,
-              child: const Text('Uložit'),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _controller,
+              minLines: 3,
+              maxLines: null,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Sem napište své poznámky...',
+                isDense: true,
+              ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: _submitNote,
+                child: const Text('Uložit'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

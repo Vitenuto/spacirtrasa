@@ -10,6 +10,7 @@ class SelectedTrailProvider extends _$SelectedTrailProvider {
 
   @override
   Trail? build() {
+    ref.keepAlive();
     log.t("Building SelectedTrail provider...");
     return null;
   }
