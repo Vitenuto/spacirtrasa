@@ -17,22 +17,20 @@ class FilteredTrailProvider extends _$FilteredTrailProvider {
     final filter = ref.watch(trailFilterProvider);
 
     return trails.where((trailWithLength) {
-      if (filter.searchText != null && filter.searchText!.isNotEmpty) {
-        final searchText = filter.searchText!.toLowerCase();
+      if (filter.searchText.isNotEmpty) {
+        final searchText = filter.searchText.toLowerCase();
         if (!trailWithLength.trail.title.toLowerCase().contains(searchText)) {
           return false;
         }
       }
 
-      if (filter.bounds != null) {
-        if (trailWithLength.length < filter.bounds!.$1 ||
-            trailWithLength.length > filter.bounds!.$2) {
-          return false;
-        }
+      if (trailWithLength.length < filter.bounds.$1 ||
+          trailWithLength.length > filter.bounds.$2) {
+        return false;
       }
 
       final requiredFlags = filter.flags;
-      if (requiredFlags != null && requiredFlags.isNotEmpty) {
+      if (requiredFlags.isNotEmpty) {
         final trailFlags = trailWithLength.trail.flags;
         if (!requiredFlags.every((requiredFlag) => trailFlags.contains(requiredFlag))) {
           return false;

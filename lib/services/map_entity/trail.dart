@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpx/gpx.dart';
 import 'package:spacirtrasa/models/trail.dart';
+import 'package:spacirtrasa/models/trail_flags.dart';
 
 import 'map_entity.dart';
 

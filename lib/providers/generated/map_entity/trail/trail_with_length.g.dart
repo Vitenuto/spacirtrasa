@@ -1,30 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../map_entity/trail/sorted_trail.dart';
+part of '../../../map_entity/trail/trail_with_length.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sortedTrailProviderHash() =>
-    r'521afebf5be0f6aac7346f5de10b83dfed4fd399';
+String _$trailWithLengthProviderHash() =>
+    r'6df6b0f74d3c86391e50a9118dac7e8f54043730';
 
-/// See also [SortedTrailProvider].
-@ProviderFor(SortedTrailProvider)
-final sortedTrailProvider = AutoDisposeNotifierProvider<
-  SortedTrailProvider,
+/// See also [TrailWithLengthProvider].
+@ProviderFor(TrailWithLengthProvider)
+final trailWithLengthProvider = AutoDisposeNotifierProvider<
+  TrailWithLengthProvider,
   List<TrailWithLength>
 >.internal(
-  SortedTrailProvider.new,
-  name: r'sortedTrailProvider',
+  TrailWithLengthProvider.new,
+  name: r'trailWithLengthProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$sortedTrailProviderHash,
+          : _$trailWithLengthProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SortedTrailProvider = AutoDisposeNotifier<List<TrailWithLength>>;
+typedef _$TrailWithLengthProvider = AutoDisposeNotifier<List<TrailWithLength>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
