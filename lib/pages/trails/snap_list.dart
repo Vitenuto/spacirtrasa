@@ -41,33 +41,42 @@ class _SnapListState extends ConsumerState<SnapList> {
 
   @override
   Widget build(BuildContext context) {
-    trailsWithLength = ref.watch(sortedTrailProvider);
+    trailsWithLength = ref.watch(filteredTrailProvider);
 
     return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: ListView.builder(
-        cacheExtent: _fullItemHeight * 15,
-        controller: _scrollController,
-        padding: EdgeInsets.all(8),
-        itemCount: trailsWithLength.length + 2,
-        // +2 for the title and spacer
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return AnimatedContainer(
-              duration: kThemeAnimationDuration,
-              curve: Curves.easeInOut,
-              alignment: Alignment.center,
-              height: widget.isExpanded ? 0 : _itemHeight,
-              child: Text('Stiskem připnete:', style: Theme.of(context).textTheme.titleMedium),
-            );
-          } else if (index == trailsWithLength.length + 1) {
-            // Spacer to allow last item to reach top
-            return SizedBox(height: _fullItemHeight * 3);
-          }
+      padding: const EdgeInsets.all(8).copyWith(top: 4.0),
+      child: Column(
+        children: [
+          AnimatedFilter(widget.isExpanded),
+          Expanded(
+            child: ListView.builder(
+              cacheExtent: _fullItemHeight * 15,
+              controller: _scrollController,
+              itemCount: trailsWithLength.length + 2,
+              // +2 for the title and spacer
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return AnimatedContainer(
+                    duration: kThemeAnimationDuration,
+                    curve: Curves.easeInOut,
+                    alignment: Alignment.center,
+                    height: widget.isExpanded ? 0 : _itemHeight,
+                    child: Text(
+                      'Stiskem připnete:',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  );
+                } else if (index == trailsWithLength.length + 1) {
+                  // Spacer to allow last item to reach top
+                  return SizedBox(height: _fullItemHeight * 3);
+                }
 
-          final trailWithLength = trailsWithLength[index - 1];
-          return TrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
-        },
+                final trailWithLength = trailsWithLength[index - 1];
+                return TrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -91,7 +100,7 @@ class _SnapListState extends ConsumerState<SnapList> {
     if (selectedTrail == null) return;
 
     final trailIndex = trailsWithLength.indexWhere(
-      (trailWithLength) => trailWithLength.trail.id == selectedTrail.id
+      (trailWithLength) => trailWithLength.trail.id == selectedTrail.id,
     );
     final elementIndex = trailIndex + 1;
     final snappedOffset = (elementIndex * _fullItemHeight).clamp(
@@ -157,7 +166,11 @@ class TrailTile extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedTitle(isExpanded),
+                  AnimatedTitle(
+                    isExpanded,
+                    trailWithLength.trail.title,
+                    subtitle: ' (${(trailWithLength.length / 1000).toStringAsFixed(2)} km)',
+                  ),
                   AnimatedDescription(
                     isExpanded: isExpanded,
                     data: trailWithLength.trail.markdownLessData,

@@ -1,61 +1,114 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_xlider/flutter_xlider.dart';
-import 'package:spacirtrasa/models/trail_with_length.dart';
+import 'package:spacirtrasa/models/trail_flags.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_filter.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/trail_length_bounds.dart';
 
-class AnimatedFilter extends ConsumerWidget {
+class AnimatedFilter extends ConsumerStatefulWidget {
   final bool isExpanded;
-  final List<TrailWithLength> trailsWithLength;
 
-  const AnimatedFilter(this.isExpanded, this.trailsWithLength, {super.key});
+  const AnimatedFilter(this.isExpanded, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final minLength = _getMinLength();
-    final maxLength = _getMaxLength();
+  ConsumerState<AnimatedFilter> createState() => _AnimatedFilterState();
+}
+
+class _AnimatedFilterState extends ConsumerState<AnimatedFilter> {
+  RangeValues? _rangeValues;
+
+  @override
+  Widget build(BuildContext context) {
+    final lengthBounds = ref.watch(trailLengthBoundsProvider);
+    if (lengthBounds != null) {
+      _rangeValues ??= RangeValues(lengthBounds.$1, lengthBounds.$2);
+    }
 
     return AnimatedSwitcher(
       duration: kThemeAnimationDuration,
       child:
-          isExpanded
+          widget.isExpanded && lengthBounds != null
               ? Column(
                 children: [
+                  SizedBox(height: 16),
                   TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: "Jméno trasy...",
+                    ),
                     onChanged:
                         (text) =>
                             ref.read(trailFilterProvider.notifier).setFilter(searchText: text),
                   ),
-                  FlutterSlider(
-                    tooltip: FlutterSliderTooltip(),
-                    values: [minLength, maxLength],
-                    handlerWidth: 25,
-                    handlerHeight: 25,
-                    rangeSlider: true,
-                    max: maxLength,
-                    min: minLength,
-                    onDragCompleted:
-                        (handlerIndex, lowerValue, upperValue) => ref
-                            .read(trailFilterProvider.notifier)
-                            .setFilter(bounds: (lowerValue, upperValue)),
+                  RangeSlider(
+                    min: lengthBounds.$1,
+                    max: lengthBounds.$2,
+                    values: _rangeValues!,
+                    onChanged: (RangeValues newValues) {
+                      ref
+                          .read(trailFilterProvider.notifier)
+                          .setFilter(bounds: (newValues.start, newValues.end));
+                      setState(() {
+                        _rangeValues = newValues;
+                      });
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        Text("${(_rangeValues!.start / 1000).toStringAsFixed(2)} km"),
+                        const Spacer(),
+                        TrailFlagsToggleRow(),
+                        const Spacer(),
+                        Text("${(_rangeValues!.end / 1000).toStringAsFixed(2)} km"),
+                      ],
+                    ),
                   ),
                 ],
               )
               : const SizedBox.shrink(),
     );
   }
+}
 
-  double _getMaxLength() {
-    if (trailsWithLength.isEmpty) return 0;
-    return trailsWithLength
-        .map((trailWithLength) => trailWithLength.length)
-        .reduce((a, b) => a > b ? a : b);
-  }
+class TrailFlagsToggleRow extends ConsumerWidget {
+  const TrailFlagsToggleRow({super.key});
 
-  double _getMinLength() {
-    if (trailsWithLength.isEmpty) return 0;
-    return trailsWithLength
-        .map((trailWithLength) => trailWithLength.length)
-        .reduce((a, b) => a < b ? a : b);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFlags = ref.watch(trailFilterProvider).flags;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Row(
+      children:
+          TrailFlags.values.map((flag) {
+            final isSelected = selectedFlags.contains(flag);
+
+            return IconButton(
+              icon: flag.icon,
+              onPressed: () {
+                final List<TrailFlags> updatedFlags = List.from(selectedFlags);
+                if (isSelected) {
+                  updatedFlags.remove(flag);
+                } else {
+                  updatedFlags.add(flag);
+                }
+                ref.read(trailFilterProvider.notifier).setFilter(flags: updatedFlags);
+              },
+              color: isSelected ? colorScheme.primary : null,
+              style: IconButton.styleFrom(
+                backgroundColor: isSelected ? colorScheme.primary.withValues(alpha: 0.1) : null,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side:
+                      isSelected
+                          ? BorderSide(color: colorScheme.primary, width: 1)
+                          : BorderSide.none,
+                ),
+              ),
+            );
+          }).toList(),
+    );
   }
 }
