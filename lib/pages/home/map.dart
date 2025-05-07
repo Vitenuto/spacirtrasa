@@ -40,6 +40,14 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     ref.listen(positionPermissionStatusProvider, _onPermissionChanged);
+    ref.listen(selectedPoiProvider, (_, selectedPoi) {
+      if (selectedPoi != null) {
+        _animatedMapController.animateTo(
+          duration: Duration(milliseconds: 2000),
+          dest: LatLng(selectedPoi.location.latitude, selectedPoi.location.longitude),
+        );
+      }
+    });
 
     return MapSkeleton(
       animatedMapController: _animatedMapController,
@@ -96,7 +104,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
       return;
     }
 
-    log.i("Moving camera to current user's position, after location would be ready");
+    log.d("Moving camera to current user's position, after location would be ready");
     _onPositionChangedSub = ref.listenManual(positionProvider, (previous, next) {
       if (next != null) {
         _animatedMapController.animateTo(

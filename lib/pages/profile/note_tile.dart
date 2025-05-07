@@ -1,32 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/note.dart';
+import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 
-class NoteTile extends ListTile {
+class NoteTile extends ConsumerWidget {
+  static final log = Logger();
   final Note note;
-  final WidgetRef ref;
 
-  const NoteTile({super.key, required this.note, required this.ref});
+  const NoteTile({super.key, required this.note});
 
   @override
-  ListTile build(BuildContext context) {
-    MapEntity? mapEntity;
+  ListTile build(BuildContext context, WidgetRef ref) {
+    String? title;
+    VoidCallback? openDetail;
+    Icon? icon;
     if (note.type == MapEntityType.poi) {
       final pois = ref.watch(poiProvider);
-      mapEntity = pois.where((poi) => poi.id == note.mapEntityId).firstOrNull;
+      final poi = pois.where((poi) => poi.id == note.mapEntityId).firstOrNull;
+      title = poi?.title;
+      if (poi != null) {
+        openDetail = () => showPoiDetail(context, poi);
+        icon = poi.icon;
+      }
     } else {
       final trails = ref.watch(trailProvider);
-      mapEntity = trails.where((trail) => trail.id == note.mapEntityId).firstOrNull;
+      final trail = trails.where((trail) => trail.id == note.mapEntityId).firstOrNull;
+      title = trail?.title;
+      if (trail != null) {
+        // openDetail = () => showTrailDetail(context, trail);
+        icon = trail.icon;
+      }
     }
 
     return ListTile(
       style: ListTileStyle.list,
-      title: Text(mapEntity?.title ?? "Object does not exists anymore"),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [Text(title ?? "Object does not exists anymore"), if (icon != null) icon],
+      ),
       subtitle: Text(note.text),
-      // onTap: () => , TODO: open details page
+      onTap: openDetail,
     );
   }
 }

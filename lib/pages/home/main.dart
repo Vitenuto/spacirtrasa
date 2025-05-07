@@ -5,7 +5,7 @@ import 'package:spacirtrasa/pages/home/snap_list.dart';
 import 'package:spacirtrasa/widgets/expandable_sheet.dart';
 
 class HomePage extends ConsumerWidget {
-  static const route = "/";
+  static const route = "/home";
 
   const HomePage({super.key});
 

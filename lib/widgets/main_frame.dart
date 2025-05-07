@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/pois/main.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
@@ -9,10 +10,9 @@ import 'package:spacirtrasa/pages/village.dart';
 
 class MainFrame extends StatefulWidget {
   final String location;
+  final Widget child;
 
   const MainFrame({super.key, required this.child, required this.location});
-
-  final Widget child;
 
   @override
   State<MainFrame> createState() => _MainFrameState();
@@ -20,6 +20,7 @@ class MainFrame extends StatefulWidget {
 
 class _MainFrameState extends State<MainFrame> {
   int _currentIndex = 0;
+  final log = Logger();
 
   static List<MyCustomBottomNavBarItem> tabs = [
     MyCustomBottomNavBarItem(
@@ -55,6 +56,15 @@ class _MainFrameState extends State<MainFrame> {
   ];
 
   @override
+  void didUpdateWidget(covariant MainFrame oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.location != widget.location) {
+      setState(() => _currentIndex = _calculateIndex());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     const labelStyle = TextStyle(fontFamily: 'Roboto');
     return Scaffold(
@@ -70,19 +80,22 @@ class _MainFrameState extends State<MainFrame> {
         onTap: (int index) {
           _goOtherTab(context, index);
         },
-        currentIndex:
-        widget.location == HomePage.route
-            ? 0
-            : widget.location == TrailsPage.route
-            ? 1
-            : widget.location == PoisPage.route
-            ? 2
-            : widget.location == VillagePage.route
-            ? 3
-            : 4,
+        currentIndex: _calculateIndex(),
         items: tabs,
       ),
     );
+  }
+
+  int _calculateIndex() {
+    return widget.location == HomePage.route
+        ? 0
+        : widget.location == TrailsPage.route
+        ? 1
+        : widget.location == PoisPage.route
+        ? 2
+        : widget.location == VillagePage.route
+        ? 3
+        : 4;
   }
 
   void _goOtherTab(BuildContext context, int index) {

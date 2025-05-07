@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/app_user.dart';
-import 'package:spacirtrasa/providers/app_user.dart';
+import 'package:spacirtrasa/services/app_user.dart';
 
 class AuthService {
   static final log = Logger();
@@ -56,7 +56,7 @@ class AuthService {
   }
 
   static Future<void> _createAppUserIfNeeded(final String userId) async {
-    final appUser = (await AppUserProvider.appUserCollection.doc(userId).get()).data();
+    final appUser = (await appUserCollection.doc(userId).get()).data();
     if (appUser == null) {
       final newUser = AppUser(id: userId,
           isAdmin: false,
@@ -64,7 +64,7 @@ class AuthService {
           favoriteTrailIds: [],
           finishedTrails: [],
           notes: []);
-      await AppUserProvider.appUserCollection.doc(userId).set(newUser);
+      await appUserCollection.doc(userId).set(newUser);
       log.t("New user '$newUser' is successfully created");
     }
   }
