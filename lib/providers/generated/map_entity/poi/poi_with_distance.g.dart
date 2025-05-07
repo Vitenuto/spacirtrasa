@@ -1,29 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../map_entity/poi/sorted_poi.dart';
+part of '../../../map_entity/poi/poi_with_distance.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sortedPoiProviderHash() => r'b18535169c6c6698b9b8a814eae95b96e4e059a4';
+String _$poiWithDistanceProviderHash() =>
+    r'8c512a6d87f3a0ef419002c2eec1bcd323280586';
 
-/// See also [SortedPoiProvider].
-@ProviderFor(SortedPoiProvider)
-final sortedPoiProvider = AutoDisposeNotifierProvider<
-  SortedPoiProvider,
+/// See also [PoiWithDistanceProvider].
+@ProviderFor(PoiWithDistanceProvider)
+final poiWithDistanceProvider = AutoDisposeNotifierProvider<
+  PoiWithDistanceProvider,
   List<PoiWithDistance>
 >.internal(
-  SortedPoiProvider.new,
-  name: r'sortedPoiProvider',
+  PoiWithDistanceProvider.new,
+  name: r'poiWithDistanceProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$sortedPoiProviderHash,
+          : _$poiWithDistanceProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SortedPoiProvider = AutoDisposeNotifier<List<PoiWithDistance>>;
+typedef _$PoiWithDistanceProvider = AutoDisposeNotifier<List<PoiWithDistance>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
