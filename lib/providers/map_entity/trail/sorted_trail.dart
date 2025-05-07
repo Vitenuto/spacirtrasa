@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:spacirtrasa/models/trail.dart';
+import 'package:spacirtrasa/models/trail_with_length.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/utils/converters.dart';
 
@@ -15,23 +15,7 @@ class SortedTrailProvider extends _$SortedTrailProvider {
     log.t("Building SortedTrail provider...");
     final trails = ref.watch(trailProvider);
 
-    return trails.map((trail) {
-      var trailWithLength = TrailWithLength(trail, trail.path.toLength());
-      log.i("Trail: ${trail.title}, length: ${trailWithLength.length}");
-      return trailWithLength;
-    }).toList()
+    return trails.map((trail) => TrailWithLength(trail, trail.path.toLength())).toList()
       ..sort((a, b) => a.length.compareTo(b.length));
-  }
-}
-
-class TrailWithLength {
-  final Trail trail;
-  final double length;
-
-  TrailWithLength(this.trail, this.length);
-
-  @override
-  String toString() {
-    return 'TrailWithLength{trail: $trail, distance: $length}';
   }
 }

@@ -7,7 +7,7 @@ part of '../../../map_entity/trail/sorted_trail.dart';
 // **************************************************************************
 
 String _$sortedTrailProviderHash() =>
-    r'15839f41ad0504f0b6f87e4f0de8a8e184dd4371';
+    r'044466a23f764c252ed19259f8087c560ee21a2d';
 
 /// See also [SortedTrailProvider].
 @ProviderFor(SortedTrailProvider)

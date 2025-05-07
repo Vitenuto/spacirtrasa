@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:spacirtrasa/models/poi.dart';
+import 'package:spacirtrasa/models/poi_with_distance.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/utils/constants.dart';
@@ -29,17 +29,5 @@ class SortedPoiProvider extends _$SortedPoiProvider {
         return PoiWithDistance(poi, distance);
       }).toList()
       ..sort((a, b) => a.distance.compareTo(b.distance));
-  }
-}
-
-class PoiWithDistance {
-  final Poi poi;
-  final double distance;
-
-  PoiWithDistance(this.poi, this.distance);
-
-  @override
-  String toString() {
-    return 'PoiWithDistance{poi: $poi, distance: $distance}';
   }
 }
