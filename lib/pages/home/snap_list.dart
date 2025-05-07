@@ -55,7 +55,7 @@ class _SnapListState extends ConsumerState<SnapList> {
               curve: Curves.easeInOut,
               alignment: Alignment.center,
               height: widget.isExpanded ? 0 : _itemHeight,
-              child: Text('Interests around:', style: Theme.of(context).textTheme.titleMedium),
+              child: Text('Zajímavosti kolem:', style: Theme.of(context).textTheme.titleMedium),
             );
           } else if (index == _poisWithDistance.length + 1) {
             // Spacer to allow last item to reach top
