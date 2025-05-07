@@ -1,4 +1,4 @@
-import 'package:spacirtrasa/models/poi.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 
 class PoiWithDistance {
   final Poi poi;

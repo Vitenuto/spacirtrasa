@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../finished_trail.dart';
+part of '../../../map_entity/trail/finished_trail.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

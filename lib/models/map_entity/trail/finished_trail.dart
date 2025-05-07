@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spacirtrasa/utils/converters.dart';
 
-import '../utils/converters.dart';
-
-part 'generated/finished_trail.freezed.dart';
-part 'generated/finished_trail.g.dart';
+part '../../generated/map_entity/trail/finished_trail.freezed.dart';
+part '../../generated/map_entity/trail/finished_trail.g.dart';
 
 @freezed
 abstract class FinishedTrail with _$FinishedTrail {

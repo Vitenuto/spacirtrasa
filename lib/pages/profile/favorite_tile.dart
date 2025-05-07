@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../models/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 
 class FavoriteTile extends ListTile {
   final MapEntity mapEntity;

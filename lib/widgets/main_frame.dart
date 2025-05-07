@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
-import 'package:spacirtrasa/pages/pois/pois.dart';
+import 'package:spacirtrasa/pages/pois/main.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
 import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/pages/village.dart';

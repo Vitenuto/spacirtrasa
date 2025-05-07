@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/models/finished_trail.dart';
-import 'package:spacirtrasa/models/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
+import 'package:spacirtrasa/models/map_entity/trail/finished_trail.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/note.dart';
-import 'package:spacirtrasa/models/poi.dart';
-import 'package:spacirtrasa/models/trail.dart';
 import 'package:spacirtrasa/pages/profile/favorite_tile.dart';
 import 'package:spacirtrasa/pages/profile/finished_trail_tile.dart';
 import 'package:spacirtrasa/pages/profile/list_screen.dart';

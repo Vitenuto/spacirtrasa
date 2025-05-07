@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:spacirtrasa/models/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';

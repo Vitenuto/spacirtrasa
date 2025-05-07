@@ -1,7 +1,7 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:spacirtrasa/models/trail_filter.dart';
-import 'package:spacirtrasa/models/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_filter.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
 
 part '../../generated/map_entity/trail/trail_filter.g.dart';
 

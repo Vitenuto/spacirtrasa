@@ -5,8 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpx/gpx.dart';
-import 'package:spacirtrasa/models/trail.dart';
-import 'package:spacirtrasa/models/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
 
 import 'map_entity.dart';
 

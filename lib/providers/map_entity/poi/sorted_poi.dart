@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:spacirtrasa/models/poi_with_distance.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/utils/constants.dart';

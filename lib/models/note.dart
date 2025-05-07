@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 
 part 'generated/note.freezed.dart';
 part 'generated/note.g.dart';
