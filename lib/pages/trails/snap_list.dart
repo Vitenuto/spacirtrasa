@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/trail.dart';
+import 'package:spacirtrasa/models/trail_with_length.dart';
+import 'package:spacirtrasa/pages/trails/animated_description.dart';
+import 'package:spacirtrasa/pages/trails/animated_filter.dart';
+import 'package:spacirtrasa/pages/trails/animated_title.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
-import 'package:spacirtrasa/providers/map_entity/trail/sorted_trail.dart';
 
 const _itemHeight = 45.0;
 const _itemPadding = 4.0;
@@ -86,7 +90,9 @@ class _SnapListState extends ConsumerState<SnapList> {
     final selectedTrail = ref.watch(selectedTrailProvider);
     if (selectedTrail == null) return;
 
-    final trailIndex = trailsWithLength.indexWhere((trailWithLength) => trailWithLength.trail.id == selectedTrail.id);
+    final trailIndex = trailsWithLength.indexWhere(
+      (trailWithLength) => trailWithLength.trail.id == selectedTrail.id
+    );
     final elementIndex = trailIndex + 1;
     final snappedOffset = (elementIndex * _fullItemHeight).clamp(
       0.0,
@@ -117,9 +123,9 @@ class TrailTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isHighlighted = !isExpanded && ref.watch(selectedTrailProvider)?.id == trailWithLength.trail.id;
+    final isHighlighted =
+        !isExpanded && ref.watch(selectedTrailProvider)?.id == trailWithLength.trail.id;
     final isPinned = ref.watch(pinnedTrailProvider)?.id == trailWithLength.trail.id;
-
 
     return InkWell(
       onTap: () => onTrailClicked(trailWithLength.trail, ref),
@@ -131,9 +137,10 @@ class TrailTile extends ConsumerWidget {
         decoration: BoxDecoration(
           color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
-          border: isPinned
-              ? Border.all(color: colorScheme.primary, width: 2)
-              : Border.all(color: Colors.transparent, width: 2),
+          border:
+              isPinned
+                  ? Border.all(color: colorScheme.primary, width: 2)
+                  : Border.all(color: Colors.transparent, width: 2),
           boxShadow: [
             if (isHighlighted)
               BoxShadow(
@@ -150,7 +157,7 @@ class TrailTile extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedTitle(isExpanded: isExpanded, trailWithLength: trailWithLength),
+                  AnimatedTitle(isExpanded),
                   AnimatedDescription(
                     isExpanded: isExpanded,
                     data: trailWithLength.trail.markdownLessData,
@@ -167,63 +174,5 @@ class TrailTile extends ConsumerWidget {
   onTrailClicked(Trail trail, WidgetRef ref) {
     ref.read(pinnedTrailProvider.notifier).setPinned(trail);
     ref.read(selectedTrailProvider.notifier).setSelected(trail);
-  }
-}
-
-class AnimatedTitle extends ConsumerWidget {
-  const AnimatedTitle({super.key, required this.isExpanded, required this.trailWithLength});
-
-  final bool isExpanded;
-  final TrailWithLength trailWithLength;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return AnimatedAlign(
-      alignment: isExpanded ? Alignment.centerLeft : Alignment.center,
-      duration: kThemeAnimationDuration,
-      curve: Curves.easeInOut,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AnimatedDefaultTextStyle(
-            duration: kThemeAnimationDuration,
-            curve: Curves.easeInOut,
-            style: TextStyle(
-              color: colorScheme.onSurface,
-              fontSize: isExpanded ? 14 : 18,
-              fontWeight: isExpanded ? FontWeight.w500 : FontWeight.w400,
-            ),
-            child: Text(trailWithLength.trail.title),
-          ),
-          Text(' (${(trailWithLength.length / 1000).toStringAsFixed(2)} km)'),
-        ],
-      ),
-    );
-  }
-}
-
-class AnimatedDescription extends StatelessWidget {
-  final bool isExpanded;
-  final String data;
-
-  const AnimatedDescription({super.key, required this.isExpanded, required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: AnimatedCrossFade(
-        crossFadeState: isExpanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        duration: kThemeAnimationDuration,
-        firstChild: Text(
-          data,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 14, color: Colors.grey[800]),
-        ),
-        secondChild: SizedBox.shrink(),
-      ),
-    );
   }
 }
