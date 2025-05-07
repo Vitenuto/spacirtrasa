@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class InterestsPage extends StatelessWidget {
-  static const route = "/interests";
+class PoisPage extends StatelessWidget {
+  static const route = "/pois";
 
-  const InterestsPage({super.key});
+  const PoisPage({super.key});
 
   @override
   Widget build(BuildContext context) {

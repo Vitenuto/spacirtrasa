@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
-import 'package:spacirtrasa/pages/interests.dart';
+import 'package:spacirtrasa/pages/pois/pois.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
 import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/pages/village.dart';
@@ -37,8 +37,8 @@ class _MainFrameState extends State<MainFrame> {
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.interests_outlined),
       activeIcon: Icon(Icons.interests),
-      label: "navbar.interests".tr().toUpperCase(),
-      initialLocation: InterestsPage.route,
+      label: "navbar.pois".tr().toUpperCase(),
+      initialLocation: PoisPage.route,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(Icons.villa_outlined),
@@ -75,7 +75,7 @@ class _MainFrameState extends State<MainFrame> {
             ? 0
             : widget.location == TrailsPage.route
             ? 1
-            : widget.location == InterestsPage.route
+            : widget.location == PoisPage.route
             ? 2
             : widget.location == VillagePage.route
             ? 3

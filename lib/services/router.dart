@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
-import 'package:spacirtrasa/pages/interests.dart';
 import 'package:spacirtrasa/pages/login.dart';
+import 'package:spacirtrasa/pages/pois/pois.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
 import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/pages/village.dart';
@@ -45,9 +45,9 @@ class RouteService {
             pageBuilder: (context, state) => NoTransitionPage(child: TrailsPage()),
           ),
           GoRoute(
-            path: InterestsPage.route,
+            path: PoisPage.route,
             parentNavigatorKey: _shellNavKey,
-            pageBuilder: (context, state) => NoTransitionPage(child: InterestsPage()),
+            pageBuilder: (context, state) => NoTransitionPage(child: PoisPage()),
           ),
           GoRoute(
             path: VillagePage.route,
