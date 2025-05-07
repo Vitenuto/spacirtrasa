@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/models/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_filter.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_length_bounds.dart';
 

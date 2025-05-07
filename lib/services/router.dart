@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/login.dart';
-import 'package:spacirtrasa/pages/pois/pois.dart';
+import 'package:spacirtrasa/pages/pois/main.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
 import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/pages/village.dart';

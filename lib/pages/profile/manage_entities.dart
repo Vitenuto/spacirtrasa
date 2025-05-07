@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:spacirtrasa/models/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/services/map_entity/map_entity.dart';
 import 'package:spacirtrasa/widgets/async_button_handler.dart';
 

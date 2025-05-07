@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:spacirtrasa/models/poi.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 
 import 'map_entity.dart';
 

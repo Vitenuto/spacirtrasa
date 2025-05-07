@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/models/trail.dart';
-import 'package:spacirtrasa/models/trail_with_length.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
 import 'package:spacirtrasa/pages/trails/animated_description.dart';
 import 'package:spacirtrasa/pages/trails/animated_filter.dart';
 import 'package:spacirtrasa/pages/trails/animated_title.dart';

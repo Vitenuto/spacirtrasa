@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/models/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/utils/converters.dart';
 
 abstract class MapEntityService<T extends MapEntity> {

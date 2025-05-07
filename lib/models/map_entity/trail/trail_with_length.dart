@@ -1,4 +1,4 @@
-import 'package:spacirtrasa/models/trail.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 
 class TrailWithLength {
   final Trail trail;

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spacirtrasa/models/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
 
-part 'generated/trail_filter.freezed.dart';
+part '../../generated/map_entity/trail/trail_filter.freezed.dart';
 
 @freezed
 abstract class TrailFilter with _$TrailFilter {

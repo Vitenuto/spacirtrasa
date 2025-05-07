@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spacirtrasa/models/map_entity.dart';
-import 'package:spacirtrasa/models/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/map_entity.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
 import 'package:spacirtrasa/utils/converters.dart';
 
-part 'generated/trail.freezed.dart';
-part 'generated/trail.g.dart';
+part '../../generated/map_entity/trail/trail.freezed.dart';
+part '../../generated/map_entity/trail/trail.g.dart';
 
 @freezed
 abstract class Trail extends MapEntity with _$Trail {

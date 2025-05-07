@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../poi.dart';
+part of '../../../map_entity/poi/poi.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

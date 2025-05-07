@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spacirtrasa/models/finished_trail.dart';
+import 'package:spacirtrasa/models/map_entity/trail/finished_trail.dart';
 import 'package:spacirtrasa/models/note.dart';
 
 part 'generated/app_user.freezed.dart';
