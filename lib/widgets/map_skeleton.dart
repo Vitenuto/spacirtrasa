@@ -47,7 +47,7 @@ class _MapSkeletonState extends State<MapSkeleton> {
             options: MapOptions(
               initialCenter: defaultPosition,
               initialZoom: 15,
-              minZoom: 13,
+              minZoom: 10,
               maxZoom: 18,
               keepAlive: true,
               interactionOptions: const InteractionOptions(enableMultiFingerGestureRace: true),

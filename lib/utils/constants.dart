@@ -8,5 +8,5 @@ final defaultPosition = LatLng(49.1118439, 16.5184100); // OÚ Ořechova u Brna
 final defaultBounds = LatLngBounds(
   // Bounds around Ořechov u Brna
   LatLng(49.05, 16.46),
-  LatLng(49.15, 16.56),
+  LatLng(49.2557, 16.6954),
 );
