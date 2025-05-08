@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
+import 'package:spacirtrasa/utils/constants.dart';
 import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/map_skeleton.dart';
 
 class MainMap extends ConsumerStatefulWidget {
@@ -23,13 +27,7 @@ class MainMap extends ConsumerStatefulWidget {
 class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin {
   static final log = Logger();
   late final _animatedMapController = AnimatedMapController(vsync: this);
-  ProviderSubscription<Position?>? _onPositionChangedSub;
-
-  @override
-  void initState() {
-    super.initState();
-    _handleMoveToCurrentUserPos();
-  }
+  bool moveToUserPos = true;
 
   @override
   void dispose() {
@@ -40,19 +38,22 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     ref.listen(positionPermissionStatusProvider, _onPermissionChanged);
-    ref.listen(selectedPoiProvider, (_, selectedPoi) {
-      if (selectedPoi != null) {
-        _animatedMapController.animateTo(
-          duration: Duration(milliseconds: 2000),
-          dest: LatLng(selectedPoi.location.latitude, selectedPoi.location.longitude),
-        );
-      }
-    });
+    ref.listen(selectedPoiProvider, (_, selectedPoi) => _onSelectedPoi(selectedPoi));
+    ref.listen(positionProvider, (_, next) => _onPositionChanged(next));
 
     return MapSkeleton(
       animatedMapController: _animatedMapController,
       mapChildLayers: _buildChildLayers(),
     );
+  }
+
+  void _onSelectedPoi(Poi? selectedPoi) {
+    if (selectedPoi != null) {
+      _animatedMapController.animateTo(
+        duration: Duration(milliseconds: 2000),
+        dest: LatLng(selectedPoi.location.latitude, selectedPoi.location.longitude),
+      );
+    }
   }
 
   List<Widget>? _buildChildLayers() {
@@ -62,7 +63,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     return [
       MarkerLayer(
         markers: [
-          if (currentLoc != null) _buildUserLocationMarker(currentLoc),
+          if (currentLoc != null) buildUserLocationMarker(currentLoc),
           ..._buildPoiMarkers(currentLoc),
         ],
       ),
@@ -79,42 +80,26 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     ];
   }
 
-  Marker _buildUserLocationMarker(final Position currentLoc) {
-    return Marker(
-      point: LatLng(currentLoc.latitude, currentLoc.longitude),
-      width: 20,
-      height: 20,
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.blue,
-          border: Border.all(color: Colors.white, width: 3),
-        ),
-      ),
-    );
-  }
-
   void _onPermissionChanged(previous, next) {
-    if (next != previous && next == ServiceStatus.enabled) _handleMoveToCurrentUserPos();
+    moveToUserPos = next == ServiceStatus.enabled;
   }
 
-  void _handleMoveToCurrentUserPos() {
-    if (_onPositionChangedSub?.closed == false) {
-      log.w("handleMoveToCurrentUserPos called when onPositionChanged is already listening");
-      return;
-    }
+  void _onPositionChanged(Position? next) {
+    if (moveToUserPos && next != null) {
+      moveToUserPos = false;
 
-    log.d("Moving camera to current user's position, after location would be ready");
-    _onPositionChangedSub = ref.listenManual(positionProvider, (previous, next) {
-      if (next != null) {
-        _animatedMapController.animateTo(
-          duration: Duration(milliseconds: 2000),
-          dest: LatLng(next.latitude, next.longitude),
+      final userPos = LatLng(next.latitude, next.longitude);
+      if (!defaultBounds.contains(userPos)) {
+        log.w('User position: $userPos is outside of default bounds: $defaultBounds');
+        Fluttertoast.showToast(
+          toastLength: Toast.LENGTH_LONG,
+          msg: 'You are outside of the usable area, move closer to Ořechov u Brna',
         );
-        _onPositionChangedSub
-            ?.close(); // otherwise would be closed automatically when widget is disposed
+        return;
       }
-    });
+
+      _animatedMapController.animateTo(duration: Duration(milliseconds: 2000), dest: userPos);
+    }
   }
 
   List<Marker> _buildPoiMarkers(Position? currentLoc) {

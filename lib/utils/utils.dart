@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 
 import 'constants.dart';
@@ -13,3 +16,18 @@ void showFullDialog(BuildContext context, final Widget child) {
 }
 
 double get fullItemHeight => itemListHeight + (itemListPadding * 2);
+
+Marker buildUserLocationMarker(final Position currentLoc) {
+  return Marker(
+    point: LatLng(currentLoc.latitude, currentLoc.longitude),
+    width: 20,
+    height: 20,
+    child: Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.blue,
+        border: Border.all(color: Colors.white, width: 3),
+      ),
+    ),
+  );
+}
