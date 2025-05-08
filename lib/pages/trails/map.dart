@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
+import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/map_skeleton.dart';
 
 class MainMap extends ConsumerStatefulWidget {
@@ -24,17 +27,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(selectedTrailProvider, (_, selectedTrail) {
-      if (selectedTrail != null) {
-        final latLngList = selectedTrail.path.toLatLngList();
-        _animatedMapController.animatedFitCamera(
-          cameraFit: CameraFit.coordinates(
-            coordinates: latLngList,
-            padding: EdgeInsets.all(16).copyWith(bottom: 250),
-          ),
-        );
-      }
-    });
+    ref.listen(selectedTrailProvider, (_, selectedTrail) => _onSelectedTrail(selectedTrail));
 
     return MapSkeleton(
       animatedMapController: _animatedMapController,
@@ -42,12 +35,26 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     );
   }
 
-  List<PolylineLayer>? _buildChildLayers() {
+  void _onSelectedTrail(Trail? selectedTrail) {
+    if (selectedTrail != null) {
+      final latLngList = selectedTrail.path.toLatLngList();
+      _animatedMapController.animatedFitCamera(
+        cameraFit: CameraFit.coordinates(
+          coordinates: latLngList,
+          padding: EdgeInsets.all(16).copyWith(bottom: 250),
+        ),
+      );
+    }
+  }
+
+  List<Widget>? _buildChildLayers() {
+    final currentLoc = ref.watch(positionProvider);
     final selectedTrail = ref.watch(selectedTrailProvider);
     if (selectedTrail == null) return null;
 
     final latLngList = selectedTrail.path.toLatLngList();
     return [
+      if (currentLoc != null) MarkerLayer(markers: [buildUserLocationMarker(currentLoc)]),
       PolylineLayer(
         polylines: [
           Polyline(
