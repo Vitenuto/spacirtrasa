@@ -9,11 +9,11 @@ import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
 
-class TrailTile extends ConsumerWidget {
+class AnimatedTrailTile extends ConsumerWidget {
   final TrailWithLength trailWithLength;
   final bool isExpanded;
 
-  const TrailTile({super.key, required this.trailWithLength, required this.isExpanded});
+  const AnimatedTrailTile({super.key, required this.trailWithLength, required this.isExpanded});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,12 +30,12 @@ class TrailTile extends ConsumerWidget {
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.symmetric(vertical: itemListPadding),
         decoration: BoxDecoration(
-          color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
+          color: isHighlighted ? colorScheme.primaryContainer : colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(12),
           border:
           isPinned
               ? Border.all(color: colorScheme.primary, width: 2)
-              : Border.all(color: Colors.transparent, width: 2),
+              : null,
           boxShadow: [
             if (isHighlighted)
               BoxShadow(

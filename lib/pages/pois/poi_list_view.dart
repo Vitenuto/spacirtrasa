@@ -18,19 +18,14 @@ class _PoiListViewState extends ConsumerState<PoiListView> {
 
     return Padding(
       padding: const EdgeInsets.all(8).copyWith(top: 4.0),
-      child: Column(
-        children: [
-          FilterView(),
-          Expanded(
-            child: ListView.builder(
-              itemCount: poisWithDistance.length,
-              itemBuilder: (context, index) {
-                final poiWithDistance = poisWithDistance[index];
-                return PoiTile(poiWithDistance);
-              },
-            ),
-          ),
-        ],
+      child: ListView.builder(
+        itemCount: poisWithDistance.length,
+        itemBuilder: (context, index) {
+          if (index == 0) return FilterView();
+
+          final poiWithDistance = poisWithDistance[index];
+          return PoiTile(poiWithDistance);
+        },
       ),
     );
   }

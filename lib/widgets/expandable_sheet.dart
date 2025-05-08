@@ -35,8 +35,8 @@ class ExpandableSheet extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color:
                         isExpanded
-                            ? colorScheme.primaryContainer
-                            : colorScheme.primaryContainer.withAlpha(230),
+                            ? colorScheme.surface
+                            : colorScheme.surface.withAlpha(230),
                     borderRadius:
                         isExpanded
                             ? const BorderRadius.all(Radius.zero)
@@ -90,7 +90,7 @@ class ExpandButton extends StatelessWidget {
                   (child, animation) => FadeTransition(opacity: animation, child: child),
               child: Icon(
                 isExpanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up,
-                color: Colors.white,
+                color: colorScheme.onPrimary,
               ),
             ),
           ),
