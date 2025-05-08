@@ -113,7 +113,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
         child: Icon(
           Icons.location_on,
           color: isSelected ? Colors.red : Colors.grey,
-          size: isSelected ? 30 : 20,
+          size: isSelected ? 45 : 35,
         ),
       );
     }).toList();
