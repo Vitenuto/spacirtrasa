@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
@@ -22,12 +23,12 @@ class VillagePage extends StatelessWidget {
           children: [
             OutlinedButton.icon(
               icon: const Icon(Icons.directions_bus),
-              label: Text("Autobusové spoje"),
+              label: Text('village.bus-connections'.tr()),
               onPressed: () => launchUrl(Uri.parse("https://www.idos.cz/")),
             ),
             OutlinedButton.icon(
               icon: const Icon(Icons.newspaper),
-              label: Text("Obecní novinky"),
+              label: Text('village.news'.tr()),
               onPressed: () => launchUrl(Uri.parse("https://www.orechovubrna.cz/aktuality/")),
             ),
           ],

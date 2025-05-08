@@ -9,6 +9,8 @@ import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/pages/profile/favorite_tile.dart';
 import 'package:spacirtrasa/pages/profile/finished_trail_tile.dart';
 import 'package:spacirtrasa/pages/profile/list_screen.dart';
+import 'package:spacirtrasa/pages/profile/manage_entities.dart';
+import 'package:spacirtrasa/pages/profile/note_tile.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/auth_user.dart';
 import 'package:spacirtrasa/providers/map_entity/favorite_map_entity.dart';
@@ -21,9 +23,6 @@ import 'package:spacirtrasa/services/map_entity/poi.dart';
 import 'package:spacirtrasa/services/map_entity/trail.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/async_button_handler.dart';
-
-import 'manage_entities.dart';
-import 'note_tile.dart';
 
 class ProfilePage extends ConsumerWidget {
   static const route = "/profile";
@@ -88,16 +87,19 @@ class ProfilePage extends ConsumerWidget {
           SizedBox(width: 256),
           _buildBodyButton("profile.my-favorites".tr(), () => showFullDialog(context, ListScreen<MapEntity>(
             title: "profile.my-favorites".tr(),
+            listEmptyInfo: "profile.no-favorites".tr(),
             provider: favoriteMapEntityProvider,
             itemBuilder: (context, mapEntity) => FavoriteTile(mapEntity: mapEntity),
           ))),
           _buildBodyButton("profile.my-notes".tr(), () => showFullDialog(context, ListScreen<Note>(
             title: "profile.my-notes".tr(),
+            listEmptyInfo: "profile.no-notes".tr(),
             provider: noteProvider,
             itemBuilder: (context, note) => NoteTile(note: note),
           ))),
           _buildBodyButton("profile.my-completed-trails".tr(), () => showFullDialog(context, ListScreen<FinishedTrail>(
             title: "profile.my-completed-trails".tr(),
+            listEmptyInfo: "profile.no-completed-trails".tr(),
             provider: finishedTrailsProvider,
             itemBuilder: (context, finishedTrail) => FinishedTrailTile(finishedTrail: finishedTrail),
           ))),

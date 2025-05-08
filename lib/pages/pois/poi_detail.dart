@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,7 +47,7 @@ class PoiDetail extends ConsumerWidget {
   List<Widget> _buildAppBarActions(AppUser? appUser, WidgetRef ref, BuildContext context) => [
     IconButton(
       icon: const Icon(Icons.map),
-      tooltip: 'Zobrazit na mapě',
+      tooltip: 'poi-detail.show-on-map'.tr(),
       onPressed: () {
         ref.read(selectedPoiProvider.notifier).setSelected(poi);
         ref.read(expandedProvider.notifier).setExpanded(false);
@@ -60,7 +61,7 @@ class PoiDetail extends ConsumerWidget {
           Icons.favorite,
           color: appUser!.favoritePoiIds.contains(poi.id) ? Colors.red : Colors.grey,
         ),
-        tooltip: "${appUser.favoritePoiIds.contains(poi.id) ? 'Odebrat' : 'Přidat'} k oblíbeným",
+        tooltip: "${appUser.favoritePoiIds.contains(poi.id) ? 'remove' : 'add'}-favorite".tr(),
         onPressed: () {
           ref.read(appUserProvider.notifier).setFavoritePoi(poi.id);
         },

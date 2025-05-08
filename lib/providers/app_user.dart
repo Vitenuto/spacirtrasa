@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -97,7 +98,7 @@ class AppUserProvider extends _$AppUserProvider {
     appUserCollection.doc(state!.id).update(state!.toJson());
 
     Fluttertoast.showToast(
-      msg: "Trail ${trail.title} is added to the finished",
+      msg: 'trail-added-to-finished'.tr(args: [trail.title]),
       toastLength: Toast.LENGTH_LONG,
     );
   }

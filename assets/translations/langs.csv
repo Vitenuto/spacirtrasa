@@ -7,9 +7,12 @@ navbar.my,My,Moje
 profile.sign-out,Sign out,Odhlásit se
 profile.sign-in,Sign in through Google,Přihlásit se přes Google
 profile.my-favorites,My favorites,Moje oblíbené
+profile.no-favorites,"No favorites, add them by clicking on the heart in the trail or interest's detail","Žádné oblíbené, přidejte si je kliknutím na srdíčko v detailu trasy nebo zajímavosti"
 profile.my-ratings,My ratings,Moje hodnocení
 profile.my-notes,My notes,Moje poznámky
+profile.no-notes,"No saved notes yet, you can add them by filling note in the trail or interest's detail","Zatím nemáte uložené žádné poznámky, můžete je přidat vyplněním poznámky v detailu trasy nebo zajímavosti"
 profile.my-completed-trails,Completed trails,Absolvované trasy
+profile.no-completed-trails,"No completed trails yet. Trails should be added automatically to completed, whenever you select/pin a trail and physically be on that trail.","Zatím žádné dokončené stezky. Stezky by měly být automaticky přidány k dokončeným, kdykoli si vyberete/označíte stezku a fyzicky se na ní nacházíte."
 profile.admin-section,Admin section,Admin sekce
 profile.manage-poi,Manage POIs,Správa zajímavostí
 profile.manage-trails,Manage trails,Správa cest
@@ -52,6 +55,20 @@ services.map_entity.map_entity_service.import-failed.Trail,Paths import failed w
 services.map_entity.map_entity_service.import-failed.unsupported-file,Only .gpx or .json file extension is allowed,Pouze .gpx nebo .json soubor je povolen
 services.map_entity.map_entity_service.import-failed-general.Poi,"POIs import failed, discuss with administrator","Import zajímavostí selhal, kontaktujte administrátora"
 services.map_entity.map_entity_service.import-failed-general.Trail,"Paths import failed, discuss with administrator","Import tras selhal, kontaktujte administrátora"
+home.interests-around,Interests around:,Zajímavosti kolem:
+pois.filter.search-hint,Name of interest...,Jméno zajímavosti...
+poi-detail.show-on-map,Shown on the map,Zobrazit na mapě
+trails.tap-to-pin,Tap to pin:,Stiskem připnete:
+trails.filter.search-hint,Trail name...,Jméno trasy...
+trail-detail.show-on-map,Pin to map,Připni na mapu
+trail-added-to-finished,Trail {} is added to the finished,Trasa {} je přidána mezi absolvované trasy
+village.bus-connections,Bus connections,Autobusové spoje
+village.news,Village news,Obecní novinky
+note.own-notes,Your notes:,Tvé poznámky:
+note.own-notes-hint,Enter your notes here...,Sem napište své poznámky...
+add-favorite,Add to favorite,Přidej k oblíbeným
+remove-favorite,Remove from favorite,Odeber z oblíbených
+object-doesnt-exists-anymore,Object does not exists anymore,Objekt již neexistuje
 error.login,Login failed with error: {error},Přihlášení selhalo s chybou: {error}
 title,Špacírtrasa,Špacírtrasa
 logging.google,Sign in through Google,Přihlásit se přes Google
@@ -60,3 +77,5 @@ or,or,nebo
 created,Created {},Vytvořeno {}
 cancel,Cancel,Zrušit
 delete,Delete,Smazat
+save,Save,Uložit
+mapy.cz-contributions,© Seznam.cz a.s. and others,© Seznam.cz a.s. a další

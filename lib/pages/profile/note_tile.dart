@@ -30,7 +30,6 @@ class NoteTile extends ConsumerWidget {
       }
     } else {
       final trails = ref.watch(trailProvider);
-      log.i("Trails: $trails");
       final trail = trails.where((trail) => trail.id == note.mapEntityId).firstOrNull;
       title = trail?.title;
       if (trail != null) {

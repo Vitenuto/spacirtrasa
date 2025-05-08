@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -79,7 +80,7 @@ class _SnapListState extends ConsumerState<SnapList> {
                 curve: Curves.easeInOut,
                 alignment: Alignment.center,
                 height: widget.isExpanded ? 0 : itemListHeight,
-                child: Text('Zajímavosti kolem:', style: Theme.of(context).textTheme.titleMedium),
+                child: Text('home.interests-around'.tr(), style: Theme.of(context).textTheme.titleMedium),
               );
             } else if (index == _poisWithDistance.length + 1) {
               // Spacer to allow last item to reach top
