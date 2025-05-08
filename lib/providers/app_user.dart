@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/app_user.dart';
+import 'package:spacirtrasa/models/map_entity/trail/finished_trail.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/services/app_user.dart';
 
@@ -36,11 +40,11 @@ class AppUserProvider extends _$AppUserProvider {
   }
 
   void setFavoritePoi(final String poiId) {
-    log.t("Setting favorite POI: $poiId, for user: ${state?.id}");
     if (state == null) {
       log.w("AppUser is null, cannot set favorite POI");
       return;
     }
+    log.t("Setting favorite POI: $poiId, for user: ${state?.id}");
 
     final newFavoritePoiIds = List<String>.from(state!.favoritePoiIds);
     if (newFavoritePoiIds.contains(poiId)) {
@@ -55,11 +59,11 @@ class AppUserProvider extends _$AppUserProvider {
   }
 
   void setFavoriteTrail(final String trailId) {
-    log.t("Setting favorite Trail: $trailId, for user: ${state?.id}");
     if (state == null) {
-      log.w("AppUser is null, cannot set favorite POI");
+      log.w("AppUser is null, cannot set favorite Trail");
       return;
     }
+    log.t("Setting favorite Trail: $trailId, for user: ${state?.id}");
 
     final newFavoriteTrailIds = List<String>.from(state!.favoriteTrailIds);
     if (newFavoriteTrailIds.contains(trailId)) {
@@ -71,5 +75,30 @@ class AppUserProvider extends _$AppUserProvider {
     state = state!.copyWith(favoriteTrailIds: newFavoriteTrailIds);
 
     appUserCollection.doc(state!.id).update(state!.toJson());
+  }
+
+  void setFinishedTrail(Trail trail) {
+    if (state == null) {
+      log.w("AppUser is null, cannot set finished trail");
+      return;
+    }
+    if (state!.finishedTrails.any((userFinishedTrail) => userFinishedTrail.trailId == trail.id)) {
+      return;
+    }
+
+    log.i("Setting finished Trail: ${trail.id}, for user: ${state?.id}");
+
+    final newFinishedTrail = FinishedTrail(trailId: trail.id, finishedAt: Timestamp.now());
+    final newFinishedTrails = List<FinishedTrail>.from(state!.finishedTrails)
+      ..add(newFinishedTrail);
+
+    state = state!.copyWith(finishedTrails: newFinishedTrails);
+
+    appUserCollection.doc(state!.id).update(state!.toJson());
+
+    Fluttertoast.showToast(
+      msg: "Trail ${trail.title} is added to the finished",
+      toastLength: Toast.LENGTH_LONG,
+    );
   }
 }
