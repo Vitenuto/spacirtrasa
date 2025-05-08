@@ -10,3 +10,4 @@ final defaultBounds = LatLngBounds(
   LatLng(49.05, 16.46),
   LatLng(49.2557, 16.6954),
 );
+final double userFromTrailThresholdMeters = 20.0;

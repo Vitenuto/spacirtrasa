@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/services/map_entity/position.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../generated/map_entity/position.g.dart';
 
@@ -37,6 +40,16 @@ class PositionProvider extends _$PositionProvider {
     if (position.isNotEqual(state)) {
       log.t("New position: $position");
       state = position;
+
+      _checkIsFinishedTrail(position);
+    }
+  }
+
+  void _checkIsFinishedTrail(final Position position) {
+    final trail = ref.read(pinnedTrailProvider);
+    if (trail == null) return;
+    if (isNearTrail(position, trail.path)) {
+      ref.read(appUserProvider.notifier).setFinishedTrail(trail);
     }
   }
 }
