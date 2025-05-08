@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
@@ -20,7 +21,7 @@ class AnimatedPoiTile extends ConsumerWidget {
         !isExpanded && ref.watch(selectedPoiProvider)?.id == poiWithDistance.poi.id;
 
     return InkWell(
-      onTap: () => showPoiDetail(context, poiWithDistance.poi),
+      onTap: isExpanded ? () => showPoiDetail(context, poiWithDistance.poi) : () => onPoiClicked(poiWithDistance.poi, ref),
       child: AnimatedContainer(
         duration: kThemeAnimationDuration,
         height: isExpanded ? itemListHeight * 2 : itemListHeight,
@@ -58,6 +59,10 @@ class AnimatedPoiTile extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  onPoiClicked(Poi poi, WidgetRef ref) {
+    ref.read(selectedPoiProvider.notifier).setSelected(poi);
   }
 }
 

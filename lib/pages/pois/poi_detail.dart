@@ -8,6 +8,7 @@ import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
+import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/services/router.dart';
 import 'package:spacirtrasa/utils/utils.dart';
@@ -48,6 +49,7 @@ class PoiDetail extends ConsumerWidget {
       tooltip: 'Zobrazit na mapě',
       onPressed: () {
         ref.read(selectedPoiProvider.notifier).setSelected(poi);
+        ref.read(expandedProvider.notifier).setExpanded(false);
         Navigator.of(context, rootNavigator: true).pop();
         RouteService.router.go(HomePage.route);
       },

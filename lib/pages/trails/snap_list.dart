@@ -4,9 +4,12 @@ import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
 import 'package:spacirtrasa/pages/trails/animated_filter.dart';
 import 'package:spacirtrasa/pages/trails/animated_trail_tile.dart';
+import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
+import 'package:spacirtrasa/utils/utils.dart';
+import 'package:spacirtrasa/widgets/snap_list_helper.dart';
 
 class SnapList extends ConsumerStatefulWidget {
   final bool isExpanded;
@@ -21,8 +24,7 @@ class _SnapListState extends ConsumerState<SnapList> {
   final log = Logger();
   final ScrollController _scrollController = ScrollController();
 
-  double get _fullItemHeight => itemListHeight + (itemListPadding * 2);
-  late List<TrailWithLength> trailsWithLength;
+  late List<TrailWithLength> _trailsWithLength;
 
   @override
   void initState() {
@@ -30,21 +32,23 @@ class _SnapListState extends ConsumerState<SnapList> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.addListener(_setSelected);
-      _scrollController.position.isScrollingNotifier.addListener(_handleSnap);
+      _scrollController.position.isScrollingNotifier.addListener(_onScrollChange);
+      _snapToSelected();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    trailsWithLength = ref.watch(filteredTrailProvider);
+    _trailsWithLength = ref.watch(filteredTrailProvider);
+    ref.listen(expandedProvider, (_, isExpanded) => _onExpanded(isExpanded));
 
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: ListView.builder(
         padding: EdgeInsets.all(8),
-        cacheExtent: _fullItemHeight * 15,
+        cacheExtent: fullItemHeight * 15,
         controller: _scrollController,
-        itemCount: trailsWithLength.length + 2,
+        itemCount: _trailsWithLength.length + 2,
         // +2 for the title and spacer
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -61,56 +65,52 @@ class _SnapListState extends ConsumerState<SnapList> {
                         ),
                       ),
             );
-          } else if (index == trailsWithLength.length + 1) {
+          } else if (index == _trailsWithLength.length + 1) {
             // Spacer to allow last item to reach top
-            return SizedBox(height: _fullItemHeight * 5);
+            return SizedBox(height: fullItemHeight * 5);
           }
 
-          final trailWithLength = trailsWithLength[index - 1];
+          final trailWithLength = _trailsWithLength[index - 1];
           return AnimatedTrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
         },
       ),
     );
   }
 
-  Future<void> _setSelected() async {
+  void _onExpanded(final bool isExpanded) {
+    if (!isExpanded) _snapToSelected();
+  }
+
+  void _setSelected() {
     if (widget.isExpanded) return;
 
     final offset = _scrollController.offset;
-    var index = (offset / _fullItemHeight).round();
-    if (index <= 1) index = 1;
-    if (ref.read(selectedTrailProvider)?.id == trailsWithLength[index - 1].trail.id) {
+    var index = (offset / fullItemHeight).round() - 1; // -1 to account for the title
+    index = index.clamp(0, _trailsWithLength.length - 1);
+    final selectedTrail = _trailsWithLength[index].trail;
+    if (ref.read(selectedTrailProvider)?.id == selectedTrail.id) {
       return; // Skip if the same item is selected
     }
-    ref.read(selectedTrailProvider.notifier).setSelected(trailsWithLength[index - 1].trail);
+    ref.read(selectedTrailProvider.notifier).setSelected(selectedTrail);
   }
 
-  Future<void> _handleSnap() async {
+  void _onScrollChange() async {
     if (widget.isExpanded || _scrollController.position.isScrollingNotifier.value) return;
+    _snapToSelected();
+  }
 
-    final selectedTrail = ref.watch(selectedTrailProvider);
+  void _snapToSelected() {
+    final selectedTrail = ref.read(selectedTrailProvider);
     if (selectedTrail == null) return;
 
-    final trailIndex = trailsWithLength.indexWhere(
-      (trailWithLength) => trailWithLength.trail.id == selectedTrail.id,
-    );
-    final elementIndex = trailIndex + 1;
-    final snappedOffset = (elementIndex * _fullItemHeight).clamp(
-      0.0,
-      _scrollController.position.maxScrollExtent,
-    );
+    final listIndex =
+        _trailsWithLength.indexWhere(
+          (trailWithLength) => trailWithLength.trail.id == selectedTrail.id,
+        ) +
+        1; // +1 to account for the title
+    if (listIndex == 1) return; // Skip snapping to the first item
 
-    if (elementIndex == 1 || snappedOffset == _scrollController.offset) {
-      return; // Skip snapping to the first item
-    }
-
-    log.t(
-      'With offset: ${_scrollController.offset} and calculated snappedOffset: $snappedOffset, snapping to Trail: ${selectedTrail.title}',
-    );
-    await _scrollController.animateTo(
-      snappedOffset,
-      duration: kThemeAnimationDuration,
-      curve: Curves.easeOut,
-    );
+    log.t('Snapping to: ${selectedTrail.title}');
+    handleSnap(_scrollController, listIndex);
   }
 }
