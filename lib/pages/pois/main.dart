@@ -12,7 +12,7 @@ class PoisPage extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4),
-      decoration: BoxDecoration(color: colorScheme.primaryContainer),
+      decoration: BoxDecoration(color: colorScheme.surface),
       child: PoiListView(),
     );
   }

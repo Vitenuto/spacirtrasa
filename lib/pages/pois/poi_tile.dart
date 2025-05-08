@@ -22,7 +22,7 @@ class PoiTile extends ConsumerWidget {
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.symmetric(vertical: itemListPadding),
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(

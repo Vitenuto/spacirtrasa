@@ -46,9 +46,9 @@ class _SnapListState extends ConsumerState<SnapList> {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: ListView.builder(
+        padding: EdgeInsets.all(8),
         cacheExtent: _fullItemHeight * 15,
         controller: _scrollController,
-        padding: EdgeInsets.all(8),
         itemCount: _poisWithDistance.length + 2,
         // +2 for the title and spacer
         itemBuilder: (context, index) {
@@ -62,7 +62,7 @@ class _SnapListState extends ConsumerState<SnapList> {
             );
           } else if (index == _poisWithDistance.length + 1) {
             // Spacer to allow last item to reach top
-            return SizedBox(height: _fullItemHeight * 3);
+            return SizedBox(height: _fullItemHeight * 5);
           }
 
           final poiWithDistance = _poisWithDistance[index - 1];

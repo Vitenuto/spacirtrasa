@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
 import 'package:spacirtrasa/pages/trails/animated_filter.dart';
-import 'package:spacirtrasa/pages/trails/trail_tile.dart';
+import 'package:spacirtrasa/pages/trails/animated_trail_tile.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
@@ -39,39 +39,36 @@ class _SnapListState extends ConsumerState<SnapList> {
     trailsWithLength = ref.watch(filteredTrailProvider);
 
     return Padding(
-      padding: const EdgeInsets.all(8).copyWith(top: 4.0),
-      child: Column(
-        children: [
-          AnimatedFilter(widget.isExpanded),
-          Expanded(
-            child: ListView.builder(
-              cacheExtent: _fullItemHeight * 15,
-              controller: _scrollController,
-              itemCount: trailsWithLength.length + 2,
-              // +2 for the title and spacer
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return AnimatedContainer(
-                    duration: kThemeAnimationDuration,
-                    curve: Curves.easeInOut,
-                    alignment: Alignment.center,
-                    height: widget.isExpanded ? 0 : itemListHeight,
-                    child: Text(
-                      'Stiskem připnete:',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  );
-                } else if (index == trailsWithLength.length + 1) {
-                  // Spacer to allow last item to reach top
-                  return SizedBox(height: _fullItemHeight * 3);
-                }
+      padding: const EdgeInsets.only(top: 4.0),
+      child: ListView.builder(
+        padding: EdgeInsets.all(8),
+        cacheExtent: _fullItemHeight * 15,
+        controller: _scrollController,
+        itemCount: trailsWithLength.length + 2,
+        // +2 for the title and spacer
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return AnimatedSwitcher(
+              duration: kThemeAnimationDuration,
+              child:
+                  widget.isExpanded
+                      ? AnimatedFilter(widget.isExpanded)
+                      : SizedBox(
+                        height: itemListHeight,
+                        child: Text(
+                          'Stiskem připnete:',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+            );
+          } else if (index == trailsWithLength.length + 1) {
+            // Spacer to allow last item to reach top
+            return SizedBox(height: _fullItemHeight * 5);
+          }
 
-                final trailWithLength = trailsWithLength[index - 1];
-                return TrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
-              },
-            ),
-          ),
-        ],
+          final trailWithLength = trailsWithLength[index - 1];
+          return AnimatedTrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
+        },
       ),
     );
   }
