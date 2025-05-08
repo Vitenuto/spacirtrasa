@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
-import 'package:spacirtrasa/pages/trails/animated_description.dart';
 import 'package:spacirtrasa/pages/trails/animated_filter.dart';
-import 'package:spacirtrasa/pages/trails/animated_title.dart';
-import 'package:spacirtrasa/pages/trails/trail_detail.dart';
+import 'package:spacirtrasa/pages/trails/trail_tile.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
-import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
-
-const _itemHeight = 45.0;
-const _itemPadding = 4.0;
+import 'package:spacirtrasa/utils/constants.dart';
 
 class SnapList extends ConsumerStatefulWidget {
   final bool isExpanded;
@@ -27,7 +21,7 @@ class _SnapListState extends ConsumerState<SnapList> {
   final log = Logger();
   final ScrollController _scrollController = ScrollController();
 
-  double get _fullItemHeight => _itemHeight + (_itemPadding * 2);
+  double get _fullItemHeight => itemListHeight + (itemListPadding * 2);
   late List<TrailWithLength> trailsWithLength;
 
   @override
@@ -61,7 +55,7 @@ class _SnapListState extends ConsumerState<SnapList> {
                     duration: kThemeAnimationDuration,
                     curve: Curves.easeInOut,
                     alignment: Alignment.center,
-                    height: widget.isExpanded ? 0 : _itemHeight,
+                    height: widget.isExpanded ? 0 : itemListHeight,
                     child: Text(
                       'Stiskem připnete:',
                       style: Theme.of(context).textTheme.titleMedium,
@@ -121,72 +115,5 @@ class _SnapListState extends ConsumerState<SnapList> {
       duration: kThemeAnimationDuration,
       curve: Curves.easeOut,
     );
-  }
-}
-
-class TrailTile extends ConsumerWidget {
-  final TrailWithLength trailWithLength;
-  final bool isExpanded;
-
-  const TrailTile({super.key, required this.trailWithLength, required this.isExpanded});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isHighlighted =
-        !isExpanded && ref.watch(selectedTrailProvider)?.id == trailWithLength.trail.id;
-    final isPinned = ref.watch(pinnedTrailProvider)?.id == trailWithLength.trail.id;
-
-    return InkWell(
-      onTap: isExpanded ? () => showTrailDetail(context, trailWithLength.trail) : () => onTrailClicked(trailWithLength.trail, ref),
-      child: AnimatedContainer(
-        duration: kThemeAnimationDuration,
-        height: isExpanded ? _itemHeight * 2 : _itemHeight,
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.symmetric(vertical: _itemPadding),
-        decoration: BoxDecoration(
-          color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          border:
-              isPinned
-                  ? Border.all(color: colorScheme.primary, width: 2)
-                  : Border.all(color: Colors.transparent, width: 2),
-          boxShadow: [
-            if (isHighlighted)
-              BoxShadow(
-                color: colorScheme.primary.withValues(alpha: 0.3),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-          ],
-        ),
-        child: Row(
-          spacing: 4,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AnimatedTitle(
-                    isExpanded,
-                    trailWithLength.trail.title,
-                    subtitle: ' (${(trailWithLength.length / 1000).toStringAsFixed(2)} km)',
-                  ),
-                  AnimatedDescription(
-                    isExpanded: isExpanded,
-                    data: trailWithLength.trail.markdownLessData,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  onTrailClicked(Trail trail, WidgetRef ref) {
-    ref.read(pinnedTrailProvider.notifier).setPinned(trail);
-    ref.read(selectedTrailProvider.notifier).setSelected(trail);
   }
 }
