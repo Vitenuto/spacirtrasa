@@ -40,32 +40,56 @@ class _SnapListState extends ConsumerState<SnapList> {
   Widget build(BuildContext context) {
     _poisWithDistance = ref.watch(sortedPoiProvider);
     ref.listen(expandedProvider, (_, isExpanded) => _onExpanded(isExpanded));
+    bool dragStartedAtTop = false;
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: ListView.builder(
-        padding: EdgeInsets.all(8),
-        cacheExtent: fullItemHeight * 15,
-        controller: _scrollController,
-        itemCount: _poisWithDistance.length + 2,
-        // +2 for the title and spacer
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return AnimatedContainer(
-              duration: kThemeAnimationDuration,
-              curve: Curves.easeInOut,
-              alignment: Alignment.center,
-              height: widget.isExpanded ? 0 : itemListHeight,
-              child: Text('Zajímavosti kolem:', style: Theme.of(context).textTheme.titleMedium),
-            );
-          } else if (index == _poisWithDistance.length + 1) {
-            // Spacer to allow last item to reach top
-            return SizedBox(height: fullItemHeight * 5);
-          }
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification is ScrollStartNotification) {
+          // Detect if user starts dragging at top
+          dragStartedAtTop = _scrollController.offset <= 0.0;
+        }
 
-          final poiWithDistance = _poisWithDistance[index - 1];
-          return AnimatedPoiTile(poiWithDistance: poiWithDistance, isExpanded: widget.isExpanded);
-        },
+        if (notification is OverscrollNotification &&
+            dragStartedAtTop &&
+            notification.overscroll < 0 && // pull down
+            widget.isExpanded) {
+          ref.read(expandedProvider.notifier).setExpanded(false);
+          dragStartedAtTop = false;
+          return true;
+        }
+
+        if (notification is ScrollEndNotification) {
+          dragStartedAtTop = false;
+        }
+
+        return false;
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4.0),
+        child: ListView.builder(
+          padding: EdgeInsets.all(8),
+          cacheExtent: fullItemHeight * 15,
+          controller: _scrollController,
+          itemCount: _poisWithDistance.length + 2,
+          // +2 for the title and spacer
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return AnimatedContainer(
+                duration: kThemeAnimationDuration,
+                curve: Curves.easeInOut,
+                alignment: Alignment.center,
+                height: widget.isExpanded ? 0 : itemListHeight,
+                child: Text('Zajímavosti kolem:', style: Theme.of(context).textTheme.titleMedium),
+              );
+            } else if (index == _poisWithDistance.length + 1) {
+              // Spacer to allow last item to reach top
+              return SizedBox(height: fullItemHeight * 5);
+            }
+
+            final poiWithDistance = _poisWithDistance[index - 1];
+            return AnimatedPoiTile(poiWithDistance: poiWithDistance, isExpanded: widget.isExpanded);
+          },
+        ),
       ),
     );
   }

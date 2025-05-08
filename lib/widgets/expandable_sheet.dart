@@ -48,21 +48,19 @@ class ExpandableSheet extends ConsumerWidget {
             ],
           ),
 
-          ExpandButton(isExpanded, onTap: () => ref.read(expandedProvider.notifier).setExpanded(!isExpanded)),
+          ExpandButton(),
         ],
       ),
     );
   }
 }
 
-class ExpandButton extends StatelessWidget {
-  final VoidCallback onTap;
-  final bool isExpanded;
-
-  const ExpandButton(this.isExpanded, {super.key, required this.onTap});
+class ExpandButton extends ConsumerWidget {
+  const ExpandButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = ref.watch(expandedProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return AnimatedPositioned(
@@ -71,14 +69,14 @@ class ExpandButton extends StatelessWidget {
       left: 0,
       right: 0,
       child: Center(
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: onTap,
+        child: GestureDetector(
+          onVerticalDragUpdate: (details) => _onVerticalDragUpdate(details, isExpanded, ref),
+          onTap: () => ref.read(expandedProvider.notifier).setExpanded(!isExpanded),
           child: AnimatedContainer(
             duration: kThemeAnimationDuration,
             alignment: Alignment.center,
-            width: isExpanded ? 72 : 48,
-            height: isExpanded ? 28 : 24,
+            width: isExpanded ? 92 : 64,
+            height: isExpanded ? 36 : 30,
             decoration: BoxDecoration(
               color: colorScheme.primary,
               borderRadius: BorderRadius.circular(12),
@@ -97,5 +95,14 @@ class ExpandButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onVerticalDragUpdate(DragUpdateDetails details, bool isExpanded, WidgetRef ref) {
+    // If user drags downward, details.delta.dy > 0
+    if (details.delta.dy > 5 && isExpanded) {
+      ref.read(expandedProvider.notifier).setExpanded(false);
+    } else if (details.delta.dy < -5 && !isExpanded) {
+      ref.read(expandedProvider.notifier).setExpanded(true);
+    }
   }
 }

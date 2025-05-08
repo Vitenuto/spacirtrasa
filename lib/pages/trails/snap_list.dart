@@ -41,41 +41,71 @@ class _SnapListState extends ConsumerState<SnapList> {
   Widget build(BuildContext context) {
     _trailsWithLength = ref.watch(filteredTrailProvider);
     ref.listen(expandedProvider, (_, isExpanded) => _onExpanded(isExpanded));
+    bool dragStartedAtTop = false;
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: ListView.builder(
-        padding: EdgeInsets.all(8),
-        cacheExtent: fullItemHeight * 15,
-        controller: _scrollController,
-        itemCount: _trailsWithLength.length + 2,
-        // +2 for the title and spacer
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return AnimatedSwitcher(
-              duration: kThemeAnimationDuration,
-              child:
-                  widget.isExpanded
-                      ? AnimatedFilter(widget.isExpanded)
-                      : SizedBox(
-                        height: itemListHeight,
-                        child: Text(
-                          'Stiskem připnete:',
-                          style: Theme.of(context).textTheme.titleMedium,
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification is ScrollStartNotification) {
+          // Detect if user starts dragging at top
+          dragStartedAtTop = _scrollController.offset <= 0.0;
+        }
+
+        if (notification is ScrollEndNotification) {
+          dragStartedAtTop = false;
+        }
+
+        if (notification is OverscrollNotification &&
+            dragStartedAtTop &&
+            notification.overscroll < 0 && // pull down
+            widget.isExpanded) {
+          ref.read(expandedProvider.notifier).setExpanded(false);
+          dragStartedAtTop = false;
+          return true;
+        }
+
+        return false;
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4.0),
+        child: ListView.builder(
+          padding: EdgeInsets.all(8),
+          cacheExtent: fullItemHeight * 15,
+          controller: _scrollController,
+          itemCount: _trailsWithLength.length + 2,
+          // +2 for the title and spacer
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return AnimatedSwitcher(
+                duration: kThemeAnimationDuration,
+                child:
+                    widget.isExpanded
+                        ? AnimatedFilter(widget.isExpanded)
+                        : Container(
+                          alignment: Alignment.center,
+                          height: itemListHeight,
+                          child: Text(
+                            'Stiskem připnete:',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ),
-                      ),
-            );
-          } else if (index == _trailsWithLength.length + 1) {
-            // Spacer to allow last item to reach top
-            return SizedBox(height: fullItemHeight * 5);
-          }
+              );
+            } else if (index == _trailsWithLength.length + 1) {
+              // Spacer to allow last item to reach top
+              return SizedBox(height: fullItemHeight * 5);
+            }
 
-          final trailWithLength = _trailsWithLength[index - 1];
-          return AnimatedTrailTile(trailWithLength: trailWithLength, isExpanded: widget.isExpanded);
-        },
+            final trailWithLength = _trailsWithLength[index - 1];
+            return AnimatedTrailTile(
+              trailWithLength: trailWithLength,
+              isExpanded: widget.isExpanded,
+            );
+          },
+        ),
       ),
     );
   }
+
+  // bool _onScrollNotification(ScrollNotification notification, bool dragStartedAtTop)
 
   void _onExpanded(final bool isExpanded) {
     if (!isExpanded) _snapToSelected();
