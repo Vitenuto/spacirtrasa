@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
@@ -34,7 +35,7 @@ class _AnimatedFilterState extends ConsumerState<AnimatedFilter> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.search),
-                      hintText: "Jméno trasy...",
+                      hintText: 'trails.filter.search-hint'.tr(),
                     ),
                     onChanged:
                         (text) =>

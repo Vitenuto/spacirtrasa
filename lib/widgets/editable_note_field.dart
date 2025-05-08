@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/note.dart';
@@ -50,7 +51,7 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Vlastní poznámky:',
+              'note.own-notes'.tr(),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
@@ -58,9 +59,9 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
               controller: _controller,
               minLines: 3,
               maxLines: null,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Sem napište své poznámky...',
+                hintText: 'note.own-notes-hint'.tr(),
                 isDense: true,
               ),
             ),
@@ -68,7 +69,7 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 onPressed: _submitNote,
-                child: const Text('Uložit'),
+                child: Text('save'.tr()),
               ),
             ),
           ],

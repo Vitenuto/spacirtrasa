@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_flags.dart';
@@ -15,7 +16,7 @@ class FilterView extends ConsumerWidget {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: const Icon(Icons.search),
-            hintText: "Jméno zajímavosti...",
+            hintText: 'pois.filter.search-hint'.tr(),
           ),
           onChanged: (text) => ref.read(poiFilterProvider.notifier).setFilter(searchText: text),
         ),

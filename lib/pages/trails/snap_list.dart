@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -84,7 +85,7 @@ class _SnapListState extends ConsumerState<SnapList> {
                           alignment: Alignment.center,
                           height: itemListHeight,
                           child: Text(
-                            'Stiskem připnete:',
+                            'trails.tap-to-pin'.tr(),
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +37,7 @@ class TrailDetail extends ConsumerWidget {
   List<Widget> _buildAppBarActions(AppUser? appUser, WidgetRef ref, BuildContext context) => [
     IconButton(
       icon: const Icon(Icons.map),
-      tooltip: 'Zobrazit na mapě',
+      tooltip: 'trail-detail.show-on-map'.tr(),
       onPressed: () {
         ref.read(pinnedTrailProvider.notifier).setPinned(trail);
         ref.read(selectedTrailProvider.notifier).setSelected(trail);
@@ -50,7 +51,7 @@ class TrailDetail extends ConsumerWidget {
           Icons.favorite,
           color: appUser!.favoriteTrailIds.contains(trail.id) ? Colors.red : Colors.grey,
         ),
-        tooltip: "${appUser.favoriteTrailIds.contains(trail.id) ? 'Odebrat' : 'Přidat'} k oblíbeným",
+        tooltip: "${appUser.favoriteTrailIds.contains(trail.id) ? 'remove' : 'add'}-favorite".tr(),
         onPressed: () {
           ref.read(appUserProvider.notifier).setFavoriteTrail(trail.id);
         },

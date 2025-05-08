@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity/trail/finished_trail.dart';
@@ -17,7 +18,7 @@ class FinishedTrailTile extends ConsumerWidget {
     trail = trails.where((trail) => trail.id == finishedTrail.trailId).firstOrNull;
 
     return ListTile(
-      title: Text(trail?.title ?? "Object does not exists anymore"),
+      title: Text(trail?.title ?? 'object-doesnt-exists-anymore'.tr()),
       subtitle: Text(finishedTrail.finishedAt.toDate().toString()),
       onTap: trail != null ? () => showTrailDetail(context, trail!) : null,
     );
