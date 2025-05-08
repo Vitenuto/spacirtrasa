@@ -27,7 +27,7 @@ class MainMap extends ConsumerStatefulWidget {
 class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin {
   static final log = Logger();
   late final _animatedMapController = AnimatedMapController(vsync: this);
-  bool moveToUserPos = true;
+  bool moveToUserPos = false;
 
   @override
   void dispose() {
