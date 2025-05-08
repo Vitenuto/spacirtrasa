@@ -6,7 +6,7 @@ part of '../../../map_entity/poi/sorted_poi.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sortedPoiProviderHash() => r'b18535169c6c6698b9b8a814eae95b96e4e059a4';
+String _$sortedPoiProviderHash() => r'1ac525ab622927410f4d667a0351f07b12e63e78';
 
 /// See also [SortedPoiProvider].
 @ProviderFor(SortedPoiProvider)

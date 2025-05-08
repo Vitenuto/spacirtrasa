@@ -10,7 +10,7 @@ import 'package:spacirtrasa/services/router.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  Logger.level = Level.debug;
+  Logger.level = Level.all;
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

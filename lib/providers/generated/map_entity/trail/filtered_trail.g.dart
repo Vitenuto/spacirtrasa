@@ -7,7 +7,7 @@ part of '../../../map_entity/trail/filtered_trail.dart';
 // **************************************************************************
 
 String _$filteredTrailProviderHash() =>
-    r'a8632fda62541fe80ff85c86287737aa7f1874e1';
+    r'06fae429cc325cdf9aafd7f6a41fd058a42ed8ee';
 
 /// See also [FilteredTrailProvider].
 @ProviderFor(FilteredTrailProvider)

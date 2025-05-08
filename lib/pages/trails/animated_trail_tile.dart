@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
-import 'package:spacirtrasa/pages/trails/animated_description.dart';
-import 'package:spacirtrasa/pages/trails/animated_title.dart';
 import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
+import 'package:spacirtrasa/widgets/animated_description.dart';
+import 'package:spacirtrasa/widgets/animated_title.dart';
 
 class AnimatedTrailTile extends ConsumerWidget {
   final TrailWithLength trailWithLength;
@@ -23,7 +23,10 @@ class AnimatedTrailTile extends ConsumerWidget {
     final isPinned = ref.watch(pinnedTrailProvider)?.id == trailWithLength.trail.id;
 
     return InkWell(
-      onTap: isExpanded ? () => showTrailDetail(context, trailWithLength.trail) : () => onTrailClicked(trailWithLength.trail, ref),
+      onTap:
+          isExpanded
+              ? () => showTrailDetail(context, trailWithLength.trail)
+              : () => onTrailClicked(trailWithLength.trail, ref),
       child: AnimatedContainer(
         duration: kThemeAnimationDuration,
         height: isExpanded ? itemListHeight * 2 : itemListHeight,
@@ -32,10 +35,7 @@ class AnimatedTrailTile extends ConsumerWidget {
         decoration: BoxDecoration(
           color: isHighlighted ? colorScheme.primaryContainer : colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(12),
-          border:
-          isPinned
-              ? Border.all(color: colorScheme.primary, width: 2)
-              : null,
+          border: isPinned ? Border.all(color: colorScheme.primary, width: 2) : null,
           boxShadow: [
             if (isHighlighted)
               BoxShadow(
@@ -55,7 +55,7 @@ class AnimatedTrailTile extends ConsumerWidget {
                   AnimatedTitle(
                     isExpanded,
                     trailWithLength.trail.title,
-                    subtitle: ' (${(trailWithLength.length / 1000).toStringAsFixed(2)} km)',
+                    length: trailWithLength.length,
                   ),
                   AnimatedDescription(
                     isExpanded: isExpanded,

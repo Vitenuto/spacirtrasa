@@ -13,6 +13,6 @@ class SortedPoiProvider extends _$SortedPoiProvider {
   List<PoiWithDistance> build() {
     log.t("Building SortedPoi provider...");
     final poisWithDistances = ref.watch(poiWithDistanceProvider);
-    return poisWithDistances..sort((a, b) => a.distance.compareTo(b.distance));
+    return poisWithDistances..sort((a, b) => a.distance?.compareTo(b.distance ?? 0) ?? 0);
   }
 }

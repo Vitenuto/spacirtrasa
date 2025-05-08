@@ -20,6 +20,7 @@ class FilteredPoiProvider extends _$FilteredPoiProvider {
       if (filter.searchText.isNotEmpty) {
         final searchText = filter.searchText.toLowerCase();
         if (!poiWithDistance.poi.title.toLowerCase().contains(searchText)) {
+          log.t("POI ${poiWithDistance.poi.title} does not match search text: $searchText");
           return false;
         }
       }
@@ -27,7 +28,8 @@ class FilteredPoiProvider extends _$FilteredPoiProvider {
       final requiredFlags = filter.flags;
       if (requiredFlags.isNotEmpty) {
         final poiFlags = poiWithDistance.poi.flags;
-        if (!requiredFlags.every((requiredFlag) => poiFlags.contains(requiredFlag))) {
+        if (!requiredFlags.any((requiredFlag) => poiFlags.contains(requiredFlag))) {
+          log.t("POI ${poiWithDistance.poi.title} does not match required flags: $requiredFlags");
           return false;
         }
       }

@@ -32,7 +32,7 @@ class FilteredTrailProvider extends _$FilteredTrailProvider {
       final requiredFlags = filter.flags;
       if (requiredFlags.isNotEmpty) {
         final trailFlags = trailWithLength.trail.flags;
-        if (!requiredFlags.every((requiredFlag) => trailFlags.contains(requiredFlag))) {
+        if (!requiredFlags.any((requiredFlag) => trailFlags.contains(requiredFlag))) {
           return false;
         }
       }

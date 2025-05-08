@@ -24,7 +24,7 @@ class VillagePage extends StatelessWidget {
             OutlinedButton.icon(
               icon: const Icon(Icons.directions_bus),
               label: Text('village.bus-connections'.tr()),
-              onPressed: () => launchUrl(Uri.parse("https://www.idos.cz/")),
+              onPressed: () => launchUrl(Uri.parse("https://www.idsjmk.cz/connection-finder/search")),
             ),
             OutlinedButton.icon(
               icon: const Icon(Icons.newspaper),
