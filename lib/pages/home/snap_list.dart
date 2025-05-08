@@ -6,9 +6,7 @@ import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/pages/home/animated_poi_tile.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/sorted_poi.dart';
-
-const itemHeight = 45.0;
-const itemPadding = 4.0;
+import 'package:spacirtrasa/utils/constants.dart';
 
 class SnapList extends ConsumerStatefulWidget {
   final bool isExpanded;
@@ -23,7 +21,7 @@ class _SnapListState extends ConsumerState<SnapList> {
   final log = Logger();
   final ScrollController _scrollController = ScrollController();
 
-  double get _fullItemHeight => itemHeight + (itemPadding * 2);
+  double get _fullItemHeight => itemListHeight + (itemListPadding * 2);
   late List<PoiWithDistance> _poisWithDistance;
 
   @override
@@ -59,7 +57,7 @@ class _SnapListState extends ConsumerState<SnapList> {
               duration: kThemeAnimationDuration,
               curve: Curves.easeInOut,
               alignment: Alignment.center,
-              height: widget.isExpanded ? 0 : itemHeight,
+              height: widget.isExpanded ? 0 : itemListHeight,
               child: Text('Zajímavosti kolem:', style: Theme.of(context).textTheme.titleMedium),
             );
           } else if (index == _poisWithDistance.length + 1) {

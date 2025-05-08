@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
-import 'package:spacirtrasa/pages/home/snap_list.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
+import 'package:spacirtrasa/utils/constants.dart';
 
 class AnimatedPoiTile extends ConsumerWidget {
   final PoiWithDistance poiWithDistance;
@@ -23,9 +23,9 @@ class AnimatedPoiTile extends ConsumerWidget {
       onTap: () => showPoiDetail(context, poiWithDistance.poi),
       child: AnimatedContainer(
         duration: kThemeAnimationDuration,
-        height: isExpanded ? itemHeight * 2 : itemHeight,
+        height: isExpanded ? itemListHeight * 2 : itemListHeight,
         padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.symmetric(vertical: itemPadding),
+        margin: const EdgeInsets.symmetric(vertical: itemListPadding),
         decoration: BoxDecoration(
           color: isHighlighted ? colorScheme.primaryContainer : colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
