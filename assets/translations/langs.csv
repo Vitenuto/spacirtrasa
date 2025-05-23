@@ -4,6 +4,10 @@ navbar.trails,Paths,Trasy
 navbar.pois,Interests,Zajímavosti
 navbar.village,Village,Vesnice
 navbar.my,My,Moje
+logging.google,Sign in through Google,Přihlásit se přes Google
+logging.none,Continue without signing in,Pokračovat bez prihlášení
+logging.anonymous.warning,Limited functionality,Omezená funkčnost
+logging.anonymous.warning.description,"By continuing without logging in, you will lose features such as adding favourites, notes,...","Pokračováním bez přihlášení přijdete o funkce jako je přidávání oblíbených, poznámek,..."
 profile.sign-out,Sign out,Odhlásit se
 profile.sign-in,Sign in through Google,Přihlásit se přes Google
 profile.my-favorites,My favorites,Moje oblíbené
@@ -71,11 +75,10 @@ remove-favorite,Remove from favorite,Odeber z oblíbených
 object-doesnt-exists-anymore,Object does not exists anymore,Objekt již neexistuje
 error.login,Login failed with error: {error},Přihlášení selhalo s chybou: {error}
 title,Špacírtrasa,Špacírtrasa
-logging.google,Sign in through Google,Přihlásit se přes Google
-logging.none,Continue without signing in,Pokračovat bez prihlášení
 or,or,nebo
 created,Created {},Vytvořeno {}
 cancel,Cancel,Zrušit
 delete,Delete,Smazat
 save,Save,Uložit
+continue,Continue,Pokračovat
 mapy.cz-contributions,© Seznam.cz a.s. and others,© Seznam.cz a.s. a další

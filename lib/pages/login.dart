@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/services/auth.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
+import 'package:spacirtrasa/services/auth.dart';
 import 'package:spacirtrasa/services/router.dart';
 
 class LoginPage extends StatelessWidget {
@@ -38,12 +38,26 @@ class LoginPage extends StatelessWidget {
           ),
           Center(child: Padding(padding: const EdgeInsets.all(4.0), child: const Text("or").tr())),
           ElevatedButton(
-            onPressed: () async => _signInWith(context, AuthService.signInAnonymously),
+            onPressed: () async => _signInAnonymously(context),
             child: const Text("logging.none").tr(),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _signInAnonymously(BuildContext context) async {
+    await showDialog(context: context, builder: (_) => AlertDialog(
+      title: const Text("logging.anonymous.warning").tr(),
+      content: const Text("logging.anonymous.warning.description").tr(),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text("continue").tr(),
+        ),
+      ],
+    ));
+    if (context.mounted) await _signInWith(context, AuthService.signInAnonymously);
   }
 
   Future<void> _signInWith(BuildContext context, Future<void> Function() signInFunction) async {
