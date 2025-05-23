@@ -62,12 +62,11 @@ class RouteService {
         ],
       ),
     ],
-    // redirect to the login page if the user is not logged in
+
     redirect: (BuildContext context, GoRouterState state) async {
-      final bool loggedIn = FirebaseAuth.instance.currentUser != null;
-      final bool loggingIn = state.matchedLocation == LoginPage.route;
-      if (!loggedIn) return LoginPage.route;
-      if (loggingIn) return HomePage.route;
+      if (FirebaseAuth.instance.currentUser == null) return LoginPage.route;
+      // User is logged in, but trying to access the login page -> redirect to home
+      if (state.matchedLocation == LoginPage.route) return HomePage.route;
       // no need to redirect at all
       return null;
     },
