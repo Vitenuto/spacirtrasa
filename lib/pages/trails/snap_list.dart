@@ -106,8 +106,6 @@ class _SnapListState extends ConsumerState<SnapList> {
     );
   }
 
-  // bool _onScrollNotification(ScrollNotification notification, bool dragStartedAtTop)
-
   void _onExpanded(final bool isExpanded) {
     if (!isExpanded) _snapToSelected();
   }
