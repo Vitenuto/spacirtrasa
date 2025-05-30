@@ -19,7 +19,7 @@ class TrailProvider extends _$TrailProvider {
   }
 
   void trailListener(List<Trail> trails) {
-    log.t("Trails were updated: $trails");
+    log.t("Trails were updated: ${trails.map((trail) => trail.title)}");
     state = trails;
   }
 }
