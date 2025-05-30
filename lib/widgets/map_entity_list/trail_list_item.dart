@@ -1,37 +1,29 @@
-import 'dart:ui';
-
-import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
-import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_with_length.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
 
-class TrailListItem implements ListItem {
-  final Trail trail;
-  final bool isSelected;
-  final bool isPinned;
-  final VoidCallback onSelected;
-  final VoidCallback onShowDetail;
-  final VoidCallback? onLongPress;
+class TrailListItem extends ListItem {
+  final TrailWithLength trailWithLength;
 
   TrailListItem({
-    required this.trail,
-    required this.isSelected,
-    required this.isPinned,
-    required this.onSelected,
-    required this.onShowDetail,
-    this.onLongPress,
+    required this.trailWithLength,
+    required super.isSelected,
+    required super.isPinned,
+    required super.onSelected,
+    required super.onShowDetail,
+    super.onLongPress,
   });
 
   @override
-  String get id => trail.id;
+  String get id => trailWithLength.trail.id;
 
   @override
-  String get title => trail.title;
+  String get title => trailWithLength.trail.title;
 
   @override
-  String get subtitle => '(${(trail.path.toLength() / 1000).toStringAsFixed(2)} km)';
+  String get subtitle => '(${(trailWithLength.length / 1000).toStringAsFixed(2)} km)';
 
   @override
-  String get description => trail.markdownLessData;
+  String get description => trailWithLength.trail.markdownLessData;
 
   @override
   String? get imageUrl => null;

@@ -16,7 +16,13 @@ class ExpandableList extends ConsumerStatefulWidget {
   final List<ListItem> items;
   final Widget Function(bool) filterBuilder;
 
-  const ExpandableList(this.isExpanded, this.listTitle, this.items, {super.key, required this.filterBuilder});
+  const ExpandableList({
+    super.key,
+    required this.isExpanded,
+    required this.listTitle,
+    required this.items,
+    required this.filterBuilder,
+  });
 
   @override
   ConsumerState<ExpandableList> createState() => _SnapListState();
@@ -117,7 +123,8 @@ class _SnapListState extends ConsumerState<ExpandableList> {
     final selectedItem = widget.items[index];
 
     // TODO Not ideal, probably the provider should be stored in the listItem as well
-    if (ref.read(selectedTrailProvider)?.id == selectedItem.id || ref.read(selectedPoiProvider)?.id == selectedItem.id) {
+    if (ref.read(selectedTrailProvider)?.id == selectedItem.id ||
+        ref.read(selectedPoiProvider)?.id == selectedItem.id) {
       return; // Skip if the item is already selected
     }
 
@@ -125,7 +132,8 @@ class _SnapListState extends ConsumerState<ExpandableList> {
   }
 
   void _onScrollChange() {
-    if (isSnapping || widget.isExpanded || _scrollController.position.isScrollingNotifier.value) return;
+    if (isSnapping || widget.isExpanded || _scrollController.position.isScrollingNotifier.value)
+      return;
     _snapToSelected();
   }
 

@@ -4,33 +4,47 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_flags.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi_filter.dart';
 
-class FilterView extends ConsumerWidget {
-  const FilterView({super.key});
+class AnimatedPoiFilter extends ConsumerStatefulWidget {
+  final bool isExpanded;
+
+  const AnimatedPoiFilter(this.isExpanded, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        SizedBox(height: 16),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            prefixIcon: const Icon(Icons.search),
-            hintText: 'pois.filter.search-hint'.tr(),
-          ),
-          onChanged: (text) => ref.read(poiFilterProvider.notifier).setFilter(searchText: text),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: TrailFlagsToggleRow(),
-        ),
-      ],
+  ConsumerState<AnimatedPoiFilter> createState() => _AnimatedFilterState();
+}
+
+class _AnimatedFilterState extends ConsumerState<AnimatedPoiFilter> {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: kThemeAnimationDuration,
+      child:
+          widget.isExpanded
+              ? Column(
+                children: [
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: 'pois.filter.search-hint'.tr(),
+                    ),
+                    onChanged:
+                        (text) => ref.read(poiFilterProvider.notifier).setFilter(searchText: text),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: PoiFlagsToggleRow(),
+                  ),
+                ],
+              )
+              : const SizedBox.shrink(),
     );
   }
 }
 
-class TrailFlagsToggleRow extends ConsumerWidget {
-  const TrailFlagsToggleRow({super.key});
+class PoiFlagsToggleRow extends ConsumerWidget {
+  const PoiFlagsToggleRow({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

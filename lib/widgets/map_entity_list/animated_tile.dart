@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/utils/constants.dart';
+import 'package:spacirtrasa/widgets/animated_image.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/animated_description.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/animated_title.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
@@ -49,6 +50,7 @@ class AnimatedTile extends ConsumerWidget {
                 ],
               ),
             ),
+            if (item.imageUrl != null) AnimatedImage(isExpanded: isExpanded, imgUrl: item.imageUrl!),
           ],
         ),
       ),
