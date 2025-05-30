@@ -62,7 +62,7 @@ services.map_entity.map_entity_service.import-failed-general.Trail,"Paths import
 home.interests-around,Interests around:,Zajímavosti kolem:
 pois.filter.search-hint,Name of interest...,Jméno zajímavosti...
 poi-detail.show-on-map,Shown on the map,Zobrazit na mapě
-trails.tap-to-pin,Tap to pin:,Stiskem připnete:
+trails.hold-to-pin,Hold to pin:,Podržením trasy ji připnete:
 trails.filter.search-hint,Trail name...,Jméno trasy...
 trail-detail.show-on-map,Pin to map,Připni na mapu
 trail-added-to-finished,Trail {} is added to the finished,Trasa {} je přidána mezi absolvované trasy

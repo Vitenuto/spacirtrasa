@@ -5,16 +5,16 @@ import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_filter.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_length_bounds.dart';
 
-class AnimatedFilter extends ConsumerStatefulWidget {
+class AnimatedTrailFilter extends ConsumerStatefulWidget {
   final bool isExpanded;
 
-  const AnimatedFilter(this.isExpanded, {super.key});
+  const AnimatedTrailFilter(this.isExpanded, {super.key});
 
   @override
-  ConsumerState<AnimatedFilter> createState() => _AnimatedFilterState();
+  ConsumerState<AnimatedTrailFilter> createState() => _AnimatedFilterState();
 }
 
-class _AnimatedFilterState extends ConsumerState<AnimatedFilter> {
+class _AnimatedFilterState extends ConsumerState<AnimatedTrailFilter> {
   RangeValues? _rangeValues;
 
   @override

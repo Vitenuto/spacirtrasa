@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
-import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
-import 'package:spacirtrasa/pages/pois/poi_detail.dart';
-import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/utils/constants.dart';
-import 'package:spacirtrasa/widgets/animated_image.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/animated_description.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/animated_title.dart';
+import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
 
-class AnimatedPoiTile extends ConsumerWidget {
-  final PoiWithDistance poiWithDistance;
+class AnimatedTile extends ConsumerWidget {
+  final ListItem item;
   final bool isExpanded;
 
-  const AnimatedPoiTile({super.key, required this.poiWithDistance, required this.isExpanded});
+  const AnimatedTile({super.key, required this.item, required this.isExpanded});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isHighlighted =
-        !isExpanded && ref.watch(selectedPoiProvider)?.id == poiWithDistance.poi.id;
+    final isHighlighted = !isExpanded && item.isSelected;
 
     return InkWell(
-      onTap:
-          isExpanded
-              ? () => showPoiDetail(context, poiWithDistance.poi)
-              : () => onPoiClicked(poiWithDistance.poi, ref),
+      onTap: isExpanded ? item.onShowDetail : item.onSelected,
+      onLongPress: item.onLongPress,
       child: AnimatedContainer(
         duration: kThemeAnimationDuration,
         height: isExpanded ? itemListHeight * 2 : itemListHeight,
@@ -34,6 +27,7 @@ class AnimatedPoiTile extends ConsumerWidget {
         decoration: BoxDecoration(
           color: isHighlighted ? colorScheme.primaryContainer : colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(12),
+          border: item.isPinned ? Border.all(color: colorScheme.primary, width: 2) : null,
           boxShadow: [
             if (isHighlighted)
               BoxShadow(
@@ -50,26 +44,14 @@ class AnimatedPoiTile extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedTitle(
-                    isExpanded,
-                    poiWithDistance.poi.title,
-                    subtitle: '(${(poiWithDistance.distance! / 1000).toStringAsFixed(2)} km)',
-                  ),
-                  AnimatedDescription(
-                    isExpanded: isExpanded,
-                    data: poiWithDistance.poi.markdownLessData,
-                  ),
+                  AnimatedTitle(isExpanded, item.title, subtitle: item.subtitle),
+                  AnimatedDescription(isExpanded: isExpanded, data: item.description),
                 ],
               ),
             ),
-            AnimatedImage(isExpanded: isExpanded, imgUrl: poiWithDistance.poi.imgUrl),
           ],
         ),
       ),
     );
-  }
-
-  onPoiClicked(Poi poi, WidgetRef ref) {
-    ref.read(selectedPoiProvider.notifier).setSelected(poi);
   }
 }

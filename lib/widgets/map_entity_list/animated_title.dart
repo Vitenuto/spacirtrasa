@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AnimatedTitle extends ConsumerWidget {
   final bool isExpanded;
   final String title;
-  final double? length;
+  final String? subtitle;
 
-  const AnimatedTitle(this.isExpanded, this.title, {super.key, this.length});
+  const AnimatedTitle(this.isExpanded, this.title, {super.key, this.subtitle});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,7 +39,7 @@ class AnimatedTitle extends ConsumerWidget {
                 ),
               ),
             ),
-            if (length != null) Text('(${(length! / 1000).toStringAsFixed(2)} km)'),
+            if (subtitle != null) Text(subtitle!),
           ],
         ),
       ),
