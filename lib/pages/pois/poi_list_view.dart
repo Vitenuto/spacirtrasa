@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spacirtrasa/pages/home/animated_poi_tile.dart';
 import 'package:spacirtrasa/pages/pois/filter_view.dart';
-import 'package:spacirtrasa/pages/pois/poi_tile.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/filtered_poi.dart';
 
 class PoiListView extends ConsumerStatefulWidget {
@@ -24,7 +24,7 @@ class _PoiListViewState extends ConsumerState<PoiListView> {
           if (index == 0) return FilterView();
 
           final poiWithDistance = poisWithDistance[index - 1];
-          return PoiTile(poiWithDistance);
+          return AnimatedPoiTile(poiWithDistance: poiWithDistance, isExpanded: true);
         },
       ),
     );
