@@ -2,13 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
+import 'package:spacirtrasa/widgets/map_entity_list/expandable_list.dart';
+import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
 
 class ExpandableSheet extends ConsumerWidget {
-  final Widget Function(bool) _childBuilder;
+  final String listTitle;
+  final List<ListItem> items;
+  final Widget Function(bool) filterBuilder;
+
   final log = Logger();
   final shrinkedSize = 0.3;
 
-  ExpandableSheet(this._childBuilder, {super.key});
+  ExpandableSheet({
+    super.key,
+    required this.listTitle,
+    required this.items,
+    required this.filterBuilder,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,16 +43,18 @@ class ExpandableSheet extends ConsumerWidget {
                   duration: kThemeAnimationDuration,
                   curve: Curves.easeInOut,
                   decoration: BoxDecoration(
-                    color:
-                        isExpanded
-                            ? colorScheme.surface
-                            : colorScheme.surface.withAlpha(230),
+                    color: isExpanded ? colorScheme.surface : colorScheme.surface.withAlpha(230),
                     borderRadius:
                         isExpanded
                             ? const BorderRadius.all(Radius.zero)
                             : const BorderRadius.vertical(top: Radius.circular(16)),
                   ),
-                  child: _childBuilder(isExpanded),
+                  child: ExpandableList(
+                    isExpanded: isExpanded,
+                    listTitle: listTitle,
+                    items: items,
+                    filterBuilder: filterBuilder,
+                  ),
                 ),
               ),
             ],
