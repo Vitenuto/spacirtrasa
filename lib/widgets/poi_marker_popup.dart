@@ -42,14 +42,19 @@ class PoiMarker extends Marker {
   final bool isSelected;
 
   PoiMarker({required this.poi, required this.isSelected})
-      : super(
-    alignment: Alignment.topCenter,
-    rotate: true,
-    point: LatLng(poi.location.latitude, poi.location.longitude),
-    child: Icon(
-      Icons.location_on,
-      color: isSelected ? Colors.red.withAlpha(220) : Colors.blueGrey.withAlpha(220),
-      size: isSelected ? 60 : 45,
-    ),
-  );
+    : super(
+        alignment: Alignment.topCenter,
+        rotate: true,
+        point: LatLng(poi.location.latitude, poi.location.longitude),
+        child: SizedBox.expand(
+          child: FittedBox(
+            child: Icon(
+              Icons.location_on,
+              color: isSelected ? Colors.red.withAlpha(220) : Colors.blueGrey.withAlpha(220),
+            ),
+          ),
+        ),
+        width: isSelected ? 60 : 45,
+        height: isSelected ? 60 : 45,
+      );
 }
