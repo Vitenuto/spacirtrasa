@@ -11,7 +11,7 @@ import 'package:spacirtrasa/services/router.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  Logger.level = Level.all;
+  Logger.level = Level.debug;
   await dotenv.load(fileName: ".env");
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
