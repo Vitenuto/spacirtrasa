@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
+import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 
 class PoiMarkerPopup extends StatelessWidget {
   final Poi poi;
@@ -29,6 +32,26 @@ class PoiMarkerPopup extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text(poi.markdownLessData, maxLines: 3, overflow: TextOverflow.ellipsis),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton.filledTonal(
+                    icon: Icon(Icons.directions_outlined),
+                    tooltip: 'poi-marker.directions'.tr(),
+                    onPressed:
+                        () => MapsLauncher.launchCoordinates(
+                          poi.location.latitude,
+                          poi.location.longitude,
+                          poi.title,
+                        ),
+                  ),
+                  IconButton.filledTonal(
+                    icon: Icon(Icons.info_outlined),
+                    tooltip: 'poi-marker.info'.tr(),
+                    onPressed: () => showPoiDetail(context, poi),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
