@@ -3,6 +3,7 @@ import 'package:latlong2/latlong.dart';
 
 const itemListHeight = 45.0;
 const itemListPadding = 4.0;
+final expandableSheetSize = 0.3;
 const double kDefaultPadding = 12;
 final defaultPosition = LatLng(49.1118439, 16.5184100); // OÚ Ořechova u Brna
 final defaultBounds = LatLngBounds(
