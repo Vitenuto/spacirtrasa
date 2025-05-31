@@ -7,7 +7,7 @@ import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/note.dart';
-import 'package:spacirtrasa/pages/home/main.dart';
+import 'package:spacirtrasa/pages/pois/main.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
@@ -52,7 +52,7 @@ class PoiDetail extends ConsumerWidget {
         ref.read(selectedPoiProvider.notifier).setSelected(poi);
         ref.read(expandedProvider.notifier).setExpanded(false);
         Navigator.of(context, rootNavigator: true).pop();
-        RouteService.router.go(HomePage.route);
+        RouteService.router.go(PoisPage.route);
       },
     ),
     if (appUser?.favoritePoiIds.contains(poi.id) != null)
@@ -62,9 +62,7 @@ class PoiDetail extends ConsumerWidget {
           color: appUser!.favoritePoiIds.contains(poi.id) ? Colors.red : Colors.grey,
         ),
         tooltip: "${appUser.favoritePoiIds.contains(poi.id) ? 'remove' : 'add'}-favorite".tr(),
-        onPressed: () {
-          ref.read(appUserProvider.notifier).setFavoritePoi(poi.id);
-        },
+        onPressed: () => ref.read(appUserProvider.notifier).setFavoritePoi(poi.id),
       ),
   ];
 
