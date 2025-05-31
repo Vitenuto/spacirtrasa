@@ -24,6 +24,17 @@ abstract class Trail extends MapEntity with _$Trail {
 
   static Icon getIcon() => const Icon(Icons.route);
 
+  MaterialColor get color {
+    if (flags.contains(TrailFlags.stroller)) {
+      return Colors.green;
+    } else if (flags.contains(TrailFlags.tourist)) {
+      return Colors.orange;
+    } else if (flags.contains(TrailFlags.hill)) {
+      return Colors.red;
+    }
+    return Colors.grey; // Default color if no flags match
+  }
+
   factory Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
   @override
   String? get imgUrl => null;
