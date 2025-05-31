@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpx/gpx.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
-import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
 
 import 'map_entity.dart';
 
@@ -21,7 +21,7 @@ class TrailService extends MapEntityService<Trail> {
       id: 'WillBeReplacedByUniqueOneAutomatically',
       title: 'DummyTrail',
       createdAt: Timestamp.now(),
-      flags: {TrailFlags.stroller, TrailFlags.tourist, TrailFlags.hill},
+      flag: TrailFlag.tourist,
       path: [
         GeoPoint(49.11266, 16.517277),
         GeoPoint(49.112675, 16.517288),
@@ -39,7 +39,7 @@ class TrailService extends MapEntityService<Trail> {
       <gpx creator="https://gpx.studio" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
       <metadata>
         <name>Cestička</name>
-        <desc>[stroller, tourist, hill]Test of Markdown description
+        <desc>[tourist]Test of Markdown description
     ![Kočka](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsPgWByMU--c3_sMuzFpY3be_4E6SiLFk8w&amp;s)</desc>
         <author>
           <name>gpx.studio</name>
@@ -204,11 +204,7 @@ class TrailService extends MapEntityService<Trail> {
             "lng": 16.517348
           }
         ],
-        "flags": [
-          "stroller",
-          "tourist",
-          "hill"
-        ],
+        "flag": tourist",
         "created_at": 1745497455462
       }
     ]
@@ -275,12 +271,12 @@ class TrailService extends MapEntityService<Trail> {
         GeoPoint(trkpt.lat!, trkpt.lon!)).toList();
 
     final createdAt = gpx.metadata?.time ?? DateTime.now();
-    final (flags, markdownData) = _parseFlagsAndDescription(gpx.metadata?.desc);
+    final (flag, markdownData) = _parseFlagAndDescription(gpx.metadata?.desc);
     return Trail(id: "",
         title: gpx.metadata!.name!,
         createdAt: Timestamp.fromDate(createdAt),
         markdownData: markdownData,
-        flags: flags,
+        flag: flag,
         path: geoPoints);
   }
 
@@ -292,18 +288,17 @@ class TrailService extends MapEntityService<Trail> {
     }
   }
 
-  (Set<TrailFlags>, String) _parseFlagsAndDescription(String? data) {
-    if (data == null) return ({}, "");
+  (TrailFlag, String) _parseFlagAndDescription(String? data) {
+    if (data == null) throw FormatException("Data is null");;
     final regex = RegExp(r'^\[([^\]]+)\](.*)');
     final match = regex.firstMatch(data);
 
-    if (match == null) return ({}, data);
+    if (match == null) throw FormatException("No flags found in the description");
 
-    final flagsRaw = match.group(1)!;
-    final flags = flagsRaw.split(',').map((flagString) =>
-        TrailFlags.values.firstWhere((f) => f.name == flagString.trim())).toSet();
+    final flagRaw = match.group(1)!;
+    final flag = TrailFlag.values.firstWhere((f) => f.name == flagRaw.trim());
 
     final description = match.group(2)!.trim();
-    return (flags, description);
+    return (flag, description);
   }
 }

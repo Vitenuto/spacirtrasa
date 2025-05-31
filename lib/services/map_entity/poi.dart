@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
-import 'package:spacirtrasa/models/map_entity/poi/poi_flags.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi_flag.dart';
 
 import 'map_entity.dart';
 
@@ -16,7 +16,7 @@ class PoiService extends MapEntityService<Poi> {
       title: 'DummyPoi',
       imgUrl: 'https://i.pinimg.com/736x/1b/fc/e9/1bfce97a85aecdd0c0a0cd48348c15ef.jpg',
       createdAt: Timestamp.now(),
-      flags: {PoiFlags.monument, PoiFlags.food, PoiFlags.nature, PoiFlags.transportation},
+      flag: PoiFlag.food,
       location: GeoPoint(49.1118439, 16.5184100),
       markdownData: """## Dummy Poi
     ![Kočka](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsPgWByMU--c3_sMuzFpY3be_4E6SiLFk8w&s)
@@ -33,12 +33,7 @@ class PoiService extends MapEntityService<Poi> {
           "lat": 49.1118439,
           "lng": 16.51841
         },
-        "flags": [
-          "monument",
-          "food",
-          "nature",
-          "transportation"
-        ],
+        "flag": "food",
         "creation_date": 1744970090831
       }
     ]

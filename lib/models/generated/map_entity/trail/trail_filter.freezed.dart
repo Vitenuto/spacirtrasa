@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TrailFilter {
 
- (double, double) get bounds; String get searchText; Set<TrailFlags> get flags;
+ (double, double) get bounds; String get searchText; TrailFlag? get flag;
 /// Create a copy of TrailFilter
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $TrailFilterCopyWith<TrailFilter> get copyWith => _$TrailFilterCopyWithImpl<Trai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TrailFilter&&(identical(other.bounds, bounds) || other.bounds == bounds)&&(identical(other.searchText, searchText) || other.searchText == searchText)&&const DeepCollectionEquality().equals(other.flags, flags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TrailFilter&&(identical(other.bounds, bounds) || other.bounds == bounds)&&(identical(other.searchText, searchText) || other.searchText == searchText)&&(identical(other.flag, flag) || other.flag == flag));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,bounds,searchText,const DeepCollectionEquality().hash(flags));
+int get hashCode => Object.hash(runtimeType,bounds,searchText,flag);
 
 @override
 String toString() {
-  return 'TrailFilter(bounds: $bounds, searchText: $searchText, flags: $flags)';
+  return 'TrailFilter(bounds: $bounds, searchText: $searchText, flag: $flag)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $TrailFilterCopyWith<$Res>  {
   factory $TrailFilterCopyWith(TrailFilter value, $Res Function(TrailFilter) _then) = _$TrailFilterCopyWithImpl;
 @useResult
 $Res call({
- (double, double) bounds, String searchText, Set<TrailFlags> flags
+ (double, double) bounds, String searchText, TrailFlag? flag
 });
 
 
@@ -63,12 +63,12 @@ class _$TrailFilterCopyWithImpl<$Res>
 
 /// Create a copy of TrailFilter
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? bounds = null,Object? searchText = null,Object? flags = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? bounds = null,Object? searchText = null,Object? flag = freezed,}) {
   return _then(_self.copyWith(
 bounds: null == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
 as (double, double),searchText: null == searchText ? _self.searchText : searchText // ignore: cast_nullable_to_non_nullable
-as String,flags: null == flags ? _self.flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<TrailFlags>,
+as String,flag: freezed == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
+as TrailFlag?,
   ));
 }
 
@@ -79,18 +79,12 @@ as Set<TrailFlags>,
 
 
 class _TrailFilter implements TrailFilter {
-  const _TrailFilter({required this.bounds, required this.searchText, required final  Set<TrailFlags> flags}): _flags = flags;
+  const _TrailFilter({required this.bounds, required this.searchText, required this.flag});
   
 
 @override final  (double, double) bounds;
 @override final  String searchText;
- final  Set<TrailFlags> _flags;
-@override Set<TrailFlags> get flags {
-  if (_flags is EqualUnmodifiableSetView) return _flags;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableSetView(_flags);
-}
-
+@override final  TrailFlag? flag;
 
 /// Create a copy of TrailFilter
 /// with the given fields replaced by the non-null parameter values.
@@ -102,16 +96,16 @@ _$TrailFilterCopyWith<_TrailFilter> get copyWith => __$TrailFilterCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TrailFilter&&(identical(other.bounds, bounds) || other.bounds == bounds)&&(identical(other.searchText, searchText) || other.searchText == searchText)&&const DeepCollectionEquality().equals(other._flags, _flags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TrailFilter&&(identical(other.bounds, bounds) || other.bounds == bounds)&&(identical(other.searchText, searchText) || other.searchText == searchText)&&(identical(other.flag, flag) || other.flag == flag));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,bounds,searchText,const DeepCollectionEquality().hash(_flags));
+int get hashCode => Object.hash(runtimeType,bounds,searchText,flag);
 
 @override
 String toString() {
-  return 'TrailFilter(bounds: $bounds, searchText: $searchText, flags: $flags)';
+  return 'TrailFilter(bounds: $bounds, searchText: $searchText, flag: $flag)';
 }
 
 
@@ -122,7 +116,7 @@ abstract mixin class _$TrailFilterCopyWith<$Res> implements $TrailFilterCopyWith
   factory _$TrailFilterCopyWith(_TrailFilter value, $Res Function(_TrailFilter) _then) = __$TrailFilterCopyWithImpl;
 @override @useResult
 $Res call({
- (double, double) bounds, String searchText, Set<TrailFlags> flags
+ (double, double) bounds, String searchText, TrailFlag? flag
 });
 
 
@@ -139,12 +133,12 @@ class __$TrailFilterCopyWithImpl<$Res>
 
 /// Create a copy of TrailFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? bounds = null,Object? searchText = null,Object? flags = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? bounds = null,Object? searchText = null,Object? flag = freezed,}) {
   return _then(_TrailFilter(
 bounds: null == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
 as (double, double),searchText: null == searchText ? _self.searchText : searchText // ignore: cast_nullable_to_non_nullable
-as String,flags: null == flags ? _self._flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<TrailFlags>,
+as String,flag: freezed == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
+as TrailFlag?,
   ));
 }
 

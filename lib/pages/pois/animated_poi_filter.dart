@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/models/map_entity/poi/poi_flags.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi_flag.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi_filter.dart';
 
 class AnimatedPoiFilter extends ConsumerStatefulWidget {
@@ -48,26 +48,18 @@ class PoiFlagsToggleRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedFlags = ref.watch(poiFilterProvider).flags;
+    final selectedFlag = ref.watch(poiFilterProvider).flag;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children:
-          PoiFlags.values.map((flag) {
-            final isSelected = selectedFlags.contains(flag);
+          PoiFlag.values.map((flag) {
+            final isSelected = selectedFlag == flag;
 
             return IconButton(
               icon: flag.icon,
-              onPressed: () {
-                final Set<PoiFlags> updatedFlags = Set<PoiFlags>.from(selectedFlags);
-                if (isSelected) {
-                  updatedFlags.remove(flag);
-                } else {
-                  updatedFlags.add(flag);
-                }
-                ref.read(poiFilterProvider.notifier).setFilter(flags: updatedFlags);
-              },
+              onPressed: () => ref.read(poiFilterProvider.notifier).setFilter(flag: flag),
               color: isSelected ? colorScheme.primary : null,
               style: IconButton.styleFrom(
                 backgroundColor: isSelected ? colorScheme.primary.withValues(alpha: 0.1) : null,

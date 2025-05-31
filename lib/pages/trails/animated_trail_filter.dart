@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_filter.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_length_bounds.dart';
 
@@ -78,25 +78,17 @@ class TrailFlagsToggleRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedFlags = ref.watch(trailFilterProvider).flags;
+    final selectedFlag = ref.watch(trailFilterProvider).flag;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
       children:
-          TrailFlags.values.map((flag) {
-            final isSelected = selectedFlags.contains(flag);
+          TrailFlag.values.map((flag) {
+            final isSelected = selectedFlag == flag;
 
             return IconButton(
               icon: flag.icon,
-              onPressed: () {
-                final Set<TrailFlags> updatedFlags = Set<TrailFlags>.from(selectedFlags);
-                if (isSelected) {
-                  updatedFlags.remove(flag);
-                } else {
-                  updatedFlags.add(flag);
-                }
-                ref.read(trailFilterProvider.notifier).setFilter(flags: updatedFlags);
-              },
+              onPressed: () => ref.read(trailFilterProvider.notifier).setFilter(flag: flag),
               color: isSelected ? colorScheme.primary : null,
               style: IconButton.styleFrom(
                 backgroundColor: isSelected ? colorScheme.primary.withValues(alpha: 0.1) : null,

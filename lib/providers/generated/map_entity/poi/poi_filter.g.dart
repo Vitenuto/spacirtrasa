@@ -6,7 +6,7 @@ part of '../../../map_entity/poi/poi_filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$poiFilterProviderHash() => r'cd711dacd83e93cba400f876f43901191a6d82b1';
+String _$poiFilterProviderHash() => r'1736e0ae475f176c6933e0bfe954ea325cd98e3a';
 
 /// See also [PoiFilterProvider].
 @ProviderFor(PoiFilterProvider)

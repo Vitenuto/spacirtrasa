@@ -14,10 +14,7 @@ _Poi _$PoiFromJson(Map<String, dynamic> json) => _Poi(
   location: const GeoPointConverter().fromJson(
     json['location'] as Map<String, dynamic>,
   ),
-  flags:
-      (json['flags'] as List<dynamic>)
-          .map((e) => $enumDecode(_$PoiFlagsEnumMap, e))
-          .toSet(),
+  flag: $enumDecode(_$PoiFlagEnumMap, json['flag']),
   createdAt: dateFromJson((json['created_at'] as num).toInt()),
 );
 
@@ -27,13 +24,13 @@ Map<String, dynamic> _$PoiToJson(_Poi instance) => <String, dynamic>{
   'imgUrl': instance.imgUrl,
   'markdownData': instance.markdownData,
   'location': const GeoPointConverter().toJson(instance.location),
-  'flags': instance.flags.map((e) => _$PoiFlagsEnumMap[e]!).toList(),
+  'flag': _$PoiFlagEnumMap[instance.flag]!,
   'created_at': dateToJson(instance.createdAt),
 };
 
-const _$PoiFlagsEnumMap = {
-  PoiFlags.monument: 'monument',
-  PoiFlags.nature: 'nature',
-  PoiFlags.food: 'food',
-  PoiFlags.transportation: 'transportation',
+const _$PoiFlagEnumMap = {
+  PoiFlag.monument: 'monument',
+  PoiFlag.nature: 'nature',
+  PoiFlag.food: 'food',
+  PoiFlag.transportation: 'transportation',
 };

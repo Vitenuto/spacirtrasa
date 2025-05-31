@@ -1,18 +1,18 @@
 
 import 'package:flutter/material.dart';
 
-enum PoiFlags { monument, nature, food, transportation }
+enum PoiFlag { monument, nature, food, transportation }
 
-extension TrailFlagsExtension on PoiFlags {
+extension PoiFlagExtension on PoiFlag {
   Icon get icon {
     switch (this) {
-      case PoiFlags.monument:
+      case PoiFlag.monument:
         return const Icon(Icons.account_balance);
-      case PoiFlags.nature:
+      case PoiFlag.nature:
         return const Icon(Icons.nature);
-      case PoiFlags.food:
+      case PoiFlag.food:
         return const Icon(Icons.restaurant);
-      case PoiFlags.transportation:
+      case PoiFlag.transportation:
         return const Icon(Icons.directions_bus);
     }
   }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
-import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
 import 'package:spacirtrasa/utils/converters.dart';
 
 part '../../generated/map_entity/trail/trail.freezed.dart';
@@ -17,24 +17,25 @@ abstract class Trail extends MapEntity with _$Trail {
     required String title,
     required String markdownData,
     @GeoPointConverter() required List<GeoPoint> path,
-    required Set<TrailFlags> flags,
+    required TrailFlag flag,
     @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)
     required Timestamp createdAt,
   }) = _Trail;
 
   MaterialColor get flagColor {
-    if (flags.contains(TrailFlags.stroller)) {
-      return Colors.green;
-    } else if (flags.contains(TrailFlags.tourist)) {
-      return Colors.orange;
-    } else if (flags.contains(TrailFlags.hill)) {
-      return Colors.red;
+    switch (flag) {
+      case TrailFlag.stroller:
+        return Colors.green;
+      case TrailFlag.tourist:
+        return Colors.orange;
+      case TrailFlag.hill:
+        return Colors.red;
     }
-    return Colors.grey; // Default color if no flags match
   }
 
   @override
   String? get imgUrl => null;
+
   @override
   Icon get icon => const Icon(Icons.route);
 
