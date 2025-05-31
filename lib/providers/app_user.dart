@@ -23,7 +23,7 @@ class AppUserProvider extends _$AppUserProvider {
     return null;
   }
 
-  void setNote(Note note) {
+  Future<void> setNote(Note note) async {
     log.t("Setting note: ${note.mapEntityId}, for user: ${state?.id}");
     if (state == null) {
       log.w("AppUser is null, cannot set note");
@@ -37,7 +37,7 @@ class AppUserProvider extends _$AppUserProvider {
 
     state = state!.copyWith(notes: newNotes);
 
-    appUserCollection.doc(state!.id).update(state!.toJson());
+    await appUserCollection.doc(state!.id).update(state!.toJson());
   }
 
   void setFavoritePoi(final String poiId) {
