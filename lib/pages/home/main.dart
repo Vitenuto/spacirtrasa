@@ -15,8 +15,6 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final markdown = ref.watch(markdownProvider);
 
-    log.t(Assets.texts.appIntroduction);
-
     return ListView(
       padding: const EdgeInsets.all(8),
       children: [

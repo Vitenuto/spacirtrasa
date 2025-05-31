@@ -68,7 +68,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
           alignPositionOnUpdate: isFollowing,
         ),
         _buildMarkerLayer(),
-        if (ServiceStatus.enabled == permissionStatus) _buildLocationButton(context),
+        if (ServiceStatus.disabled != permissionStatus) _buildLocationButton(context),
       ],
     );
   }
