@@ -8,7 +8,6 @@ import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
-import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/editable_note_field.dart';
@@ -39,7 +38,6 @@ class TrailDetail extends ConsumerWidget {
       icon: const Icon(Icons.map),
       tooltip: 'trail-detail.show-on-map'.tr(),
       onPressed: () {
-        ref.read(pinnedTrailProvider.notifier).togglePinned(trail);
         ref.read(selectedTrailProvider.notifier).setSelected(trail);
         ref.read(expandedProvider.notifier).setExpanded(false);
         Navigator.of(context, rootNavigator: true).pop();
