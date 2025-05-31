@@ -75,6 +75,8 @@ village.bus-connections,Bus connections,Autobusové spoje
 village.news,Village news,Obecní novinky
 note.own-notes,Your notes:,Tvé poznámky:
 note.own-notes-hint,Enter your notes here...,Sem napište své poznámky...
+poi-marker.directions,Get directions,Naviguj mě
+poi-marker.info,Show details,Zobrazit detaily
 add-favorite,Add to favorite,Přidej k oblíbeným
 remove-favorite,Remove from favorite,Odeber z oblíbených
 object-doesnt-exists-anymore,Object does not exists anymore,Objekt již neexistuje

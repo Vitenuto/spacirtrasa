@@ -72,6 +72,7 @@ dependencies:
   flutter_native_splash: ^2.4.6
   flutter_map_location_marker: ^10.1.0
   flutter_map_marker_popup: ^8.0.1
+  maps_launcher: ^3.0.0+1
 
 dev_dependencies:
   flutter_test:
