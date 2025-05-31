@@ -116,7 +116,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
         Polyline(
           points: pinnedTrail.path.toLatLngList(),
           strokeWidth: 6,
-          color: Colors.blueAccent.withValues(alpha: 0.9),
+          color: Colors.blueAccent.withAlpha(220),
         ),
       );
     }
@@ -130,7 +130,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
         Polyline(
           points: selectedTrail.path.toLatLngList(),
           strokeWidth: 6,
-          color: selectedTrail.color.withValues(alpha: 0.9),
+          color: selectedTrail.color.withAlpha(220),
         ),
       );
       trails.remove(selectedTrail);
@@ -144,7 +144,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
           points: trail.path.toLatLngList(),
           strokeWidth: 10,
           useStrokeWidthInMeter: true,
-          color: trail.color.withValues(alpha: 0.5),
+          color: trail.color.withAlpha(120),
           pattern: StrokePattern.dashed(segments: [30,40]),
         ),
       );
@@ -163,9 +163,10 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
         point: LatLng(poi.location.latitude, poi.location.longitude),
         child: Icon(
           Icons.location_on,
-          color: isSelected ? Colors.red : Colors.grey,
-          size: isSelected ? 45 : 35,
+          color: isSelected ? Colors.red : Colors.grey.withAlpha(200),
+          size: isSelected ? 60 : 45,
         ),
+        rotate: true,
       );
     }).toList();
   }

@@ -39,7 +39,6 @@ class App extends StatelessWidget {
       locale: context.locale,
       title: 'Špacírtrasa vokolo Ořechova',
       theme: ThemeData(
-        // TODO
         primarySwatch: Colors.yellow,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.yellow,
