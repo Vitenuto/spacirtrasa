@@ -23,9 +23,8 @@ abstract class Poi extends MapEntity with _$Poi {
     required Timestamp createdAt,
   }) = _Poi;
 
-  static Icon getIcon() => const Icon(Icons.pin_drop_outlined);
+  @override
+  Icon get icon => const Icon(Icons.pin_drop_outlined);
 
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
-  @override
-  Icon get icon => getIcon();
 }

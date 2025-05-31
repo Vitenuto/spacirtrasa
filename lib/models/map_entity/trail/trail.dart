@@ -22,9 +22,7 @@ abstract class Trail extends MapEntity with _$Trail {
     required Timestamp createdAt,
   }) = _Trail;
 
-  static Icon getIcon() => const Icon(Icons.route);
-
-  MaterialColor get color {
+  MaterialColor get flagColor {
     if (flags.contains(TrailFlags.stroller)) {
       return Colors.green;
     } else if (flags.contains(TrailFlags.tourist)) {
@@ -35,9 +33,10 @@ abstract class Trail extends MapEntity with _$Trail {
     return Colors.grey; // Default color if no flags match
   }
 
-  factory Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
   @override
   String? get imgUrl => null;
   @override
-  Icon get icon => getIcon();
+  Icon get icon => const Icon(Icons.route);
+
+  factory Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
 }
