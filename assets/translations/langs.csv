@@ -54,6 +54,9 @@ profile.manage_entities.delete-success-single.Poi,POI '{}' successfully deleted,
 profile.manage_entities.delete-success-single.Trail,Path '{}' successfully deleted,Trasa '{}' byla úspěšně smazána
 profile.manage_entities.delete-success-multiple.Poi,{} POIs successfully deleted,{} zajímavosti byly úspěšně smazány
 profile.manage_entities.delete-success-multiple.Trail,{} trails successfully deleted,{} trasy byly úspěšně smazány
+profile.send-feedback,Send feedback,Odeslat zpětnou vazbu
+profile.send-feedback.hint,Let us know what you think...,"Dejte nám vědět, co si myslíte..."
+profile.send-feedback.success,Thank for your feedback!,Děkujeme za vaši zpětnou vazbu!
 services.map_entity.map_entity_service.import-failed.Poi,POIs import failed with: {},Import zajímavostí selhal s chybou: {}
 services.map_entity.map_entity_service.import-failed.Trail,Paths import failed with: {},Import tras selhal s chybou: {}
 services.map_entity.map_entity_service.import-failed.unsupported-file,Only .gpx or .json file extension is allowed,Pouze .gpx nebo .json soubor je povolen
@@ -81,4 +84,5 @@ cancel,Cancel,Zrušit
 delete,Delete,Smazat
 save,Save,Uložit
 continue,Continue,Pokračovat
+send,Send,Odeslat
 mapy.cz-contributions,© Seznam.cz a.s. and others,© Seznam.cz a.s. a další
