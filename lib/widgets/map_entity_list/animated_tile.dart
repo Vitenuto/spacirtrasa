@@ -32,7 +32,7 @@ class AnimatedTile extends ConsumerWidget {
           boxShadow: [
             if (isHighlighted)
               BoxShadow(
-                color: colorScheme.primary.withValues(alpha: 0.3),
+                color: colorScheme.primary.withAlpha(170),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
