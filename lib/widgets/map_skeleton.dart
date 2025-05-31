@@ -9,22 +9,26 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:flutter_map_compass/flutter_map_compass.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MapSkeleton extends StatefulWidget {
+import '../providers/map_entity/is_following.dart';
+
+class MapSkeleton extends ConsumerStatefulWidget {
   final AnimatedMapController? animatedMapController;
   final List<Widget> childLayers;
 
   const MapSkeleton({required this.animatedMapController, required this.childLayers, super.key});
 
   @override
-  State<MapSkeleton> createState() => _MapSkeletonState();
+  ConsumerState<MapSkeleton> createState() => _MapSkeletonState();
 }
 
-class _MapSkeletonState extends State<MapSkeleton> {
+class _MapSkeletonState extends ConsumerState<MapSkeleton> {
   final mapTileUrl =
       "https://api.mapy.cz/v1/maptiles/basic/256@2x/{z}/{x}/{y}?apikey=${dotenv.env['MAP_API_KEY']}";
   final mapContributionUrl = "https://api.mapy.cz/copyright";
@@ -48,6 +52,11 @@ class _MapSkeletonState extends State<MapSkeleton> {
               keepAlive: true,
               interactionOptions: const InteractionOptions(enableMultiFingerGestureRace: true),
               cameraConstraint: CameraConstraint.containCenter(bounds: defaultBounds),
+              onPositionChanged: (MapCamera camera, bool hasGesture) {
+                if (hasGesture) {
+                  ref.read(isFollowingProvider.notifier).setIsFollowing(AlignOnUpdate.never);
+                }
+              },
             ),
             mapController: widget.animatedMapController?.mapController,
             children: [

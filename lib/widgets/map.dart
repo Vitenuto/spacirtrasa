@@ -1,23 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
+import 'package:spacirtrasa/providers/map_entity/is_following.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
-import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
 import 'package:spacirtrasa/utils/converters.dart';
-import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/map_skeleton.dart';
 
 class MainMap extends ConsumerStatefulWidget {
@@ -32,24 +33,61 @@ class MainMap extends ConsumerStatefulWidget {
 class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin {
   final log = Logger();
   late final _animatedMapController = AnimatedMapController(vsync: this);
-  bool moveToUserPos = false;
+  late final StreamController<double?> _alignPositionStreamController;
+
+  @override
+  void initState() {
+    super.initState();
+    _alignPositionStreamController = StreamController<double?>();
+  }
 
   @override
   void dispose() {
     _animatedMapController.dispose();
+    _alignPositionStreamController.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     ref.listen(selectedTrailProvider, (_, selectedTrail) => _onSelectedTrail(selectedTrail));
-    ref.listen(positionPermissionStatusProvider, _onPermissionChanged);
     ref.listen(selectedPoiProvider, (_, selectedPoi) => _onSelectedPoi(selectedPoi));
-    ref.listen(positionProvider, (_, next) => _onPositionChanged(next));
+    final permissionStatus = ref.watch(positionPermissionStatusProvider);
+    final isFollowing = ref.watch(isFollowingProvider);
 
     return MapSkeleton(
       animatedMapController: _animatedMapController,
-      mapChildLayers: [PolylineLayer(polylines: _buildPolylines()), _buildMarkerLayer()],
+      childLayers: [
+        PolylineLayer(polylines: _buildPolylines()),
+        MarkerLayer(markers: _buildMarkers()),
+        CurrentLocationLayer(
+          alignPositionStream: _alignPositionStreamController.stream,
+          alignPositionOnUpdate: isFollowing,
+        ),
+        if (ServiceStatus.enabled == permissionStatus) _buildLocationButton(context),
+      ],
+    );
+  }
+
+  Align _buildLocationButton(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isFollowing = ref.watch(isFollowingProvider);
+
+    return Align(
+      alignment: Alignment(0.95, expandableSheetSize - 0.05),
+      child: FloatingActionButton(
+        onPressed: () {
+          // Align the location marker to the center of the map widget
+          // on location update until user interact with the map.
+          ref.read(isFollowingProvider.notifier).setIsFollowing(AlignOnUpdate.always);
+
+          // Align the location marker to the center of the map widget
+          // and zoom the map to level 18.
+          _alignPositionStreamController.add(18);
+        },
+        backgroundColor: colorScheme.primary.withAlpha(200),
+        child: Icon(AlignOnUpdate.always == isFollowing ? Icons.my_location : Icons.location_searching, color: colorScheme.onPrimary),
+      ),
     );
   }
 
@@ -74,39 +112,6 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     }
   }
 
-  void _onPermissionChanged(previous, next) {
-    moveToUserPos = next == ServiceStatus.enabled;
-  }
-
-  void _onPositionChanged(Position? next) {
-    if (moveToUserPos && next != null) {
-      moveToUserPos = false;
-
-      final userPos = LatLng(next.latitude, next.longitude);
-      if (!defaultBounds.contains(userPos)) {
-        log.w('User position: $userPos is outside of default bounds: $defaultBounds');
-        Fluttertoast.showToast(
-          toastLength: Toast.LENGTH_LONG,
-          msg: 'You are outside of the usable area, move closer to Ořechov u Brna',
-        );
-        return;
-      }
-
-      _animatedMapController.animateTo(duration: Duration(milliseconds: 2000), dest: userPos);
-    }
-  }
-
-  MarkerLayer _buildMarkerLayer() {
-    final currentLoc = ref.watch(positionProvider);
-
-    return MarkerLayer(
-      markers: [
-        if (currentLoc != null) buildUserLocationMarker(currentLoc),
-        ..._buildPoiMarkers(currentLoc),
-      ],
-    );
-  }
-
   List<Polyline> _buildPolylines() {
     List<Polyline> polylines = [];
 
@@ -115,7 +120,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
       polylines.add(
         Polyline(
           points: pinnedTrail.path.toLatLngList(),
-          strokeWidth: 6,
+          strokeWidth: 8,
           color: Colors.blueAccent.withAlpha(220),
         ),
       );
@@ -129,23 +134,21 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
       polylines.add(
         Polyline(
           points: selectedTrail.path.toLatLngList(),
-          strokeWidth: 6,
+          strokeWidth: 8,
           color: selectedTrail.color.withAlpha(220),
         ),
       );
       trails.remove(selectedTrail);
     }
 
-
-    log.t("Remaining trail length: ${trails.length}");
     for (final trail in trails) {
       polylines.add(
         Polyline(
           points: trail.path.toLatLngList(),
-          strokeWidth: 10,
+          strokeWidth: 5,
           useStrokeWidthInMeter: true,
           color: trail.color.withAlpha(120),
-          pattern: StrokePattern.dashed(segments: [30,40]),
+          pattern: StrokePattern.dashed(segments: [30, 40]),
         ),
       );
     }
@@ -153,7 +156,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     return polylines.reversed.toList(); // Reverse to show pinned and selected trails on top
   }
 
-  List<Marker> _buildPoiMarkers(Position? currentLoc) {
+  List<Marker> _buildMarkers() {
     final pois = ref.watch(poiProvider);
     final selectedPoi = ref.watch(selectedPoiProvider);
     return pois.map((poi) {
