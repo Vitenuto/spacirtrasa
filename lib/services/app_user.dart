@@ -13,9 +13,9 @@ final _log = Logger();
 final appUserCollection = _firestore
     .collection(usersCollectionId)
     .withConverter(
-  fromFirestore: FirestoreConverters.fromFirestore<AppUser>(AppUser.fromJson),
-  toFirestore: FirestoreConverters.toFirestore(),
-);
+      fromFirestore: FirestoreConverters.fromFirestore<AppUser>(AppUser.fromJson),
+      toFirestore: FirestoreConverters.toFirestore(),
+    );
 
 Stream<AppUser?> getCurrentUserStream() {
   final Stream<AppUser?> stream = _firebaseAuth.authStateChanges().switchMap((authUser) {
@@ -29,4 +29,20 @@ Stream<AppUser?> getCurrentUserStream() {
         .whereNotNull();
   });
   return stream;
+}
+
+Future<void> createAppUserIfNeeded(final String userId) async {
+  final appUser = (await appUserCollection.doc(userId).get()).data();
+  if (appUser == null) {
+    final newUser = AppUser(
+      id: userId,
+      isAdmin: false,
+      favoritePoiIds: [],
+      favoriteTrailIds: [],
+      finishedTrails: [],
+      notes: [],
+    );
+    await appUserCollection.doc(userId).set(newUser);
+    _log.t("New user '$newUser' is successfully created");
+  }
 }
