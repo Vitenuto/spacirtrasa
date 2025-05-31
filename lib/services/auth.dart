@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/services/app_user.dart';
 
 class AuthService {
@@ -28,7 +27,7 @@ class AuthService {
       final userCredential = await _firebaseAuth.signInWithCredential(credential);
       if (userCredential.user == null) throw("User is null");
 
-      await _createAppUserIfNeeded(userCredential.user!.uid);
+      await createAppUserIfNeeded(userCredential.user!.uid);
     } catch (e) {
       log.f("Exception during signing in: $e");
     }
@@ -53,19 +52,5 @@ class AuthService {
     await _firebaseAuth.signOut();
     await signInAnonymously();
     log.t("User is signed out");
-  }
-
-  static Future<void> _createAppUserIfNeeded(final String userId) async {
-    final appUser = (await appUserCollection.doc(userId).get()).data();
-    if (appUser == null) {
-      final newUser = AppUser(id: userId,
-          isAdmin: false,
-          favoritePoiIds: [],
-          favoriteTrailIds: [],
-          finishedTrails: [],
-          notes: []);
-      await appUserCollection.doc(userId).set(newUser);
-      log.t("New user '$newUser' is successfully created");
-    }
   }
 }
