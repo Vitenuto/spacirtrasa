@@ -1,7 +1,7 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_filter.dart';
-import 'package:spacirtrasa/models/map_entity/trail/trail_flags.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
 
 part '../../generated/map_entity/trail/trail_filter.g.dart';
 
@@ -13,17 +13,26 @@ class TrailFilterProvider extends _$TrailFilterProvider {
   TrailFilter build() {
     log.t("Building TrailFilter provider...");
     return TrailFilter(
-      flags: {},
+      flag: null,
       bounds: (double.negativeInfinity, double.infinity),
       searchText: "",
     );
   }
 
-  void setFilter({(double, double)? bounds, String? searchText, Set<TrailFlags>? flags}) {
+  void setFilter({(double, double)? bounds, String? searchText, TrailFlag? flag}) {
+    final TrailFlag? newFlag;
+    if (flag == null) {
+      newFlag = state.flag;
+    } else if (flag == state.flag) {
+      newFlag = null;
+    } else {
+      newFlag = flag;
+    }
+
     state = state.copyWith(
       bounds: bounds ?? state.bounds,
       searchText: searchText ?? state.searchText,
-      flags: flags ?? state.flags,
+      flag: newFlag,
     );
   }
 }

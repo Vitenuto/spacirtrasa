@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-enum TrailFlags { stroller, tourist, hill }
+enum TrailFlag { stroller, tourist, hill }
 
-extension TrailFlagsExtension on TrailFlags {
+extension TrailFlagExtension on TrailFlag {
   Icon get icon {
     switch (this) {
-      case TrailFlags.stroller:
+      case TrailFlag.stroller:
         return const Icon(Icons.stroller);
-      case TrailFlags.tourist:
+      case TrailFlag.tourist:
         return const Icon(Icons.hiking);
-      case TrailFlags.hill:
+      case TrailFlag.hill:
         return const Icon(Icons.landscape);
     }
   }

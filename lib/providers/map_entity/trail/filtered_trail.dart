@@ -24,17 +24,13 @@ class FilteredTrailProvider extends _$FilteredTrailProvider {
         }
       }
 
-      if (trailWithLength.length < filter.bounds.$1 ||
-          trailWithLength.length > filter.bounds.$2) {
+      if (trailWithLength.length < filter.bounds.$1 || trailWithLength.length > filter.bounds.$2) {
         return false;
       }
 
-      final requiredFlags = filter.flags;
-      if (requiredFlags.isNotEmpty) {
-        final trailFlags = trailWithLength.trail.flags;
-        if (!requiredFlags.any((requiredFlag) => trailFlags.contains(requiredFlag))) {
-          return false;
-        }
+      final requiredFlag = filter.flag;
+      if (requiredFlag != null && requiredFlag != trailWithLength.trail.flag) {
+        return false;
       }
 
       return true;

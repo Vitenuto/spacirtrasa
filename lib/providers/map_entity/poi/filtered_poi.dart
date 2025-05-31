@@ -25,13 +25,9 @@ class FilteredPoiProvider extends _$FilteredPoiProvider {
         }
       }
 
-      final requiredFlags = filter.flags;
-      if (requiredFlags.isNotEmpty) {
-        final poiFlags = poiWithDistance.poi.flags;
-        if (!requiredFlags.any((requiredFlag) => poiFlags.contains(requiredFlag))) {
-          log.t("POI ${poiWithDistance.poi.title} does not match required flags: $requiredFlags");
-          return false;
-        }
+      final requiredFlag = filter.flag;
+      if (requiredFlag != null && requiredFlag != poiWithDistance.poi.flag) {
+        return false;
       }
       return true;
     }).toList();

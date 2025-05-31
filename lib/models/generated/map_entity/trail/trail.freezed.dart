@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Trail {
 
- String get id; String get title; String get markdownData;@GeoPointConverter() List<GeoPoint> get path; Set<TrailFlags> get flags;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
+ String get id; String get title; String get markdownData;@GeoPointConverter() List<GeoPoint> get path; TrailFlag get flag;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
 /// Create a copy of Trail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $TrailCopyWith<Trail> get copyWith => _$TrailCopyWithImpl<Trail>(this as Trail, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trail&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&const DeepCollectionEquality().equals(other.path, path)&&const DeepCollectionEquality().equals(other.flags, flags)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trail&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,markdownData,const DeepCollectionEquality().hash(path),const DeepCollectionEquality().hash(flags),createdAt);
+int get hashCode => Object.hash(runtimeType,id,title,markdownData,const DeepCollectionEquality().hash(path),flag,createdAt);
 
 @override
 String toString() {
-  return 'Trail(id: $id, title: $title, markdownData: $markdownData, path: $path, flags: $flags, createdAt: $createdAt)';
+  return 'Trail(id: $id, title: $title, markdownData: $markdownData, path: $path, flag: $flag, createdAt: $createdAt)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $TrailCopyWith<$Res>  {
   factory $TrailCopyWith(Trail value, $Res Function(Trail) _then) = _$TrailCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, Set<TrailFlags> flags,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
+ String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, TrailFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -66,14 +66,14 @@ class _$TrailCopyWithImpl<$Res>
 
 /// Create a copy of Trail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? path = null,Object? flags = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? path = null,Object? flag = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
 as String,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
-as List<GeoPoint>,flags: null == flags ? _self.flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<TrailFlags>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<GeoPoint>,flag: null == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
+as TrailFlag,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as Timestamp,
   ));
 }
@@ -85,7 +85,7 @@ as Timestamp,
 @JsonSerializable()
 
 class _Trail extends Trail {
-   _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required final  Set<TrailFlags> flags, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _path = path,_flags = flags,super._();
+   _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required this.flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _path = path,super._();
   factory _Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
 
 @override final  String id;
@@ -98,13 +98,7 @@ class _Trail extends Trail {
   return EqualUnmodifiableListView(_path);
 }
 
- final  Set<TrailFlags> _flags;
-@override Set<TrailFlags> get flags {
-  if (_flags is EqualUnmodifiableSetView) return _flags;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableSetView(_flags);
-}
-
+@override final  TrailFlag flag;
 @override@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) final  Timestamp createdAt;
 
 /// Create a copy of Trail
@@ -120,16 +114,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trail&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&const DeepCollectionEquality().equals(other._path, _path)&&const DeepCollectionEquality().equals(other._flags, _flags)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trail&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,markdownData,const DeepCollectionEquality().hash(_path),const DeepCollectionEquality().hash(_flags),createdAt);
+int get hashCode => Object.hash(runtimeType,id,title,markdownData,const DeepCollectionEquality().hash(_path),flag,createdAt);
 
 @override
 String toString() {
-  return 'Trail(id: $id, title: $title, markdownData: $markdownData, path: $path, flags: $flags, createdAt: $createdAt)';
+  return 'Trail(id: $id, title: $title, markdownData: $markdownData, path: $path, flag: $flag, createdAt: $createdAt)';
 }
 
 
@@ -140,7 +134,7 @@ abstract mixin class _$TrailCopyWith<$Res> implements $TrailCopyWith<$Res> {
   factory _$TrailCopyWith(_Trail value, $Res Function(_Trail) _then) = __$TrailCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, Set<TrailFlags> flags,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
+ String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, TrailFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -157,14 +151,14 @@ class __$TrailCopyWithImpl<$Res>
 
 /// Create a copy of Trail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? path = null,Object? flags = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? path = null,Object? flag = null,Object? createdAt = null,}) {
   return _then(_Trail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
 as String,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
-as List<GeoPoint>,flags: null == flags ? _self._flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<TrailFlags>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<GeoPoint>,flag: null == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
+as TrailFlag,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as Timestamp,
   ));
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PoiFilter {
 
- String get searchText; Set<PoiFlags> get flags;
+ String get searchText; PoiFlag? get flag;
 /// Create a copy of PoiFilter
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $PoiFilterCopyWith<PoiFilter> get copyWith => _$PoiFilterCopyWithImpl<PoiFilter>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PoiFilter&&(identical(other.searchText, searchText) || other.searchText == searchText)&&const DeepCollectionEquality().equals(other.flags, flags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PoiFilter&&(identical(other.searchText, searchText) || other.searchText == searchText)&&(identical(other.flag, flag) || other.flag == flag));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,searchText,const DeepCollectionEquality().hash(flags));
+int get hashCode => Object.hash(runtimeType,searchText,flag);
 
 @override
 String toString() {
-  return 'PoiFilter(searchText: $searchText, flags: $flags)';
+  return 'PoiFilter(searchText: $searchText, flag: $flag)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $PoiFilterCopyWith<$Res>  {
   factory $PoiFilterCopyWith(PoiFilter value, $Res Function(PoiFilter) _then) = _$PoiFilterCopyWithImpl;
 @useResult
 $Res call({
- String searchText, Set<PoiFlags> flags
+ String searchText, PoiFlag? flag
 });
 
 
@@ -63,11 +63,11 @@ class _$PoiFilterCopyWithImpl<$Res>
 
 /// Create a copy of PoiFilter
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? searchText = null,Object? flags = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? searchText = null,Object? flag = freezed,}) {
   return _then(_self.copyWith(
 searchText: null == searchText ? _self.searchText : searchText // ignore: cast_nullable_to_non_nullable
-as String,flags: null == flags ? _self.flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<PoiFlags>,
+as String,flag: freezed == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
+as PoiFlag?,
   ));
 }
 
@@ -78,17 +78,11 @@ as Set<PoiFlags>,
 
 
 class _PoiFilter implements PoiFilter {
-  const _PoiFilter({required this.searchText, required final  Set<PoiFlags> flags}): _flags = flags;
+  const _PoiFilter({required this.searchText, required this.flag});
   
 
 @override final  String searchText;
- final  Set<PoiFlags> _flags;
-@override Set<PoiFlags> get flags {
-  if (_flags is EqualUnmodifiableSetView) return _flags;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableSetView(_flags);
-}
-
+@override final  PoiFlag? flag;
 
 /// Create a copy of PoiFilter
 /// with the given fields replaced by the non-null parameter values.
@@ -100,16 +94,16 @@ _$PoiFilterCopyWith<_PoiFilter> get copyWith => __$PoiFilterCopyWithImpl<_PoiFil
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PoiFilter&&(identical(other.searchText, searchText) || other.searchText == searchText)&&const DeepCollectionEquality().equals(other._flags, _flags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PoiFilter&&(identical(other.searchText, searchText) || other.searchText == searchText)&&(identical(other.flag, flag) || other.flag == flag));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,searchText,const DeepCollectionEquality().hash(_flags));
+int get hashCode => Object.hash(runtimeType,searchText,flag);
 
 @override
 String toString() {
-  return 'PoiFilter(searchText: $searchText, flags: $flags)';
+  return 'PoiFilter(searchText: $searchText, flag: $flag)';
 }
 
 
@@ -120,7 +114,7 @@ abstract mixin class _$PoiFilterCopyWith<$Res> implements $PoiFilterCopyWith<$Re
   factory _$PoiFilterCopyWith(_PoiFilter value, $Res Function(_PoiFilter) _then) = __$PoiFilterCopyWithImpl;
 @override @useResult
 $Res call({
- String searchText, Set<PoiFlags> flags
+ String searchText, PoiFlag? flag
 });
 
 
@@ -137,11 +131,11 @@ class __$PoiFilterCopyWithImpl<$Res>
 
 /// Create a copy of PoiFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? searchText = null,Object? flags = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? searchText = null,Object? flag = freezed,}) {
   return _then(_PoiFilter(
 searchText: null == searchText ? _self.searchText : searchText // ignore: cast_nullable_to_non_nullable
-as String,flags: null == flags ? _self._flags : flags // ignore: cast_nullable_to_non_nullable
-as Set<PoiFlags>,
+as String,flag: freezed == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
+as PoiFlag?,
   ));
 }
 
