@@ -132,8 +132,9 @@ class _SnapListState extends ConsumerState<ExpandableList> {
   }
 
   void _onScrollChange() {
-    if (isSnapping || widget.isExpanded || _scrollController.position.isScrollingNotifier.value)
+    if (isSnapping || widget.isExpanded || _scrollController.position.isScrollingNotifier.value) {
       return;
+    }
     _snapToSelected();
   }
 

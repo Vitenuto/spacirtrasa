@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/pages/trails/animated_trail_filter.dart';
-import 'package:spacirtrasa/pages/trails/map.dart';
 import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/widgets/expandable_sheet.dart';
+import 'package:spacirtrasa/widgets/map.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/trail_list_item.dart';
 
@@ -21,7 +21,7 @@ class TrailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => Stack(
     children: [
-      const MainMap(),
+      const MainMap(showSelectedTrail: true),
       Align(
         alignment: Alignment.bottomCenter,
         child: ExpandableSheet(

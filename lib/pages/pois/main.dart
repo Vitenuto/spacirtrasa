@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spacirtrasa/pages/pois/animated_poi_filter.dart';
-import 'package:spacirtrasa/pages/pois/map.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/filtered_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/widgets/expandable_sheet.dart';
+import 'package:spacirtrasa/widgets/map.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/poi_list_item.dart';
 

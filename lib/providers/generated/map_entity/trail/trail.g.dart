@@ -6,7 +6,7 @@ part of '../../../map_entity/trail/trail.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trailProviderHash() => r'053205d4734dde5ec0ba565ad89246540faf9b90';
+String _$trailProviderHash() => r'9e7936cf599be3a64766acd875248f111534161d';
 
 /// See also [TrailProvider].
 @ProviderFor(TrailProvider)
