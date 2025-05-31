@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/pages/trails/animated_trail_filter.dart';
 import 'package:spacirtrasa/pages/trails/map.dart';
 import 'package:spacirtrasa/pages/trails/trail_detail.dart';
@@ -44,11 +46,20 @@ class TrailsPage extends ConsumerWidget {
         isPinned: pinnedTrail != null && pinnedTrail.id == trail.id,
         onSelected: () => ref.read(selectedTrailProvider.notifier).setSelected(item.trail),
         onShowDetail: () => showTrailDetail(context, item.trail),
-        onLongPress: () => ref.read(pinnedTrailProvider.notifier).setPinned(trail),
+        onLongPress: () => setPinnedTrail(ref, trail),
       );
 
       listItems.add(listItem);
     }
     return listItems;
+  }
+
+  void setPinnedTrail(WidgetRef ref, Trail trail) {
+    final isPinned = ref.read(pinnedTrailProvider.notifier).togglePinned(trail);
+    if (isPinned) {
+      Fluttertoast.showToast(msg: 'trails.pinned'.tr(args: [trail.title]));
+    } else {
+      Fluttertoast.showToast(msg: 'trails.unpinned'.tr(args: [trail.title]));
+    }
   }
 }
