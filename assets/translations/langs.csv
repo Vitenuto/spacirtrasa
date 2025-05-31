@@ -67,6 +67,8 @@ pois.filter.search-hint,Name of interest...,Jméno zajímavosti...
 poi-detail.show-on-map,Shown on the map,Zobrazit na mapě
 trails.hold-to-pin,Hold to pin:,Podržením trasy ji připnete:
 trails.filter.search-hint,Trail name...,Jméno trasy...
+trails.pinned,Trail '{}' is pinned,Trasa '{}' byla připnuta
+trails.unpinned,Trail '{}' is unpinned,Trasa '{}' byla odepnuta
 trail-detail.show-on-map,Pin to map,Připni na mapu
 trail-added-to-finished,Trail {} is added to the finished,Trasa {} je přidána mezi absolvované trasy
 village.bus-connections,Bus connections,Autobusové spoje

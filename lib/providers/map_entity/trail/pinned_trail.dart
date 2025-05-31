@@ -15,14 +15,15 @@ class PinnedTrailProvider extends _$PinnedTrailProvider {
     return null;
   }
 
-  void setPinned(Trail? trail) {
+  bool togglePinned(Trail? trail) {
     if (state?.id == trail?.id) {
       log.t("Unpinning trail");
       state = null;
-      return;
+      return false;
     }
 
     log.t("Pinning Trail: ${trail?.title}");
     state = trail;
+    return true;
   }
 }

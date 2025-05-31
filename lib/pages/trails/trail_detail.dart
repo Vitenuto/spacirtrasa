@@ -39,7 +39,7 @@ class TrailDetail extends ConsumerWidget {
       icon: const Icon(Icons.map),
       tooltip: 'trail-detail.show-on-map'.tr(),
       onPressed: () {
-        ref.read(pinnedTrailProvider.notifier).setPinned(trail);
+        ref.read(pinnedTrailProvider.notifier).togglePinned(trail);
         ref.read(selectedTrailProvider.notifier).setSelected(trail);
         ref.read(expandedProvider.notifier).setExpanded(false);
         Navigator.of(context, rootNavigator: true).pop();
