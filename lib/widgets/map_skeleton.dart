@@ -15,15 +15,10 @@ import 'package:spacirtrasa/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapSkeleton extends StatefulWidget {
-  final AnimatedMapController? _animatedMapController;
-  final List<Widget>? _mapChildLayer;
+  final AnimatedMapController? animatedMapController;
+  final List<Widget> childLayers;
 
-  const MapSkeleton({
-    super.key,
-    AnimatedMapController? animatedMapController,
-    List<Widget>? mapChildLayers,
-  }) : _animatedMapController = animatedMapController,
-       _mapChildLayer = mapChildLayers;
+  const MapSkeleton({required this.animatedMapController, required this.childLayers, super.key});
 
   @override
   State<MapSkeleton> createState() => _MapSkeletonState();
@@ -54,7 +49,7 @@ class _MapSkeletonState extends State<MapSkeleton> {
               interactionOptions: const InteractionOptions(enableMultiFingerGestureRace: true),
               cameraConstraint: CameraConstraint.containCenter(bounds: defaultBounds),
             ),
-            mapController: widget._animatedMapController?.mapController,
+            mapController: widget.animatedMapController?.mapController,
             children: [
               TileLayer(
                 urlTemplate: mapTileUrl,
@@ -63,7 +58,7 @@ class _MapSkeletonState extends State<MapSkeleton> {
                   store: cacheStore,
                 ),
               ),
-              if (widget._mapChildLayer != null) ...widget._mapChildLayer!,
+              ...widget.childLayers,
               const MapCompass.cupertino(hideIfRotatedNorth: true),
               ..._buildContributions(),
             ],
@@ -82,14 +77,14 @@ class _MapSkeletonState extends State<MapSkeleton> {
       LogoSourceAttribution(
         height: 28,
         Assets.images.mapyLogo.image(),
-        onTap: () => _launchUrl(mapUrl),
+        onTap: () => launchUrl(Uri.parse(mapUrl)),
       ),
       Align(
         alignment: Alignment.topRight,
         child: ColoredBox(
           color: Theme.of(context).colorScheme.surface,
           child: GestureDetector(
-            onTap: () => _launchUrl(mapContributionUrl),
+            onTap: () => launchUrl(Uri.parse(mapContributionUrl)),
             child: Padding(
               padding: const EdgeInsets.all(3),
               child: Row(
@@ -101,14 +96,6 @@ class _MapSkeletonState extends State<MapSkeleton> {
         ),
       ),
     ];
-  }
-
-  Future<void> _launchUrl(final String url) async {
-    final Uri uri = Uri.parse(url);
-
-    if (!await launchUrl(uri)) {
-      throw Exception('Could not launch $uri');
-    }
   }
 
   static Future<CacheStore> _getCacheStore() async {
