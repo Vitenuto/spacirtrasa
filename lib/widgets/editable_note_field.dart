@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
 
@@ -24,9 +25,12 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
     _lastSavedNote = widget.initialNote.text;
   }
 
-  void _submitNote() {
+  void _submitNote() async {
     if (_controller.text != _lastSavedNote) {
-      ref.read(appUserProvider.notifier).setNote(widget.initialNote.copyWith(text: _controller.text));
+      await ref
+          .read(appUserProvider.notifier)
+          .setNote(widget.initialNote.copyWith(text: _controller.text));
+      Fluttertoast.showToast(msg: 'note.saved'.tr());
       _lastSavedNote = _controller.text;
     }
   }
@@ -50,10 +54,7 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'note.own-notes'.tr(),
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            Text('note.own-notes'.tr(), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
             TextField(
               controller: _controller,
@@ -67,10 +68,7 @@ class _EditableNoteFieldState extends ConsumerState<EditableNoteField> {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: _submitNote,
-                child: Text('save'.tr()),
-              ),
+              child: ElevatedButton(onPressed: _submitNote, child: Text('save'.tr())),
             ),
           ],
         ),
