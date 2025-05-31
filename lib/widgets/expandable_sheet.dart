@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
+import 'package:spacirtrasa/utils/constants.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/expandable_list.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/list_item.dart';
 
@@ -11,7 +12,6 @@ class ExpandableSheet extends ConsumerWidget {
   final Widget Function(bool) filterBuilder;
 
   final log = Logger();
-  final shrinkedSize = 0.3;
 
   ExpandableSheet({
     super.key,
@@ -38,7 +38,7 @@ class ExpandableSheet extends ConsumerWidget {
               if (!isExpanded) SizedBox(height: 8),
               Flexible(
                 child: AnimatedContainer(
-                  height: isExpanded ? screenHeight : screenHeight * shrinkedSize,
+                  height: isExpanded ? screenHeight : screenHeight * expandableSheetSize,
                   padding: EdgeInsets.symmetric(horizontal: 4),
                   duration: kThemeAnimationDuration,
                   curve: Curves.easeInOut,
