@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
@@ -20,6 +21,7 @@ import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
 import 'package:spacirtrasa/utils/converters.dart';
 import 'package:spacirtrasa/widgets/map_skeleton.dart';
+import 'package:spacirtrasa/widgets/poi_marker_popup.dart';
 
 class MainMap extends ConsumerStatefulWidget {
   final bool showSelectedTrail;
@@ -32,6 +34,7 @@ class MainMap extends ConsumerStatefulWidget {
 
 class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin {
   final log = Logger();
+  final PopupController _popupLayerController = PopupController();
   late final _animatedMapController = AnimatedMapController(vsync: this);
   late final StreamController<double?> _alignPositionStreamController;
 
@@ -57,15 +60,33 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
 
     return MapSkeleton(
       animatedMapController: _animatedMapController,
+      onMapTap: _popupLayerController.hideAllPopups,
       childLayers: [
         PolylineLayer(polylines: _buildPolylines()),
-        MarkerLayer(markers: _buildMarkers()),
         CurrentLocationLayer(
           alignPositionStream: _alignPositionStreamController.stream,
           alignPositionOnUpdate: isFollowing,
         ),
+        _buildMarkerLayer(),
         if (ServiceStatus.enabled == permissionStatus) _buildLocationButton(context),
       ],
+    );
+  }
+
+  PopupMarkerLayer _buildMarkerLayer() {
+    return PopupMarkerLayer(
+      options: PopupMarkerLayerOptions(
+        markers: _buildMarkers(),
+        popupController: _popupLayerController,
+        popupDisplayOptions: PopupDisplayOptions(
+          builder: (_, Marker marker) {
+            if (marker is PoiMarker) {
+              return PoiMarkerPopup(poi: marker.poi);
+            }
+            return const Card();
+          },
+        ),
+      ),
     );
   }
 
@@ -86,7 +107,10 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
           _alignPositionStreamController.add(18);
         },
         backgroundColor: colorScheme.primary.withAlpha(200),
-        child: Icon(AlignOnUpdate.always == isFollowing ? Icons.my_location : Icons.location_searching, color: colorScheme.onPrimary),
+        child: Icon(
+          AlignOnUpdate.always == isFollowing ? Icons.my_location : Icons.location_searching,
+          color: colorScheme.onPrimary,
+        ),
       ),
     );
   }
@@ -156,20 +180,13 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     return polylines.reversed.toList(); // Reverse to show pinned and selected trails on top
   }
 
-  List<Marker> _buildMarkers() {
+  List<PoiMarker> _buildMarkers() {
     final pois = ref.watch(poiProvider);
     final selectedPoi = ref.watch(selectedPoiProvider);
     return pois.map((poi) {
       final isSelected = selectedPoi?.id == poi.id;
 
-      return Marker(
-        point: LatLng(poi.location.latitude, poi.location.longitude),
-        child: Icon(Icons.location_on,
-          color: isSelected ? Colors.red.withAlpha(220) : Colors.blueGrey.withAlpha(220),
-          size: isSelected ? 60 : 45,
-        ),
-        rotate: true,
-      );
+      return PoiMarker(poi: poi, isSelected: isSelected);
     }).toList();
   }
 }
