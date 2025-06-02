@@ -19,9 +19,18 @@ class PoiFilterProvider extends _$PoiFilterProvider {
   }
 
   void setFilter({String? searchText, PoiFlag? flag}) {
+    final PoiFlag? newFlag;
+    if (flag == null) {
+      newFlag = state.flag;
+    } else if (flag == state.flag) {
+      newFlag = null;
+    } else {
+      newFlag = flag;
+    }
+
     state = state.copyWith(
       searchText: searchText ?? state.searchText,
-      flag: flag ?? state.flag,
+      flag: newFlag,
     );
   }
 }
