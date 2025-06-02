@@ -13,7 +13,9 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
+import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/utils/constants.dart';
+import 'package:spacirtrasa/utils/converters.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../providers/map_entity/is_following.dart';
@@ -38,6 +40,8 @@ class _MapSkeletonState extends ConsumerState<MapSkeleton> {
 
   @override
   Widget build(BuildContext context) {
+    final userPosition = ref.watch(positionProvider);
+
     // show a loading screen when _cacheStore hasn't been set yet
     return FutureBuilder<CacheStore>(
       future: cacheStoreFuture,
@@ -46,7 +50,7 @@ class _MapSkeletonState extends ConsumerState<MapSkeleton> {
           final cacheStore = snapshot.data!;
           return FlutterMap(
             options: MapOptions(
-              initialCenter: defaultPosition,
+              initialCenter: userPosition?.toLatLng() ?? defaultPosition,
               initialZoom: 15,
               minZoom: 10,
               maxZoom: 18,
