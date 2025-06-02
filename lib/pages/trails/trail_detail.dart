@@ -6,9 +6,11 @@ import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/note.dart';
+import 'package:spacirtrasa/pages/trails/main.dart';
 import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
+import 'package:spacirtrasa/services/router.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/editable_note_field.dart';
 
@@ -40,7 +42,8 @@ class TrailDetail extends ConsumerWidget {
       onPressed: () {
         ref.read(selectedTrailProvider.notifier).setSelected(trail);
         ref.read(expandedProvider.notifier).setExpanded(false);
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst);
+        RouteService.router.go(TrailsPage.route);
       },
     ),
     if (appUser?.favoriteTrailIds.contains(trail.id) != null)
