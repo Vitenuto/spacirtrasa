@@ -7,13 +7,13 @@ part of '../../../map_entity/trail/sorted_trail.dart';
 // **************************************************************************
 
 String _$sortedTrailProviderHash() =>
-    r'521afebf5be0f6aac7346f5de10b83dfed4fd399';
+    r'bbebd9e856804925003f8a73920e316a56da228d';
 
 /// See also [SortedTrailProvider].
 @ProviderFor(SortedTrailProvider)
 final sortedTrailProvider = AutoDisposeNotifierProvider<
   SortedTrailProvider,
-  List<TrailWithLength>
+  List<TrailWithDetails>
 >.internal(
   SortedTrailProvider.new,
   name: r'sortedTrailProvider',
@@ -25,6 +25,6 @@ final sortedTrailProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$SortedTrailProvider = AutoDisposeNotifier<List<TrailWithLength>>;
+typedef _$SortedTrailProvider = AutoDisposeNotifier<List<TrailWithDetails>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

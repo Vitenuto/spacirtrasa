@@ -7,7 +7,7 @@ part of '../../../map_entity/trail/trail_length_bounds.dart';
 // **************************************************************************
 
 String _$trailLengthBoundsProviderHash() =>
-    r'df5aa82ec0551c3478e739a9eb4764ff72af1eae';
+    r'e58f77f21a90ca0a7aa5f5075d0264105b575084';
 
 /// See also [TrailLengthBoundsProvider].
 @ProviderFor(TrailLengthBoundsProvider)

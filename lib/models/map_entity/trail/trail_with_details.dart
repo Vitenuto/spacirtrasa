@@ -1,8 +1,9 @@
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 
-class TrailWithLength {
+class TrailWithDetails {
   final Trail trail;
   final double length;
+  final double? distance;
 
-  TrailWithLength(this.trail, this.length);
+  TrailWithDetails(this.trail, this.length, this.distance);
 }

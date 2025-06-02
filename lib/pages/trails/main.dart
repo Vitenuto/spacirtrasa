@@ -41,7 +41,7 @@ class TrailsPage extends ConsumerWidget {
     for (final item in items) {
       final trail = item.trail;
       final TrailListItem listItem = TrailListItem(
-        trailWithLength: item,
+        trailWithDistance: item,
         isSelected: selectedTrail != null && selectedTrail.id == trail.id,
         isPinned: pinnedTrail != null && pinnedTrail.id == trail.id,
         onSelected: () => ref.read(selectedTrailProvider.notifier).setSelected(item.trail),

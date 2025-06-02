@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:spacirtrasa/providers/map_entity/trail/trail_with_length.dart';
+import 'package:spacirtrasa/providers/map_entity/trail/trail_with_details.dart';
 
 part '../../generated/map_entity/trail/trail_length_bounds.g.dart';
 
@@ -11,7 +11,7 @@ class TrailLengthBoundsProvider extends _$TrailLengthBoundsProvider {
   @override
   (double, double)? build() {
     log.t("Building TrailLengthBounds provider...");
-    final trailsWithLength = ref.watch(trailWithLengthProvider);
+    final trailsWithLength = ref.watch(trailWithDetailsProvider);
 
     if (trailsWithLength.isEmpty) {
       return null;

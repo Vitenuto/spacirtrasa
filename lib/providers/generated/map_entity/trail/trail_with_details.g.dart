@@ -1,30 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../map_entity/trail/trail_with_length.dart';
+part of '../../../map_entity/trail/trail_with_details.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trailWithLengthProviderHash() =>
-    r'6df6b0f74d3c86391e50a9118dac7e8f54043730';
+String _$trailWithDetailsProviderHash() =>
+    r'ba39545fc30d07ae5c138055a8e978e0d353325f';
 
-/// See also [TrailWithLengthProvider].
-@ProviderFor(TrailWithLengthProvider)
-final trailWithLengthProvider = AutoDisposeNotifierProvider<
-  TrailWithLengthProvider,
-  List<TrailWithLength>
+/// See also [TrailWithDetailsProvider].
+@ProviderFor(TrailWithDetailsProvider)
+final trailWithDetailsProvider = AutoDisposeNotifierProvider<
+  TrailWithDetailsProvider,
+  List<TrailWithDetails>
 >.internal(
-  TrailWithLengthProvider.new,
-  name: r'trailWithLengthProvider',
+  TrailWithDetailsProvider.new,
+  name: r'trailWithDetailsProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$trailWithLengthProviderHash,
+          : _$trailWithDetailsProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TrailWithLengthProvider = AutoDisposeNotifier<List<TrailWithLength>>;
+typedef _$TrailWithDetailsProvider =
+    AutoDisposeNotifier<List<TrailWithDetails>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
