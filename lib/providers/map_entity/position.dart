@@ -7,7 +7,7 @@ import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/services/map_entity/position.dart';
-import 'package:spacirtrasa/utils/utils.dart';
+import 'package:spacirtrasa/utils/constants.dart';
 
 part '../generated/map_entity/position.g.dart';
 
@@ -48,7 +48,9 @@ class PositionProvider extends _$PositionProvider {
   void _checkIsFinishedTrail(final Position position) {
     final trail = ref.read(pinnedTrailProvider);
     if (trail == null) return;
-    if (isNearTrail(position, trail.path)) {
+
+    final distance = trail.getDistanceFromLocation(position);
+    if (distance != null && distance < userFromTrailThresholdMeters) {
       ref.read(appUserProvider.notifier).setFinishedTrail(trail);
     }
   }
