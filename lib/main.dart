@@ -42,7 +42,7 @@ class App extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      title: 'Špacírtrasa vokolo Ořechova',
+      title: 'Ořechovem na skleničku',
       theme: ThemeData(
         primarySwatch: Colors.yellow,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow, brightness: Brightness.light),

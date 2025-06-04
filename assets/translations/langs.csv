@@ -82,7 +82,6 @@ add-favorite,Add to favorite,Přidej k oblíbeným
 remove-favorite,Remove from favorite,Odeber z oblíbených
 object-doesnt-exists-anymore,Object does not exists anymore,Objekt již neexistuje
 error.login,Login failed with error: {error},Přihlášení selhalo s chybou: {error}
-title,Špacírtrasa,Špacírtrasa
 or,or,nebo
 created,Created {},Vytvořeno {}
 cancel,Cancel,Zrušit
