@@ -289,7 +289,7 @@ class TrailService extends MapEntityService<Trail> {
   }
 
   (TrailFlag, String) _parseFlagAndDescription(String? data) {
-    if (data == null) throw FormatException("Data is null");;
+    if (data == null) throw FormatException("Data is null");
     final regex = RegExp(r'^\[([^\]]+)\](.*)');
     final match = regex.firstMatch(data);
 

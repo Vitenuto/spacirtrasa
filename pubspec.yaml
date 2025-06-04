@@ -100,7 +100,6 @@ flutter_gen:
 flutter:
   uses-material-design: true
   assets:
-    - assets/texts/
     - assets/translations/
     - assets/images/
     - .env
