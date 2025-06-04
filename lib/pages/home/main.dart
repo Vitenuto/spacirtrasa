@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
+import 'package:spacirtrasa/services/supplementary.dart';
 
 class HomePage extends ConsumerWidget {
   static final log = Logger();
@@ -13,7 +13,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final markdown = ref.watch(markdownProvider);
+    final markdown = ref.watch(homeTextProvider);
 
     return ListView(
       padding: const EdgeInsets.all(8),
@@ -29,7 +29,3 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
-
-final markdownProvider = FutureProvider<String>(
-  (ref) async => await rootBundle.loadString(Assets.texts.appIntroduction),
-);

@@ -42,16 +42,6 @@ class $AssetsImagesGen {
   ];
 }
 
-class $AssetsTextsGen {
-  const $AssetsTextsGen();
-
-  /// File path: assets/texts/app_introduction.md
-  String get appIntroduction => 'assets/texts/app_introduction.md';
-
-  /// List of all assets
-  List<String> get values => [appIntroduction];
-}
-
 class $AssetsTranslationsGen {
   const $AssetsTranslationsGen();
 
@@ -67,7 +57,6 @@ class Assets {
 
   static const String aEnv = '.env';
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsTextsGen texts = $AssetsTextsGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 
   /// List of all assets
