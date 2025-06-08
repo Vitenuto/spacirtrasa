@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
-import 'package:spacirtrasa/pages/trails/animated_trail_filter.dart';
 import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/filtered_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
@@ -27,7 +26,7 @@ class TrailsPage extends ConsumerWidget {
         child: ExpandableSheet(
           listTitle: 'trails.hold-to-pin'.tr(),
           items: getListItems(ref, context),
-          filterBuilder: (isExpanded) => AnimatedTrailFilter(isExpanded),
+          filterBuilder: (isExpanded) => SizedBox(),
         ),
       ),
     ],
