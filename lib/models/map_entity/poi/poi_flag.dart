@@ -7,9 +7,9 @@ extension PoiFlagExtension on PoiFlag {
   Icon get icon {
     switch (this) {
       case PoiFlag.monument:
-        return const Icon(Icons.account_balance);
+        return const Icon(Icons.wine_bar);
       case PoiFlag.nature:
-        return const Icon(Icons.nature);
+        return const Icon(Icons.confirmation_num);
       case PoiFlag.food:
         return const Icon(Icons.restaurant);
       case PoiFlag.transportation:
