@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
+import 'package:spacirtrasa/models/map_entity/poi/poi_flag.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 
 class PoiMarkerPopup extends StatelessWidget {
@@ -71,9 +72,26 @@ class PoiMarker extends Marker {
         point: LatLng(poi.location.latitude, poi.location.longitude),
         child: SizedBox.expand(
           child: FittedBox(
-            child: Icon(
-              Icons.location_on,
-              color: isSelected ? Colors.red.withAlpha(220) : Colors.blueGrey.withAlpha(220),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  size: 60,
+                  color: isSelected
+                      ? Colors.red.withAlpha(220)
+                      : poi.flag.color.withAlpha(220),
+                  fill: 1,
+                ),
+                Positioned(
+                  top: 8,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 15,
+                    child: poi.flag.icon,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
