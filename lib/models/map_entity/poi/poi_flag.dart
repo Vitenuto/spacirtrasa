@@ -16,4 +16,17 @@ extension PoiFlagExtension on PoiFlag {
         return const Icon(Icons.directions_bus);
     }
   }
+
+  Color get color {
+    switch (this) {
+      case PoiFlag.monument:
+        return Color(0x00722f37);
+      case PoiFlag.nature:
+        return Colors.green;
+      case PoiFlag.food:
+        return Colors.purpleAccent;
+      case PoiFlag.transportation:
+        return Colors.blue;
+    }
+  }
 }
