@@ -187,6 +187,6 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
       final isSelected = selectedPoi?.id == poi.id;
 
       return PoiMarker(poi: poi, isSelected: isSelected);
-    }).toList();
+    }).toList()..sort((a, b) => a.isSelected ? 1 : 0);
   }
 }
