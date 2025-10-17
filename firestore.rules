@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	// DEFAULT: Every access is disabled
+  	match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // USERS: Authenticated user can access only their own doc
+    match /USERS/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // TRAILS: All authenticated users (including anonymous) can read, only 'is_admin = true' users can write
+    match /TRAILS/{trailId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // POIS: Same as TRAILS
+    match /POIS/{poiId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // SUPPLEMENTARIES: Same as TRAILS
+    match /SUPPLEMENTARIES/{supplementary} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // FEEDBACKS: All authenticated users (including anonymous) can create
+    match /FEEDBACKS/{feedbackId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if false; // No one can read or change feedbacks
+    }
+
+    // Helper function to check if the user has 'is_admin' flag
+    function isAdmin() {
+      return request.auth != null && get(/databases/$(database)/documents/USERS/$(request.auth.uid)) != null &&
+        get(/databases/$(database)/documents/USERS/$(request.auth.uid)).data.is_admin == true;
+    }
+  }
+}
