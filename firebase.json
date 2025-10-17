@@ -12,8 +12,7 @@
         "lib/firebase_options.dart": {
           "projectId": "spacirtrasa",
           "configurations": {
-            "android": "1:908091094638:android:677fee1e9423cde07f987f",
-            "ios": "1:908091094638:ios:05e425a36193908c7f987f"
+            "android": "1:908091094638:android:677fee1e9423cde07f987f"
           }
         }
       }
