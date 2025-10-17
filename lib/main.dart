@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/services/router.dart';
 
 import 'firebase_options.dart';
@@ -25,7 +26,7 @@ void main() async {
     EasyLocalization(
       supportedLocales: [Locale('en', 'US'), Locale('cs', 'CZ')],
       fallbackLocale: Locale('en', 'US'),
-      path: 'assets/translations/langs.csv',
+      path: Assets.translations.langs,
       assetLoader: CsvAssetLoader(),
       child: ProviderScope(child: const App()),
     ),
