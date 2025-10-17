@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "908091094638-17dc9f3iekq5nktp2893vtdf2qqs17r6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nakladal.spacirtrasa",
+            "certificate_hash": "78eeb2bd57f0348515b7c040251790142a1305ee"
+          }
+        },
+        {
           "client_id": "908091094638-co1upg82ou94jhdgciv442lmkhmq6lh7.apps.googleusercontent.com",
           "client_type": 3
         }
