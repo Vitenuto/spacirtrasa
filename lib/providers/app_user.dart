@@ -41,8 +41,7 @@ class AppUserProvider extends _$AppUserProvider {
     if (note.text.isNotEmpty) newNotes.add(note);
 
     state = state!.copyWith(notes: newNotes);
-
-    await appUserCollection.doc(state!.id).update(state!.toJson());
+    await appUserCollection.doc(state!.id).set(state!);
   }
 
   void setFavoritePoi(final String poiId) {
@@ -60,8 +59,7 @@ class AppUserProvider extends _$AppUserProvider {
     }
 
     state = state!.copyWith(favoritePoiIds: newFavoritePoiIds);
-
-    appUserCollection.doc(state!.id).update(state!.toJson());
+    appUserCollection.doc(state!.id).set(state!);
   }
 
   void setFavoriteTrail(final String trailId) {
@@ -79,8 +77,7 @@ class AppUserProvider extends _$AppUserProvider {
     }
 
     state = state!.copyWith(favoriteTrailIds: newFavoriteTrailIds);
-
-    appUserCollection.doc(state!.id).update(state!.toJson());
+    appUserCollection.doc(state!.id).set(state!);
   }
 
   void setFinishedTrail(Trail trail) {
@@ -99,8 +96,7 @@ class AppUserProvider extends _$AppUserProvider {
       ..add(newFinishedTrail);
 
     state = state!.copyWith(finishedTrails: newFinishedTrails);
-
-    appUserCollection.doc(state!.id).update(state!.toJson());
+    appUserCollection.doc(state!.id).set(state!);
 
     Fluttertoast.showToast(
       msg: 'trail-added-to-finished'.tr(args: [trail.title]),
