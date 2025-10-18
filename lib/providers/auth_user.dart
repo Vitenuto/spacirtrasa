@@ -11,12 +11,14 @@ class AuthUserProvider extends _$AuthUserProvider {
 
   @override
   User? build() {
-    final authStateChangesSubscription = _firebaseAuth.authStateChanges().listen((User? user) {
-      log.i("AuthStateChanged with user: $user");
-      state = user?.isAnonymous == true ? null : user;
-    });
+    final authStateChangesSubscription = _firebaseAuth.authStateChanges().listen(
+        onAuthStateDataChanged);
     ref.onDispose(() => authStateChangesSubscription.cancel());
-
     return _firebaseAuth.currentUser?.isAnonymous == true ? null : _firebaseAuth.currentUser;
+  }
+
+  void onAuthStateDataChanged(User? user) {
+    log.i("AuthStateChanged with user: $user");
+    state = user?.isAnonymous == true ? null : user;
   }
 }
