@@ -16,9 +16,7 @@ abstract class MapEntityService<T extends MapEntity> {
   final T Function(Map<String, dynamic>) fromJson;
 
   late final CollectionReference<T> entityCollection;
-  late final Stream<List<T>> entityCollectionStream = entityCollection.snapshots().map(
-    (entitySnapshot) => entitySnapshot.docs.map((entityDoc) => entityDoc.data()).toList(),
-  );
+  late final Stream<List<T>> entityCollectionStream;
 
   MapEntityService(this.entityCollectionId, this.fromJson) {
     entityCollection = _firestore
@@ -27,6 +25,10 @@ abstract class MapEntityService<T extends MapEntity> {
           fromFirestore: FirestoreConverters.fromFirestore<T>(fromJson),
           toFirestore: FirestoreConverters.toFirestore(),
         );
+
+    entityCollectionStream = entityCollection.snapshots().map(
+          (entitySnapshot) => entitySnapshot.docs.map((entityDoc) => entityDoc.data()).toList(),
+    );
   }
 
   Future<List<T>> getEntities() async {
