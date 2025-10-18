@@ -18,9 +18,14 @@ class AppUserProvider extends _$AppUserProvider {
   @override
   AppUser? build() {
     ref.keepAlive();
-    final userSubscription = getCurrentUserStream().listen((user) => state = user);
+    final userSubscription = getCurrentUserStream().listen(onCurrentUserUpdate);
     ref.onDispose(() => userSubscription.cancel());
     return null;
+  }
+
+  void onCurrentUserUpdate(user) {
+    log.t("AppUserProvider updated: $user");
+    state = user;
   }
 
   Future<void> setNote(Note note) async {

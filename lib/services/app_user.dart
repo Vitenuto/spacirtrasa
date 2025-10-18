@@ -18,17 +18,17 @@ final appUserCollection = _firestore
     );
 
 Stream<AppUser?> getCurrentUserStream() {
-  final Stream<AppUser?> stream = _firebaseAuth.authStateChanges().switchMap((authUser) {
-    _log.t("Updating currentUserStream because authUser changed to: $authUser");
-    if (authUser == null || authUser.isAnonymous) return Stream.value(null);
+  return _firebaseAuth.authStateChanges().switchMap(mapAuthUserToAppUser);
+}
 
-    return appUserCollection
-        .doc(authUser.uid)
-        .snapshots()
-        .map((appUserSnapshot) => appUserSnapshot.data())
-        .whereNotNull();
-  });
-  return stream;
+Stream<AppUser?> mapAuthUserToAppUser(authUser) {
+  if (authUser == null || authUser.isAnonymous) return Stream.value(null);
+
+  return appUserCollection
+      .doc(authUser.uid)
+      .snapshots()
+      .map((appUserSnapshot) => appUserSnapshot.data())
+      .whereNotNull();
 }
 
 Future<void> createAppUserIfNeeded(final String userId) async {
