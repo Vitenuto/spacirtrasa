@@ -7,7 +7,7 @@ part of '../../../map_entity/trail/finished_trails.dart';
 // **************************************************************************
 
 String _$finishedTrailsProviderHash() =>
-    r'5f66776233292d0283753556df70b31461378146';
+    r'1a21d48958b7edd1d8994376a421d8b67f9d3eff';
 
 /// See also [FinishedTrailsProvider].
 @ProviderFor(FinishedTrailsProvider)

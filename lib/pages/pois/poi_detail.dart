@@ -52,7 +52,7 @@ class PoiDetail extends ConsumerWidget {
         ref.read(selectedPoiProvider.notifier).setSelected(poi);
         ref.read(expandedProvider.notifier).setExpanded(false);
         Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst);
-        RouteService.router.go(PoisPage.route);
+        router.go(PoisPage.route);
       },
     ),
     if (appUser?.favoritePoiIds.contains(poi.id) != null)

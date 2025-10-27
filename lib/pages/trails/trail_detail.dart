@@ -43,7 +43,7 @@ class TrailDetail extends ConsumerWidget {
         ref.read(selectedTrailProvider.notifier).setSelected(trail);
         ref.read(expandedProvider.notifier).setExpanded(false);
         Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst);
-        RouteService.router.go(TrailsPage.route);
+        router.go(TrailsPage.route);
       },
     ),
     if (appUser?.favoriteTrailIds.contains(trail.id) != null)
@@ -69,4 +69,5 @@ class TrailDetail extends ConsumerWidget {
   }
 }
 
-void showTrailDetail(BuildContext context, Trail trail) => showFullDialog(context, TrailDetail(trail));
+void showTrailDetail(BuildContext context, Trail trail) =>
+    showFullDialog(context, TrailDetail(trail));

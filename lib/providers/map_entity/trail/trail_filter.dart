@@ -7,11 +7,11 @@ part '../../generated/map_entity/trail/trail_filter.g.dart';
 
 @riverpod
 class TrailFilterProvider extends _$TrailFilterProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   TrailFilter build() {
-    log.t("Building TrailFilter provider...");
+    _log.t("Building TrailFilter provider...");
     return TrailFilter(
       flag: null,
       bounds: (double.negativeInfinity, double.infinity),

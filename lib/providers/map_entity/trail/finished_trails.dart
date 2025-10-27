@@ -7,14 +7,13 @@ part '../../generated/map_entity/trail/finished_trails.g.dart';
 
 @riverpod
 class FinishedTrailsProvider extends _$FinishedTrailsProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   List<FinishedTrail> build() {
-    log.t("Building FinishedTrails provider...");
+    _log.t("Building FinishedTrails provider...");
     final appUser = ref.watch(appUserProvider);
     if (appUser == null) return List.empty();
-
     return appUser.finishedTrails;
   }
 }

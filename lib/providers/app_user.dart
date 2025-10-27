@@ -13,25 +13,25 @@ part 'generated/app_user.g.dart';
 
 @riverpod
 class AppUserProvider extends _$AppUserProvider {
-  final log = Logger();
+  final _log = Logger();
 
   @override
   AppUser? build() {
     ref.keepAlive();
-    final userSubscription = getCurrentUserStream().listen(onCurrentUserUpdate);
+    final userSubscription = getCurrentUserStream().listen(_onCurrentUserUpdate);
     ref.onDispose(() => userSubscription.cancel());
     return null;
   }
 
-  void onCurrentUserUpdate(user) {
-    log.t("AppUserProvider updated: $user");
+  void _onCurrentUserUpdate(user) {
+    _log.t("AppUserProvider updated: $user");
     state = user;
   }
 
   Future<void> setNote(Note note) async {
-    log.t("Setting note: ${note.mapEntityId}, for user: ${state?.id}");
+    _log.t("Setting note: ${note.mapEntityId}, for user: ${state?.id}");
     if (state == null) {
-      log.w("AppUser is null, cannot set note");
+      _log.w("AppUser is null, cannot set note");
       return;
     }
 
@@ -46,10 +46,10 @@ class AppUserProvider extends _$AppUserProvider {
 
   void setFavoritePoi(final String poiId) {
     if (state == null) {
-      log.w("AppUser is null, cannot set favorite POI");
+      _log.w("AppUser is null, cannot set favorite POI");
       return;
     }
-    log.t("Setting favorite POI: $poiId, for user: ${state?.id}");
+    _log.t("Setting favorite POI: $poiId, for user: ${state?.id}");
 
     final newFavoritePoiIds = List<String>.from(state!.favoritePoiIds);
     if (newFavoritePoiIds.contains(poiId)) {
@@ -64,10 +64,10 @@ class AppUserProvider extends _$AppUserProvider {
 
   void setFavoriteTrail(final String trailId) {
     if (state == null) {
-      log.w("AppUser is null, cannot set favorite Trail");
+      _log.w("AppUser is null, cannot set favorite Trail");
       return;
     }
-    log.t("Setting favorite Trail: $trailId, for user: ${state?.id}");
+    _log.t("Setting favorite Trail: $trailId, for user: ${state?.id}");
 
     final newFavoriteTrailIds = List<String>.from(state!.favoriteTrailIds);
     if (newFavoriteTrailIds.contains(trailId)) {
@@ -82,14 +82,14 @@ class AppUserProvider extends _$AppUserProvider {
 
   void setFinishedTrail(Trail trail) {
     if (state == null) {
-      log.w("AppUser is null, cannot set finished trail");
+      _log.w("AppUser is null, cannot set finished trail");
       return;
     }
     if (state!.finishedTrails.any((userFinishedTrail) => userFinishedTrail.trailId == trail.id)) {
       return;
     }
 
-    log.i("Setting finished Trail: ${trail.id}, for user: ${state?.id}");
+    _log.i("Setting finished Trail: ${trail.id}, for user: ${state?.id}");
 
     final newFinishedTrail = FinishedTrail(trailId: trail.id, finishedAt: Timestamp.now());
     final newFinishedTrails = List<FinishedTrail>.from(state!.finishedTrails)

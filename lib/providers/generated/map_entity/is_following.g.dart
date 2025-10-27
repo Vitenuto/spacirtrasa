@@ -7,7 +7,7 @@ part of '../../map_entity/is_following.dart';
 // **************************************************************************
 
 String _$isFollowingProviderHash() =>
-    r'167ffa759fafef4795147db90022eef108547062';
+    r'b3d2e3d3b00511862fdafd085808858d0fb3e1d3';
 
 /// See also [IsFollowingProvider].
 @ProviderFor(IsFollowingProvider)

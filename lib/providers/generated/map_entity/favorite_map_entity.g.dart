@@ -7,7 +7,7 @@ part of '../../map_entity/favorite_map_entity.dart';
 // **************************************************************************
 
 String _$favoriteMapEntityProviderHash() =>
-    r'359ee915cce8d0f6e44e7afcfb28d7f879143be4';
+    r'7125ea33a5497d3d153f76028da6ffc9ce39f261';
 
 /// See also [FavoriteMapEntityProvider].
 @ProviderFor(FavoriteMapEntityProvider)

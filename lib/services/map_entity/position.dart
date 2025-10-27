@@ -7,13 +7,8 @@ class PositionService {
   static const String _kPermissionDeniedForeverMessage = 'Location permission denied forever.';
   static const String _kPermissionGrantedMessage = 'Location permission granted.';
 
-  static final log = Logger();
+  static final _log = Logger();
   static final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
-
-  static Future<Position?> getCurrentPosition() async {
-    if (await checkPermissions() == false) return null;
-    return await Geolocator.getCurrentPosition();
-  }
 
   // Need to check for permissions before, otherwise exception may be thrown
   static Stream<Position> getPositionStream() => Geolocator.getPositionStream();
@@ -28,7 +23,7 @@ class PositionService {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      log.w(_kLocationServicesDisabledMessage);
+      _log.w(_kLocationServicesDisabledMessage);
       return false;
     }
 
@@ -41,20 +36,20 @@ class PositionService {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        log.w(_kPermissionDeniedMessage);
+        _log.w(_kPermissionDeniedMessage);
         return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      log.w(_kPermissionDeniedForeverMessage);
+      _log.w(_kPermissionDeniedForeverMessage);
       return false;
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    log.i(_kPermissionGrantedMessage);
+    _log.i(_kPermissionGrantedMessage);
     return true;
   }
 }

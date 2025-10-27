@@ -6,17 +6,17 @@ part '../../generated/map_entity/trail/selected_trail.g.dart';
 
 @riverpod
 class SelectedTrailProvider extends _$SelectedTrailProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   Trail? build() {
     ref.keepAlive();
-    log.t("Building SelectedTrail provider...");
+    _log.t("Building SelectedTrail provider...");
     return null;
   }
 
   void setSelected(Trail? trail) {
-    log.t("Setting selected Trail: ${trail?.title}");
+    _log.t("Setting selected Trail: ${trail?.title}");
     state = trail;
   }
 }

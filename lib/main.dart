@@ -7,10 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:spacirtrasa/firebase_options.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/services/router.dart';
-
-import 'firebase_options.dart';
 
 void main() async {
   Logger.level = Level.debug;
@@ -22,9 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
-  );
+  await FirebaseAppCheck.instance.activate(androidProvider: AndroidProvider.debug);
 
   runApp(
     EasyLocalization(
@@ -53,7 +50,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow, brightness: Brightness.light),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      routerConfig: RouteService.router,
+      routerConfig: router,
     );
   }
 }

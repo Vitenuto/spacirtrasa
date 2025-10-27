@@ -7,7 +7,7 @@ part of '../../../map_entity/trail/pinned_trail.dart';
 // **************************************************************************
 
 String _$pinnedTrailProviderHash() =>
-    r'02ed91983431867d8c34aa9073f93ec0ae1a485f';
+    r'0b212b6f390501327b85fc8a2a3947890d312cf5';
 
 /// See also [PinnedTrailProvider].
 @ProviderFor(PinnedTrailProvider)
