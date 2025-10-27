@@ -7,7 +7,7 @@ part of '../../../map_entity/poi/poi_with_distance.dart';
 // **************************************************************************
 
 String _$poiWithDistanceProviderHash() =>
-    r'4d357105df29b8e80d449e99de8f10ce981d8cbe';
+    r'fabc4bde5e9a070225c44a1c3185acb179dc738b';
 
 /// See also [PoiWithDistanceProvider].
 @ProviderFor(PoiWithDistanceProvider)

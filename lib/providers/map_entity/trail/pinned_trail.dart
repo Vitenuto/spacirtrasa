@@ -6,23 +6,23 @@ part '../../generated/map_entity/trail/pinned_trail.g.dart';
 
 @riverpod
 class PinnedTrailProvider extends _$PinnedTrailProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   Trail? build() {
     ref.keepAlive();
-    log.t("Building PinnedTrail provider...");
+    _log.t("Building PinnedTrail provider...");
     return null;
   }
 
   bool togglePinned(Trail? trail) {
     if (state?.id == trail?.id) {
-      log.t("Unpinning trail");
+      _log.t("Unpinning trail");
       state = null;
       return false;
     }
 
-    log.t("Pinning Trail: ${trail?.title}");
+    _log.t("Pinning Trail: ${trail?.title}");
     state = trail;
     return true;
   }

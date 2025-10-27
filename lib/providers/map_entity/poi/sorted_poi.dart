@@ -7,12 +7,12 @@ part '../../generated/map_entity/poi/sorted_poi.g.dart';
 
 @riverpod
 class SortedPoiProvider extends _$SortedPoiProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   List<PoiWithDistance> build() {
-    log.t("Building SortedPoi provider...");
+    _log.t("Building SortedPoi provider...");
     final poisWithDistances = ref.watch(poiWithDistanceProvider);
-    return poisWithDistances..sort((a, b) => a.distance?.compareTo(b.distance ?? 0) ?? 0);
+    return poisWithDistances..sort();
   }
 }

@@ -6,17 +6,17 @@ part '../../generated/map_entity/poi/selected_poi.g.dart';
 
 @riverpod
 class SelectedPoiProvider extends _$SelectedPoiProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   Poi? build() {
     ref.keepAlive();
-    log.t("Building SelectedPoi provider...");
+    _log.t("Building SelectedPoi provider...");
     return null;
   }
 
   void setSelected(Poi? poi) {
-    log.t("Setting selected POI: ${poi?.title}");
+    _log.t("Setting selected POI: ${poi?.title}");
     state = poi;
   }
 }

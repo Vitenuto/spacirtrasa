@@ -7,8 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpx/gpx.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
-
-import 'map_entity.dart';
+import 'package:spacirtrasa/services/map_entity/map_entity.dart';
 
 class TrailService extends MapEntityService<Trail> {
   static const trailsCollectionId = 'TRAILS';
@@ -267,17 +266,21 @@ class TrailService extends MapEntityService<Trail> {
 
     final gpxReader = GpxReader();
     final gpx = gpxReader.fromString(gpxContent);
-    final geoPoints = gpx.trks.first.trksegs.first.trkpts.map((trkpt) =>
-        GeoPoint(trkpt.lat!, trkpt.lon!)).toList();
+    final geoPoints =
+        gpx.trks.first.trksegs.first.trkpts
+            .map((trkpt) => GeoPoint(trkpt.lat!, trkpt.lon!))
+            .toList();
 
     final createdAt = gpx.metadata?.time ?? DateTime.now();
     final (flag, markdownData) = _parseFlagAndDescription(gpx.metadata?.desc);
-    return Trail(id: "",
-        title: gpx.metadata!.name!,
-        createdAt: Timestamp.fromDate(createdAt),
-        markdownData: markdownData,
-        flag: flag,
-        path: geoPoints);
+    return Trail(
+      id: "",
+      title: gpx.metadata!.name!,
+      createdAt: Timestamp.fromDate(createdAt),
+      markdownData: markdownData,
+      flag: flag,
+      path: geoPoints,
+    );
   }
 
   Future<void> _validateTrail(Trail trailToValidate) async {

@@ -7,7 +7,7 @@ part of '../../map_entity/position_permission_status.dart';
 // **************************************************************************
 
 String _$positionPermissionStatusProviderHash() =>
-    r'd5ebd7d38dcf075267b123981586af84aa00b0fc';
+    r'3aae8acf0173d271f74bd471b9aaf5f14b0b59ab';
 
 /// See also [PositionPermissionStatusProvider].
 @ProviderFor(PositionPermissionStatusProvider)

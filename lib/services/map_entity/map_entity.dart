@@ -12,32 +12,32 @@ import 'package:spacirtrasa/utils/converters.dart';
 abstract class MapEntityService<T extends MapEntity> {
   final log = Logger();
   final _firestore = FirebaseFirestore.instance;
-  final String entityCollectionId;
-  final T Function(Map<String, dynamic>) fromJson;
+  final String _entityCollectionId;
+  final T Function(Map<String, dynamic>) _fromJson;
 
-  late final CollectionReference<T> entityCollection;
+  late final CollectionReference<T> _entityCollection;
   late final Stream<List<T>> entityCollectionStream;
 
-  MapEntityService(this.entityCollectionId, this.fromJson) {
-    entityCollection = _firestore
-        .collection(entityCollectionId)
+  MapEntityService(this._entityCollectionId, this._fromJson) {
+    _entityCollection = _firestore
+        .collection(_entityCollectionId)
         .withConverter(
-          fromFirestore: FirestoreConverters.fromFirestore<T>(fromJson),
+          fromFirestore: FirestoreConverters.fromFirestore<T>(_fromJson),
           toFirestore: FirestoreConverters.toFirestore(),
         );
 
-    entityCollectionStream = entityCollection.snapshots().map(
-          (entitySnapshot) => entitySnapshot.docs.map((entityDoc) => entityDoc.data()).toList(),
+    entityCollectionStream = _entityCollection.snapshots().map(
+      (entitySnapshot) => entitySnapshot.docs.map((entityDoc) => entityDoc.data()).toList(),
     );
   }
 
   Future<List<T>> getEntities() async {
-    final entities = await entityCollection.get();
+    final entities = await _entityCollection.get();
     return entities.docs.map((eDoc) => eDoc.data()).toList();
   }
 
   Future<T?> persistEntity(final T entity) async {
-    var newEntity = (await (await entityCollection.add(entity)).get()).data();
+    var newEntity = (await (await _entityCollection.add(entity)).get()).data();
     if (newEntity == null) log.e("Failed to persist $entity to the database");
     log.i("New $T was created: $newEntity");
     return newEntity;
@@ -46,7 +46,7 @@ abstract class MapEntityService<T extends MapEntity> {
   Future<void> addDummy();
 
   Future<void> removeEntity(final T entity) async {
-    await entityCollection.doc(entity.id).delete();
+    await _entityCollection.doc(entity.id).delete();
     log.i("Removed $entity from the database");
   }
 
@@ -118,7 +118,7 @@ abstract class MapEntityService<T extends MapEntity> {
           if (item is! Map<String, dynamic>) {
             throw FormatException("Invalid item format, failing item: $item");
           }
-          return fromJson(item);
+          return _fromJson(item);
         }).toList();
 
     return importedEntities;
