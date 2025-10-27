@@ -7,18 +7,19 @@ part 'generated/auth_user.g.dart';
 @riverpod
 class AuthUserProvider extends _$AuthUserProvider {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final log = Logger();
+  final _log = Logger();
 
   @override
   User? build() {
     final authStateChangesSubscription = _firebaseAuth.authStateChanges().listen(
-        onAuthStateDataChanged);
+      _onAuthStateDataUpdate,
+    );
     ref.onDispose(() => authStateChangesSubscription.cancel());
     return _firebaseAuth.currentUser?.isAnonymous == true ? null : _firebaseAuth.currentUser;
   }
 
-  void onAuthStateDataChanged(User? user) {
-    log.i("AuthStateChanged with user: $user");
+  void _onAuthStateDataUpdate(User? user) {
+    _log.i("AuthStateChanged with user: $user");
     state = user?.isAnonymous == true ? null : user;
   }
 }

@@ -5,7 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 
 class FirestoreConverters {
-  static final log = Logger();
+  static final _log = Logger();
 
   static T Function(DocumentSnapshot<Map<String, dynamic>>, SnapshotOptions?) fromFirestore<T>(
     T Function(Map<String, dynamic>) fromJson,
@@ -14,7 +14,7 @@ class FirestoreConverters {
       try {
         return fromJson({'id': snapshot.id, ...(snapshot.data() ?? {})});
       } catch (e) {
-        log.e(
+        _log.e(
           "Unable to parse '$T' from firestore object having id: ${snapshot.id} and data: ${snapshot.data()}",
         );
         rethrow;
@@ -55,8 +55,8 @@ extension PositionConversion on Position {
     return LatLng(latitude, longitude);
   }
 }
+
 extension GeoPoinListConverter on List<GeoPoint> {
-  static final log = Logger();
   List<LatLng> toLatLngList() {
     return map((geoPoint) => LatLng(geoPoint.latitude, geoPoint.longitude)).toList();
   }

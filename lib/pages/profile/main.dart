@@ -76,9 +76,7 @@ class ProfilePage extends ConsumerWidget {
   OutlinedAsyncButton _buildSignInOutButton(final bool isSignedIn) {
     return OutlinedAsyncButton(
       style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
-      onPressed:
-          () async =>
-              isSignedIn ? await AuthService.signOut() : await AuthService.signInWithGoogle(),
+      onPressed: () async => isSignedIn ? await signOut() : await signInWithGoogle(),
       child: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
     );
   }

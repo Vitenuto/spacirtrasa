@@ -13,32 +13,33 @@ part '../generated/map_entity/position.g.dart';
 
 @riverpod
 class PositionProvider extends _$PositionProvider {
-  static final log = Logger();
-  StreamSubscription<Position>? positionSubscription;
+  static final _log = Logger();
+  StreamSubscription<Position>? _positionSubscription;
 
   @override
   Position? build() {
     final serviceStatus = ref.watch(positionPermissionStatusProvider);
     if (serviceStatus == ServiceStatus.disabled) {
-      log.w("ServiceStatus is $serviceStatus, canceling position");
-      positionSubscription?.cancel();
+      _log.w("ServiceStatus is $serviceStatus, canceling position");
+      _positionSubscription?.cancel();
+
       return null;
     }
 
-    log.t("Building Position provider...");
+    _log.t("Building Position provider...");
     _init();
     return null;
   }
 
   void _init() async {
     if (await PositionService.checkPermissions() == false) return;
-    positionSubscription = PositionService.getPositionStream().listen(_onPosition);
-    ref.onDispose(() => positionSubscription?.cancel());
+    _positionSubscription = PositionService.getPositionStream().listen(_onPositionUpdate);
+    ref.onDispose(() => _positionSubscription?.cancel());
   }
 
-  void _onPosition(Position position) {
+  void _onPositionUpdate(Position position) {
     if (position.isNotEqual(state)) {
-      log.t("New position: $position");
+      _log.t("New position: $position");
       state = position;
 
       _checkIsFinishedTrail(position);

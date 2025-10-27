@@ -5,16 +5,16 @@ part 'generated/expanded.g.dart';
 
 @riverpod
 class ExpandedProvider extends _$ExpandedProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   bool build() {
-    log.t("Building Expanded provider...");
+    _log.t("Building Expanded provider...");
     return false;
   }
 
   void setExpanded(bool expanded) {
-    log.t("Setting expanded: $expanded");
+    _log.t("Setting expanded: $expanded");
     state = expanded;
   }
 }

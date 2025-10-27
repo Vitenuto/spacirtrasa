@@ -6,18 +6,18 @@ part '../generated/map_entity/position_permission_status.g.dart';
 
 @riverpod
 class PositionPermissionStatusProvider extends _$PositionPermissionStatusProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   ServiceStatus? build() {
-    log.t("Building PositionPermissionStatus provider...");
-    final sub = (Geolocator.getServiceStatusStream()).listen(_onServiceStatus);
+    _log.t("Building PositionPermissionStatus provider...");
+    final sub = (Geolocator.getServiceStatusStream()).listen(_onServiceStatusUpdate);
     ref.onDispose(() => sub.cancel());
     return null;
   }
 
-  void _onServiceStatus(ServiceStatus serviceStatus) {
-    log.t("New Geolocator's ServiceStatus: $serviceStatus");
+  void _onServiceStatusUpdate(ServiceStatus serviceStatus) {
+    _log.t("New Geolocator's ServiceStatus: $serviceStatus");
     state = serviceStatus;
   }
 }

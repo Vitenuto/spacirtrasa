@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ElevatedButton(
-            onPressed: () async => _signInWith(context, AuthService.signInWithGoogle),
+            onPressed: () async => _signInWith(context, signInWithGoogle),
             child: const Text("logging.google").tr(),
           ),
           Center(child: Padding(padding: const EdgeInsets.all(4.0), child: const Text("or").tr())),
@@ -47,17 +47,21 @@ class LoginPage extends StatelessWidget {
   }
 
   Future<void> _signInAnonymously(BuildContext context) async {
-    await showDialog(context: context, builder: (_) => AlertDialog(
-      title: const Text("logging.anonymous.warning").tr(),
-      content: const Text("logging.anonymous.warning.description").tr(),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text("continue").tr(),
-        ),
-      ],
-    ));
-    if (context.mounted) await _signInWith(context, AuthService.signInAnonymously);
+    await showDialog(
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: const Text("logging.anonymous.warning").tr(),
+            content: const Text("logging.anonymous.warning.description").tr(),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("continue").tr(),
+              ),
+            ],
+          ),
+    );
+    if (context.mounted) await _signInWith(context, signInAnonymously);
   }
 
   Future<void> _signInWith(BuildContext context, Future<void> Function() signInFunction) async {
@@ -71,6 +75,6 @@ class LoginPage extends StatelessWidget {
         );
       }
     }
-    RouteService.router.refresh();
+    router.refresh();
   }
 }

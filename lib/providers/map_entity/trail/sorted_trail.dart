@@ -7,12 +7,12 @@ part '../../generated/map_entity/trail/sorted_trail.g.dart';
 
 @riverpod
 class SortedTrailProvider extends _$SortedTrailProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   List<TrailWithDetails> build() {
-    log.t("Building SortedTrail provider...");
+    _log.t("Building SortedTrail provider...");
     final trailsWithLength = ref.watch(trailWithDetailsProvider);
-    return trailsWithLength..sort((a, b) => a.distance?.compareTo(b.distance ?? 0) ?? 0);
+    return trailsWithLength..sort();
   }
 }

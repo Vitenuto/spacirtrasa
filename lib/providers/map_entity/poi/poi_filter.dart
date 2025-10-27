@@ -7,15 +7,12 @@ part '../../generated/map_entity/poi/poi_filter.g.dart';
 
 @riverpod
 class PoiFilterProvider extends _$PoiFilterProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   PoiFilter build() {
-    log.t("Building PoiFilter provider...");
-    return PoiFilter(
-      flag: null,
-      searchText: "",
-    );
+    _log.t("Building PoiFilter provider...");
+    return PoiFilter(flag: null, searchText: "");
   }
 
   void setFilter({String? searchText, PoiFlag? flag}) {
@@ -28,9 +25,6 @@ class PoiFilterProvider extends _$PoiFilterProvider {
       newFlag = flag;
     }
 
-    state = state.copyWith(
-      searchText: searchText ?? state.searchText,
-      flag: newFlag,
-    );
+    state = state.copyWith(searchText: searchText ?? state.searchText, flag: newFlag);
   }
 }

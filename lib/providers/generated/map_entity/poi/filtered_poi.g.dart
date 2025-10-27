@@ -7,7 +7,7 @@ part of '../../../map_entity/poi/filtered_poi.dart';
 // **************************************************************************
 
 String _$filteredPoiProviderHash() =>
-    r'f89914b20bc1c463b7ba3d494ace000d99b34bcf';
+    r'50b1e7af83352974d6cfede6849fb6b0e9203c65';
 
 /// See also [FilteredPoiProvider].
 @ProviderFor(FilteredPoiProvider)

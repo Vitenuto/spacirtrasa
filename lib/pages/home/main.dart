@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/services/supplementary.dart';
 
 class HomePage extends ConsumerWidget {
-  static final log = Logger();
   static const route = "/home";
 
   const HomePage({super.key});

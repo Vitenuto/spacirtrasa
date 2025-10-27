@@ -6,18 +6,18 @@ part '../generated/map_entity/is_following.g.dart';
 
 @riverpod
 class IsFollowingProvider extends _$IsFollowingProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   AlignOnUpdate build() {
-    log.t("Building IsFollowing provider...");
+    _log.t("Building IsFollowing provider...");
     return AlignOnUpdate.once;
   }
 
   void setIsFollowing(AlignOnUpdate alignOnUpdate) {
     if (state == alignOnUpdate) return;
 
-    log.t("Setting isFollowing to: $alignOnUpdate");
+    _log.t("Setting isFollowing to: $alignOnUpdate");
     state = alignOnUpdate;
   }
 }

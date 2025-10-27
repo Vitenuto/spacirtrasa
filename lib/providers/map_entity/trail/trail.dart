@@ -7,19 +7,19 @@ part '../../generated/map_entity/trail/trail.g.dart';
 
 @riverpod
 class TrailProvider extends _$TrailProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   List<Trail> build() {
     ref.keepAlive();
-    log.t("Building Trail provider...");
-    final trailSubscription = TrailService().entityCollectionStream.listen(trailListener);
+    _log.t("Building Trail provider...");
+    final trailSubscription = TrailService().entityCollectionStream.listen(_onTrailUpdate);
     ref.onDispose(() => trailSubscription.cancel());
     return List.empty();
   }
 
-  void trailListener(List<Trail> trails) {
-    log.t("Trails were updated: ${trails.map((trail) => trail.title)}");
+  void _onTrailUpdate(List<Trail> trails) {
+    _log.t("Trails were updated: ${trails.map((trail) => trail.title)}");
     state = trails;
   }
 }

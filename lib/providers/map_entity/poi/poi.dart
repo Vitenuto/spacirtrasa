@@ -7,19 +7,19 @@ part '../../generated/map_entity/poi/poi.g.dart';
 
 @riverpod
 class PoiProvider extends _$PoiProvider {
-  static final log = Logger();
+  static final _log = Logger();
 
   @override
   List<Poi> build() {
     ref.keepAlive();
-    log.t("Building POI provider...");
-    final poiSubscription = PoiService().entityCollectionStream.listen(poiListener);
+    _log.t("Building POI provider...");
+    final poiSubscription = PoiService().entityCollectionStream.listen(_onPoiUpdate);
     ref.onDispose(() => poiSubscription.cancel());
     return List.empty();
   }
 
-  void poiListener(List<Poi> pois) {
-    log.t("${pois.length} POIs were updated");
+  void _onPoiUpdate(List<Poi> pois) {
+    _log.t("${pois.length} POIs were updated");
     state = pois;
   }
 }
