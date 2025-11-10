@@ -21,7 +21,7 @@ Stream<AppUser?> getCurrentUserStream() {
   return _firebaseAuth.authStateChanges().switchMap(mapAuthUserToAppUser);
 }
 
-Stream<AppUser?> mapAuthUserToAppUser(authUser) {
+Stream<AppUser?> mapAuthUserToAppUser(User? authUser) {
   if (authUser == null || authUser.isAnonymous) return Stream.value(null);
 
   return appUserCollection
@@ -31,7 +31,7 @@ Stream<AppUser?> mapAuthUserToAppUser(authUser) {
       .whereNotNull();
 }
 
-Future<void> createAppUserIfNeeded(final String userId) async {
+Future<void> createAppUserIfNeeded(String userId) async {
   final appUser = (await appUserCollection.doc(userId).get()).data();
   if (appUser == null) {
     final newUser = AppUser(
@@ -45,4 +45,9 @@ Future<void> createAppUserIfNeeded(final String userId) async {
     await appUserCollection.doc(userId).set(newUser);
     _log.t("New user '$newUser' is successfully created");
   }
+}
+
+@override
+Future<void> setUser(AppUser newAppUser) async {
+  await appUserCollection.doc(newAppUser.id).set(newAppUser);
 }

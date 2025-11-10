@@ -20,21 +20,21 @@ class FilteredTrailProvider extends _$FilteredTrailProvider {
     return trails.where(_matchesFilter).toList();
   }
 
-  bool _matchesFilter(trailWithDetail) {
+  bool _matchesFilter(TrailWithDetails trailWithDetails) {
     if (_trailFilter.searchText.isNotEmpty) {
       final searchText = _trailFilter.searchText.toLowerCase();
-      if (!trailWithDetail.trail.title.toLowerCase().contains(searchText)) {
+      if (!trailWithDetails.trail.title.toLowerCase().contains(searchText)) {
         return false;
       }
     }
 
-    if (trailWithDetail.length < _trailFilter.bounds.$1 ||
-        trailWithDetail.length > _trailFilter.bounds.$2) {
+    if (trailWithDetails.length < _trailFilter.bounds.$1 ||
+        trailWithDetails.length > _trailFilter.bounds.$2) {
       return false;
     }
 
     final requiredFlag = _trailFilter.flag;
-    if (requiredFlag != null && requiredFlag != trailWithDetail.trail.flag) {
+    if (requiredFlag != null && requiredFlag != trailWithDetails.trail.flag) {
       return false;
     }
 

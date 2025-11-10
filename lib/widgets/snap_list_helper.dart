@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 
-Future<void> handleSnap(final ScrollController scrollCtrl, final int listIndex) async {
+Future<void> handleSnap(ScrollController scrollCtrl, int listIndex) async {
   final snappedOffset = (listIndex * fullItemHeight).clamp(
     0.0,
     scrollCtrl.position.maxScrollExtent,

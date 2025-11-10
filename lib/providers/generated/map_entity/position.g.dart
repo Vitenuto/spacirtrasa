@@ -6,22 +6,58 @@ part of '../../map_entity/position.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$positionProviderHash() => r'b1f71e426b4104f8dacf18ace5e44c3dda4ae2ee';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [PositionProvider].
 @ProviderFor(PositionProvider)
-final positionProvider =
-    AutoDisposeNotifierProvider<PositionProvider, Position?>.internal(
-      PositionProvider.new,
-      name: r'positionProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$positionProviderHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const positionProvider = PositionProviderProvider._();
 
-typedef _$PositionProvider = AutoDisposeNotifier<Position?>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class PositionProviderProvider
+    extends $NotifierProvider<PositionProvider, Position?> {
+  const PositionProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'positionProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$positionProviderHash();
+
+  @$internal
+  @override
+  PositionProvider create() => PositionProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Position? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Position?>(value),
+    );
+  }
+}
+
+String _$positionProviderHash() => r'64a5cf3264b50041071fc60fd282845ba3fe213f';
+
+abstract class _$PositionProvider extends $Notifier<Position?> {
+  Position? build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<Position?, Position?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Position?, Position?>,
+              Position?,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

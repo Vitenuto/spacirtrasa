@@ -88,7 +88,7 @@ class _SnapListState extends ConsumerState<ExpandableList> {
     );
   }
 
-  bool onListNotification(notification) {
+  bool onListNotification(ScrollNotification notification) {
     if (notification is ScrollStartNotification) {
       // Detect if user starts dragging at top
       dragStartedAtTop = _scrollController.offset <= 0.0;
@@ -110,7 +110,7 @@ class _SnapListState extends ConsumerState<ExpandableList> {
     return false;
   }
 
-  void _onExpanded(final bool isExpanded) {
+  void _onExpanded(bool isExpanded) {
     if (!isExpanded) _snapToSelected();
   }
 

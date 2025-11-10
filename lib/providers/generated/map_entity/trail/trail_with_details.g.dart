@@ -6,26 +6,62 @@ part of '../../../map_entity/trail/trail_with_details.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trailWithDetailsProviderHash() =>
-    r'8e428e456f6a6d0fe4c4cf17dbd4def318cd8352';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [TrailWithDetailsProvider].
 @ProviderFor(TrailWithDetailsProvider)
-final trailWithDetailsProvider = AutoDisposeNotifierProvider<
-  TrailWithDetailsProvider,
-  List<TrailWithDetails>
->.internal(
-  TrailWithDetailsProvider.new,
-  name: r'trailWithDetailsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$trailWithDetailsProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const trailWithDetailsProvider = TrailWithDetailsProviderProvider._();
 
-typedef _$TrailWithDetailsProvider =
-    AutoDisposeNotifier<List<TrailWithDetails>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class TrailWithDetailsProviderProvider
+    extends
+        $NotifierProvider<TrailWithDetailsProvider, List<TrailWithDetails>> {
+  const TrailWithDetailsProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'trailWithDetailsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$trailWithDetailsProviderHash();
+
+  @$internal
+  @override
+  TrailWithDetailsProvider create() => TrailWithDetailsProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<TrailWithDetails> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<TrailWithDetails>>(value),
+    );
+  }
+}
+
+String _$trailWithDetailsProviderHash() =>
+    r'16f439b87ea54a2a5452cac06eb01a8b4914ad2c';
+
+abstract class _$TrailWithDetailsProvider
+    extends $Notifier<List<TrailWithDetails>> {
+  List<TrailWithDetails> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref as $Ref<List<TrailWithDetails>, List<TrailWithDetails>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<TrailWithDetails>, List<TrailWithDetails>>,
+              List<TrailWithDetails>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

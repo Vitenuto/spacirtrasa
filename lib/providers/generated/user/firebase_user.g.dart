@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../map_entity/poi/poi.dart';
+part of '../../user/firebase_user.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +9,53 @@ part of '../../../map_entity/poi/poi.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(PoiProvider)
-const poiProvider = PoiProviderProvider._();
+@ProviderFor(FirebaseUserProvider)
+const firebaseUserProvider = FirebaseUserProviderProvider._();
 
-final class PoiProviderProvider
-    extends $NotifierProvider<PoiProvider, List<Poi>> {
-  const PoiProviderProvider._()
+final class FirebaseUserProviderProvider
+    extends $NotifierProvider<FirebaseUserProvider, User?> {
+  const FirebaseUserProviderProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'poiProvider',
+        name: r'firebaseUserProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$poiProviderHash();
+  String debugGetCreateSourceHash() => _$firebaseUserProviderHash();
 
   @$internal
   @override
-  PoiProvider create() => PoiProvider();
+  FirebaseUserProvider create() => FirebaseUserProvider();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<Poi> value) {
+  Override overrideWithValue(User? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<Poi>>(value),
+      providerOverride: $SyncValueProvider<User?>(value),
     );
   }
 }
 
-String _$poiProviderHash() => r'2d8913e5294624fbc5fde0690c0c84858a9791f5';
+String _$firebaseUserProviderHash() =>
+    r'3d7ba75b11044445cb00904ae889a4bbb59f7dba';
 
-abstract class _$PoiProvider extends $Notifier<List<Poi>> {
-  List<Poi> build();
+abstract class _$FirebaseUserProvider extends $Notifier<User?> {
+  User? build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<List<Poi>, List<Poi>>;
+    final ref = this.ref as $Ref<User?, User?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<List<Poi>, List<Poi>>,
-              List<Poi>,
+              AnyNotifier<User?, User?>,
+              User?,
               Object?,
               Object?
             >;

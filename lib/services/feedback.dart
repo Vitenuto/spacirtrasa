@@ -7,12 +7,9 @@ final _log = Logger();
 
 final _feedbackCollection = _firestore.collection(feedbacksCollectionId);
 
-Future<void> createFeedback(final String text) async {
+Future<void> createFeedback(String text) async {
   if (text.isEmpty) return;
 
-  await _feedbackCollection.add({
-    'text': text,
-    'timestamp': FieldValue.serverTimestamp(),
-  });
+  await _feedbackCollection.add({'text': text, 'timestamp': FieldValue.serverTimestamp()});
   _log.t("New feedback '$text' is successfully stored");
 }

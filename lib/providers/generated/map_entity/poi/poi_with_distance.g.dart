@@ -6,25 +6,60 @@ part of '../../../map_entity/poi/poi_with_distance.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$poiWithDistanceProviderHash() =>
-    r'fabc4bde5e9a070225c44a1c3185acb179dc738b';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [PoiWithDistanceProvider].
 @ProviderFor(PoiWithDistanceProvider)
-final poiWithDistanceProvider = AutoDisposeNotifierProvider<
-  PoiWithDistanceProvider,
-  List<PoiWithDistance>
->.internal(
-  PoiWithDistanceProvider.new,
-  name: r'poiWithDistanceProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$poiWithDistanceProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const poiWithDistanceProvider = PoiWithDistanceProviderProvider._();
 
-typedef _$PoiWithDistanceProvider = AutoDisposeNotifier<List<PoiWithDistance>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class PoiWithDistanceProviderProvider
+    extends $NotifierProvider<PoiWithDistanceProvider, List<PoiWithDistance>> {
+  const PoiWithDistanceProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'poiWithDistanceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$poiWithDistanceProviderHash();
+
+  @$internal
+  @override
+  PoiWithDistanceProvider create() => PoiWithDistanceProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<PoiWithDistance> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<PoiWithDistance>>(value),
+    );
+  }
+}
+
+String _$poiWithDistanceProviderHash() =>
+    r'229056f9f4a4a8cdb597ee44d79484ac9196f4ab';
+
+abstract class _$PoiWithDistanceProvider
+    extends $Notifier<List<PoiWithDistance>> {
+  List<PoiWithDistance> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<PoiWithDistance>, List<PoiWithDistance>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<PoiWithDistance>, List<PoiWithDistance>>,
+              List<PoiWithDistance>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

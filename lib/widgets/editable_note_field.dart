@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spacirtrasa/models/note.dart';
-import 'package:spacirtrasa/providers/app_user.dart';
+import 'package:spacirtrasa/providers/user/app_user.dart';
 
 class EditableNoteField extends ConsumerStatefulWidget {
   final Note initialNote;

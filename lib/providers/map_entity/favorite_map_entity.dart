@@ -4,9 +4,9 @@ import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
-import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
+import 'package:spacirtrasa/providers/user/app_user.dart';
 
 part '../generated/map_entity/favorite_map_entity.g.dart';
 
@@ -20,7 +20,6 @@ class FavoriteMapEntityProvider extends _$FavoriteMapEntityProvider {
     final pois = ref.watch(poiProvider);
     final trails = ref.watch(trailProvider);
     final appUser = ref.watch(appUserProvider);
-    if (appUser == null) return List.empty();
     return _getFavoriteMapEntities(pois, appUser, trails);
   }
 
