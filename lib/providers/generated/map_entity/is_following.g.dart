@@ -6,23 +6,59 @@ part of '../../map_entity/is_following.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(IsFollowingProvider)
+const isFollowingProvider = IsFollowingProviderProvider._();
+
+final class IsFollowingProviderProvider
+    extends $NotifierProvider<IsFollowingProvider, AlignOnUpdate> {
+  const IsFollowingProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'isFollowingProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$isFollowingProviderHash();
+
+  @$internal
+  @override
+  IsFollowingProvider create() => IsFollowingProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AlignOnUpdate value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AlignOnUpdate>(value),
+    );
+  }
+}
+
 String _$isFollowingProviderHash() =>
     r'b3d2e3d3b00511862fdafd085808858d0fb3e1d3';
 
-/// See also [IsFollowingProvider].
-@ProviderFor(IsFollowingProvider)
-final isFollowingProvider =
-    AutoDisposeNotifierProvider<IsFollowingProvider, AlignOnUpdate>.internal(
-      IsFollowingProvider.new,
-      name: r'isFollowingProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$isFollowingProviderHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$IsFollowingProvider = AutoDisposeNotifier<AlignOnUpdate>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$IsFollowingProvider extends $Notifier<AlignOnUpdate> {
+  AlignOnUpdate build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AlignOnUpdate, AlignOnUpdate>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AlignOnUpdate, AlignOnUpdate>,
+              AlignOnUpdate,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

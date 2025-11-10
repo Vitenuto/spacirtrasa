@@ -6,22 +6,58 @@ part of '../note.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$noteProviderHash() => r'77a611536ae79dd8e9072939492d6ec47df4e5cf';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [NoteProvider].
 @ProviderFor(NoteProvider)
-final noteProvider =
-    AutoDisposeNotifierProvider<NoteProvider, List<Note>>.internal(
-      NoteProvider.new,
-      name: r'noteProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$noteProviderHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const noteProvider = NoteProviderProvider._();
 
-typedef _$NoteProvider = AutoDisposeNotifier<List<Note>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class NoteProviderProvider
+    extends $NotifierProvider<NoteProvider, List<Note>> {
+  const NoteProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'noteProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$noteProviderHash();
+
+  @$internal
+  @override
+  NoteProvider create() => NoteProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Note> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Note>>(value),
+    );
+  }
+}
+
+String _$noteProviderHash() => r'6edcad0e4c30c872824e17e699bb3990bc9ec711';
+
+abstract class _$NoteProvider extends $Notifier<List<Note>> {
+  List<Note> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<Note>, List<Note>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<Note>, List<Note>>,
+              List<Note>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

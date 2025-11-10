@@ -36,7 +36,7 @@ abstract class MapEntityService<T extends MapEntity> {
     return entities.docs.map((eDoc) => eDoc.data()).toList();
   }
 
-  Future<T?> persistEntity(final T entity) async {
+  Future<T?> persistEntity(T entity) async {
     var newEntity = (await (await _entityCollection.add(entity)).get()).data();
     if (newEntity == null) log.e("Failed to persist $entity to the database");
     log.i("New $T was created: $newEntity");
@@ -45,12 +45,12 @@ abstract class MapEntityService<T extends MapEntity> {
 
   Future<void> addDummy();
 
-  Future<void> removeEntity(final T entity) async {
+  Future<void> removeEntity(T entity) async {
     await _entityCollection.doc(entity.id).delete();
     log.i("Removed $entity from the database");
   }
 
-  Future<void> removeEntities(final List<T> entities) async {
+  Future<void> removeEntities(List<T> entities) async {
     await Future.wait(entities.map(removeEntity));
     log.i("Removed ${entities.length} ${T}s from the database");
   }

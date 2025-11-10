@@ -7,9 +7,9 @@ import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/pages/trails/main.dart';
-import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
+import 'package:spacirtrasa/providers/user/app_user.dart';
 import 'package:spacirtrasa/services/router.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/editable_note_field.dart';
@@ -27,15 +27,12 @@ class TrailDetail extends ConsumerWidget {
       appBar: AppBar(title: Text(trail.title), actions: _buildAppBarActions(appUser, ref, context)),
       body: ListView(
         padding: const EdgeInsets.all(8),
-        children: [
-          MarkdownBody(data: trail.markdownData),
-          if (appUser != null) _buildEditableNoteField(ref, appUser),
-        ],
+        children: [MarkdownBody(data: trail.markdownData), _buildEditableNoteField(ref, appUser)],
       ),
     );
   }
 
-  List<Widget> _buildAppBarActions(AppUser? appUser, WidgetRef ref, BuildContext context) => [
+  List<Widget> _buildAppBarActions(AppUser appUser, WidgetRef ref, BuildContext context) => [
     IconButton(
       icon: const Icon(Icons.map),
       tooltip: 'trail-detail.show-on-map'.tr(),
@@ -46,17 +43,16 @@ class TrailDetail extends ConsumerWidget {
         router.go(TrailsPage.route);
       },
     ),
-    if (appUser?.favoriteTrailIds.contains(trail.id) != null)
-      IconButton(
-        icon: Icon(
-          Icons.favorite,
-          color: appUser!.favoriteTrailIds.contains(trail.id) ? Colors.red : Colors.grey,
-        ),
-        tooltip: "${appUser.favoriteTrailIds.contains(trail.id) ? 'remove' : 'add'}-favorite".tr(),
-        onPressed: () {
-          ref.read(appUserProvider.notifier).setFavoriteTrail(trail.id);
-        },
+    IconButton(
+      icon: Icon(
+        Icons.favorite,
+        color: appUser.favoriteTrailIds.contains(trail.id) ? Colors.red : Colors.grey,
       ),
+      tooltip: "${appUser.favoriteTrailIds.contains(trail.id) ? 'remove' : 'add'}-favorite".tr(),
+      onPressed: () {
+        ref.read(appUserProvider.notifier).setFavoriteTrail(trail.id);
+      },
+    ),
   ];
 
   Widget _buildEditableNoteField(WidgetRef ref, AppUser appUser) {

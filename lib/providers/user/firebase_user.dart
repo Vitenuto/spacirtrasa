@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/auth_user.g.dart';
+part '../generated/user/firebase_user.g.dart';
 
 @riverpod
-class AuthUserProvider extends _$AuthUserProvider {
+class FirebaseUserProvider extends _$FirebaseUserProvider {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final _log = Logger();
 
@@ -19,6 +19,9 @@ class AuthUserProvider extends _$AuthUserProvider {
   }
 
   void _onAuthStateDataUpdate(User? user) {
+    if (state?.uid == user?.uid) {
+      return;
+    }
     _log.i("AuthStateChanged with user: $user");
     state = user?.isAnonymous == true ? null : user;
   }

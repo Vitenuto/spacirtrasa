@@ -6,22 +6,58 @@ part of '../../../map_entity/trail/trail.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trailProviderHash() => r'9e7936cf599be3a64766acd875248f111534161d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [TrailProvider].
 @ProviderFor(TrailProvider)
-final trailProvider =
-    AutoDisposeNotifierProvider<TrailProvider, List<Trail>>.internal(
-      TrailProvider.new,
-      name: r'trailProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$trailProviderHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const trailProvider = TrailProviderProvider._();
 
-typedef _$TrailProvider = AutoDisposeNotifier<List<Trail>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class TrailProviderProvider
+    extends $NotifierProvider<TrailProvider, List<Trail>> {
+  const TrailProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'trailProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$trailProviderHash();
+
+  @$internal
+  @override
+  TrailProvider create() => TrailProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Trail> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Trail>>(value),
+    );
+  }
+}
+
+String _$trailProviderHash() => r'623d05fa3035ae101558f61268243cd132e07e48';
+
+abstract class _$TrailProvider extends $Notifier<List<Trail>> {
+  List<Trail> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<Trail>, List<Trail>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<Trail>, List<Trail>>,
+              List<Trail>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

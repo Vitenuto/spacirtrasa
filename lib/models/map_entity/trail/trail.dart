@@ -43,7 +43,7 @@ abstract class Trail extends MapEntity with _$Trail {
     }
   }
 
-  double? getDistanceFromLocation(final Position? location) {
+  double? getDistanceFromLocation(Position? location) {
     if (location == null || path.isEmpty) {
       return null;
     }
@@ -76,8 +76,8 @@ abstract class Trail extends MapEntity with _$Trail {
     final double t =
         ((p.latitude - a.latitude) * (b.latitude - a.latitude) +
             (p.longitude - a.longitude) * (b.longitude - a.longitude)) /
-            ((b.latitude - a.latitude) * (b.latitude - a.latitude) +
-                (b.longitude - a.longitude) * (b.longitude - a.longitude));
+        ((b.latitude - a.latitude) * (b.latitude - a.latitude) +
+            (b.longitude - a.longitude) * (b.longitude - a.longitude));
 
     if (t < 0) return d.distance(pLatLng, aLatLng);
     if (t > 1) return d.distance(pLatLng, bLatLng);

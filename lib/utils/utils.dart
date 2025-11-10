@@ -8,7 +8,7 @@ import 'constants.dart';
 
 final log = Logger();
 
-void showFullDialog(BuildContext context, final Widget child) {
+void showFullDialog(BuildContext context, Widget child) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => Dialog.fullscreen(child: child),
@@ -17,7 +17,7 @@ void showFullDialog(BuildContext context, final Widget child) {
 
 double get fullItemHeight => itemListHeight + (itemListPadding * 2);
 
-Marker buildUserLocationMarker(final Position currentLoc) {
+Marker buildUserLocationMarker(Position currentLoc) {
   return Marker(
     point: LatLng(currentLoc.latitude, currentLoc.longitude),
     width: 20,

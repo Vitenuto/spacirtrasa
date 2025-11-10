@@ -6,25 +6,59 @@ part of '../../../map_entity/poi/filtered_poi.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(FilteredPoiProvider)
+const filteredPoiProvider = FilteredPoiProviderProvider._();
+
+final class FilteredPoiProviderProvider
+    extends $NotifierProvider<FilteredPoiProvider, List<PoiWithDistance>> {
+  const FilteredPoiProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filteredPoiProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$filteredPoiProviderHash();
+
+  @$internal
+  @override
+  FilteredPoiProvider create() => FilteredPoiProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<PoiWithDistance> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<PoiWithDistance>>(value),
+    );
+  }
+}
+
 String _$filteredPoiProviderHash() =>
     r'50b1e7af83352974d6cfede6849fb6b0e9203c65';
 
-/// See also [FilteredPoiProvider].
-@ProviderFor(FilteredPoiProvider)
-final filteredPoiProvider = AutoDisposeNotifierProvider<
-  FilteredPoiProvider,
-  List<PoiWithDistance>
->.internal(
-  FilteredPoiProvider.new,
-  name: r'filteredPoiProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$filteredPoiProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$FilteredPoiProvider = AutoDisposeNotifier<List<PoiWithDistance>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$FilteredPoiProvider extends $Notifier<List<PoiWithDistance>> {
+  List<PoiWithDistance> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<PoiWithDistance>, List<PoiWithDistance>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<PoiWithDistance>, List<PoiWithDistance>>,
+              List<PoiWithDistance>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

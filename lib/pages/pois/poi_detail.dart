@@ -8,9 +8,9 @@ import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/pages/pois/main.dart';
-import 'package:spacirtrasa/providers/app_user.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
+import 'package:spacirtrasa/providers/user/app_user.dart';
 import 'package:spacirtrasa/services/router.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/editable_note_field.dart';
@@ -38,13 +38,13 @@ class PoiDetail extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           MarkdownBody(data: poi.markdownData),
-          if (appUser != null) _buildEditableNoteField(ref, appUser),
+          _buildEditableNoteField(ref, appUser),
         ],
       ),
     );
   }
 
-  List<Widget> _buildAppBarActions(AppUser? appUser, WidgetRef ref, BuildContext context) => [
+  List<Widget> _buildAppBarActions(AppUser appUser, WidgetRef ref, BuildContext context) => [
     IconButton(
       icon: const Icon(Icons.map),
       tooltip: 'poi-detail.show-on-map'.tr(),
@@ -55,15 +55,14 @@ class PoiDetail extends ConsumerWidget {
         router.go(PoisPage.route);
       },
     ),
-    if (appUser?.favoritePoiIds.contains(poi.id) != null)
-      IconButton(
-        icon: Icon(
-          Icons.favorite,
-          color: appUser!.favoritePoiIds.contains(poi.id) ? Colors.red : Colors.grey,
-        ),
-        tooltip: "${appUser.favoritePoiIds.contains(poi.id) ? 'remove' : 'add'}-favorite".tr(),
-        onPressed: () => ref.read(appUserProvider.notifier).setFavoritePoi(poi.id),
+    IconButton(
+      icon: Icon(
+        Icons.favorite,
+        color: appUser.favoritePoiIds.contains(poi.id) ? Colors.red : Colors.grey,
       ),
+      tooltip: "${appUser.favoritePoiIds.contains(poi.id) ? 'remove' : 'add'}-favorite".tr(),
+      onPressed: () => ref.read(appUserProvider.notifier).setFavoritePoi(poi.id),
+    ),
   ];
 
   Widget _buildEditableNoteField(WidgetRef ref, AppUser appUser) {
