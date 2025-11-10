@@ -25,7 +25,12 @@ class MapSkeleton extends ConsumerStatefulWidget {
   final List<Widget> childLayers;
   final VoidCallback? onMapTap;
 
-  const MapSkeleton({required this.animatedMapController, required this.childLayers, this.onMapTap, super.key});
+  const MapSkeleton({
+    required this.animatedMapController,
+    required this.childLayers,
+    this.onMapTap,
+    super.key,
+  });
 
   @override
   ConsumerState<MapSkeleton> createState() => _MapSkeletonState();
@@ -62,7 +67,7 @@ class _MapSkeletonState extends ConsumerState<MapSkeleton> {
                   ref.read(isFollowingProvider.notifier).setIsFollowing(AlignOnUpdate.never);
                 }
               },
-              onTap: (_, __) => widget.onMapTap?.call(),
+              onTap: (_, _) => widget.onMapTap?.call(),
             ),
             mapController: widget.animatedMapController?.mapController,
             children: [

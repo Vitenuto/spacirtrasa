@@ -6,22 +6,58 @@ part of '../../../map_entity/poi/poi_filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(PoiFilterProvider)
+const poiFilterProvider = PoiFilterProviderProvider._();
+
+final class PoiFilterProviderProvider
+    extends $NotifierProvider<PoiFilterProvider, PoiFilter> {
+  const PoiFilterProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'poiFilterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$poiFilterProviderHash();
+
+  @$internal
+  @override
+  PoiFilterProvider create() => PoiFilterProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(PoiFilter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<PoiFilter>(value),
+    );
+  }
+}
+
 String _$poiFilterProviderHash() => r'3d67ae696c0870f0a4e77913a3e01bdfa821c332';
 
-/// See also [PoiFilterProvider].
-@ProviderFor(PoiFilterProvider)
-final poiFilterProvider =
-    AutoDisposeNotifierProvider<PoiFilterProvider, PoiFilter>.internal(
-      PoiFilterProvider.new,
-      name: r'poiFilterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$poiFilterProviderHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$PoiFilterProvider = AutoDisposeNotifier<PoiFilter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$PoiFilterProvider extends $Notifier<PoiFilter> {
+  PoiFilter build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<PoiFilter, PoiFilter>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<PoiFilter, PoiFilter>,
+              PoiFilter,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

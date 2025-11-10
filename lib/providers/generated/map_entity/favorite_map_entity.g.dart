@@ -6,25 +6,59 @@ part of '../../map_entity/favorite_map_entity.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favoriteMapEntityProviderHash() =>
-    r'7125ea33a5497d3d153f76028da6ffc9ce39f261';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [FavoriteMapEntityProvider].
 @ProviderFor(FavoriteMapEntityProvider)
-final favoriteMapEntityProvider = AutoDisposeNotifierProvider<
-  FavoriteMapEntityProvider,
-  List<MapEntity>
->.internal(
-  FavoriteMapEntityProvider.new,
-  name: r'favoriteMapEntityProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$favoriteMapEntityProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const favoriteMapEntityProvider = FavoriteMapEntityProviderProvider._();
 
-typedef _$FavoriteMapEntityProvider = AutoDisposeNotifier<List<MapEntity>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class FavoriteMapEntityProviderProvider
+    extends $NotifierProvider<FavoriteMapEntityProvider, List<MapEntity>> {
+  const FavoriteMapEntityProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'favoriteMapEntityProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$favoriteMapEntityProviderHash();
+
+  @$internal
+  @override
+  FavoriteMapEntityProvider create() => FavoriteMapEntityProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<MapEntity> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<MapEntity>>(value),
+    );
+  }
+}
+
+String _$favoriteMapEntityProviderHash() =>
+    r'7d888a14bb05c9a37ede5208cc26c31dacbaf9e4';
+
+abstract class _$FavoriteMapEntityProvider extends $Notifier<List<MapEntity>> {
+  List<MapEntity> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<MapEntity>, List<MapEntity>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<MapEntity>, List<MapEntity>>,
+              List<MapEntity>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
-import 'package:spacirtrasa/services/app_user.dart';
+import 'package:spacirtrasa/services/user/firebase_app_user_service.dart';
 
 final _log = Logger();
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -28,23 +28,8 @@ Future<void> signInWithGoogle() async {
   }
 }
 
-Future<void> signInAnonymously() async {
-  try {
-    await _firebaseAuth.signInAnonymously();
-  } on FirebaseAuthException catch (e) {
-    switch (e.code) {
-      case "operation-not-allowed":
-        _log.f("Anonymous auth hasn't been enabled for this project.");
-        break;
-      default:
-        _log.f("Unknown error occurred during anonymous login: $e");
-    }
-  }
-}
-
 Future<void> signOut() async {
   await GoogleSignIn().signOut();
   await _firebaseAuth.signOut();
-  await signInAnonymously();
   _log.t("User is signed out");
 }

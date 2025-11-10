@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class ListScreen<T> extends ConsumerWidget {
   final String title;
@@ -24,36 +25,36 @@ class ListScreen<T> extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body:
-      items.isEmpty
-          ? Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Text(listEmptyInfo, textAlign: TextAlign.center,),
-        ),
-      )
-          : ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
-          return Dismissible(
-            key: ValueKey(item),
-            direction:
-            onDelete != null ? DismissDirection.endToStart : DismissDirection.none,
-            onDismissed: (_) => onDelete?.call(item),
-            background: const ColoredBox(
-              color: Colors.red,
-              child: Align(
-                alignment: Alignment.centerRight,
+          items.isEmpty
+              ? Center(
                 child: Padding(
-                  padding: EdgeInsets.only(right: 16.0),
-                  child: Icon(Icons.delete, color: Colors.white),
+                  padding: const EdgeInsets.all(32.0),
+                  child: Text(listEmptyInfo, textAlign: TextAlign.center),
                 ),
+              )
+              : ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  return Dismissible(
+                    key: ValueKey(item),
+                    direction:
+                        onDelete != null ? DismissDirection.endToStart : DismissDirection.none,
+                    onDismissed: (_) => onDelete?.call(item),
+                    background: const ColoredBox(
+                      color: Colors.red,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Icon(Icons.delete, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    child: Card(child: itemBuilder(context, item)),
+                  );
+                },
               ),
-            ),
-            child: Card(child: itemBuilder(context, item)),
-          );
-        },
-      ),
     );
   }
 }

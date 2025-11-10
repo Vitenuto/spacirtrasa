@@ -6,23 +6,59 @@ part of '../../../map_entity/trail/trail_filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(TrailFilterProvider)
+const trailFilterProvider = TrailFilterProviderProvider._();
+
+final class TrailFilterProviderProvider
+    extends $NotifierProvider<TrailFilterProvider, TrailFilter> {
+  const TrailFilterProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'trailFilterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$trailFilterProviderHash();
+
+  @$internal
+  @override
+  TrailFilterProvider create() => TrailFilterProvider();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TrailFilter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TrailFilter>(value),
+    );
+  }
+}
+
 String _$trailFilterProviderHash() =>
     r'3c2757d3d9370176bad8f011ffd200509bad3fe3';
 
-/// See also [TrailFilterProvider].
-@ProviderFor(TrailFilterProvider)
-final trailFilterProvider =
-    AutoDisposeNotifierProvider<TrailFilterProvider, TrailFilter>.internal(
-      TrailFilterProvider.new,
-      name: r'trailFilterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$trailFilterProviderHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$TrailFilterProvider = AutoDisposeNotifier<TrailFilter>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$TrailFilterProvider extends $Notifier<TrailFilter> {
+  TrailFilter build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<TrailFilter, TrailFilter>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<TrailFilter, TrailFilter>,
+              TrailFilter,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

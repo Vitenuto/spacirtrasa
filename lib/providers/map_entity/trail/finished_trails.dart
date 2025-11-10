@@ -1,7 +1,7 @@
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/trail/finished_trail.dart';
-import 'package:spacirtrasa/providers/app_user.dart';
+import 'package:spacirtrasa/providers/user/app_user.dart';
 
 part '../../generated/map_entity/trail/finished_trails.g.dart';
 
@@ -13,7 +13,6 @@ class FinishedTrailsProvider extends _$FinishedTrailsProvider {
   List<FinishedTrail> build() {
     _log.t("Building FinishedTrails provider...");
     final appUser = ref.watch(appUserProvider);
-    if (appUser == null) return List.empty();
     return appUser.finishedTrails;
   }
 }
