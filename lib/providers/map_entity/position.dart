@@ -11,7 +11,7 @@ import 'package:spacirtrasa/utils/constants.dart';
 
 part '../generated/map_entity/position.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class PositionProvider extends _$PositionProvider {
   static final _log = Logger();
   StreamSubscription<Position>? _positionSubscription;

@@ -5,7 +5,7 @@ import 'package:spacirtrasa/providers/map_entity/poi/poi_with_distance.dart';
 
 part '../../generated/map_entity/poi/sorted_poi.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SortedPoiProvider extends _$SortedPoiProvider {
   static final _log = Logger();
 

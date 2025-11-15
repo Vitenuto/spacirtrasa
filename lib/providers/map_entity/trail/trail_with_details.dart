@@ -9,7 +9,7 @@ import 'package:spacirtrasa/utils/converters.dart';
 
 part '../../generated/map_entity/trail/trail_with_details.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class TrailWithDetailsProvider extends _$TrailWithDetailsProvider {
   static final _log = Logger();
   late Position? _currentPosition;

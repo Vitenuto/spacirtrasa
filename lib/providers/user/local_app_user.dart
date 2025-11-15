@@ -19,7 +19,7 @@ class LocalUserProvider extends _$LocalUserProvider {
   Future<AppUser> build() async {
     final appUser = await _getLocalAppUser();
     if (appUser == null) {
-      return emptyAppUser;
+      return getEmptyAppUser();
     }
     return appUser;
   }
