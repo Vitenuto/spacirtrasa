@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/note.dart';
+import 'package:spacirtrasa/providers/user/firebase_app_user.dart';
 import 'package:spacirtrasa/providers/user/local_app_user.dart';
 import 'package:spacirtrasa/services/user/app_user_service.dart' as appUserService;
 import 'package:spacirtrasa/services/user/firebase_app_user_service.dart' as firebaseAppUserService;
@@ -18,31 +18,33 @@ part '../generated/user/app_user.g.dart';
 class AppUserProvider extends _$AppUserProvider {
   final _log = Logger();
   bool _isLocal = true;
-  late final ProviderSubscription _localAppUserSubscription;
-  late final StreamSubscription _firebaseAppUserSubscription;
 
   @override
   AppUser build() {
+    _log.t("Building AppUser provider...");
     _prepareFirebaseAppUserSubscription();
     _prepareLocalAppUserSubscription();
-    return appUserService.emptyAppUser;
+    return appUserService.getEmptyAppUser();
   }
 
   void _prepareFirebaseAppUserSubscription() {
-    _firebaseAppUserSubscription = firebaseAppUserService.getCurrentUserStream().listen(
-      _onFirebaseAppUserUpdate,
-    );
-    ref.onDispose(() => _firebaseAppUserSubscription.cancel());
+    final firebaseAppUserSubscription = ref.listen(firebaseAppUserProvider, (
+      _,
+      firebaseAppUserNew,
+    ) {
+      _onFirebaseAppUserUpdate(firebaseAppUserNew);
+    });
+    ref.onDispose(() => firebaseAppUserSubscription.close());
   }
 
   void _prepareLocalAppUserSubscription() async {
-    _localAppUserSubscription = ref.listen(localUserProvider, (previous, next) {
+    final localAppUserSubscription = ref.listen(localUserProvider, (_, next) {
       if (_isLocal && next.value != null) {
         final localUserNew = next.value!;
         state = localUserNew;
       }
     });
-    ref.onDispose(() => _localAppUserSubscription.close());
+    ref.onDispose(() => localAppUserSubscription.close());
   }
 
   void _onFirebaseAppUserUpdate(AppUser? user) async {

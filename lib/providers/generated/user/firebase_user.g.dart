@@ -20,7 +20,7 @@ final class FirebaseUserProviderProvider
         argument: null,
         retry: null,
         name: r'firebaseUserProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class FirebaseUserProviderProvider
 }
 
 String _$firebaseUserProviderHash() =>
-    r'3d7ba75b11044445cb00904ae889a4bbb59f7dba';
+    r'c680ec5c65d8c33a95e17dfe3560d9eacd431ebe';
 
 abstract class _$FirebaseUserProvider extends $Notifier<User?> {
   User? build();

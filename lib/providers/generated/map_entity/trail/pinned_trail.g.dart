@@ -20,7 +20,7 @@ final class PinnedTrailProviderProvider
         argument: null,
         retry: null,
         name: r'pinnedTrailProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class PinnedTrailProviderProvider
 }
 
 String _$pinnedTrailProviderHash() =>
-    r'0b212b6f390501327b85fc8a2a3947890d312cf5';
+    r'eb6b0d16524f0d8bca1b14e74904d34d08c1d805';
 
 abstract class _$PinnedTrailProvider extends $Notifier<Trail?> {
   Trail? build();

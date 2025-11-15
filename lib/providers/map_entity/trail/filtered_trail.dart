@@ -7,7 +7,7 @@ import 'package:spacirtrasa/providers/map_entity/trail/trail_filter.dart';
 
 part '../../generated/map_entity/trail/filtered_trail.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FilteredTrailProvider extends _$FilteredTrailProvider {
   static final _log = Logger();
   late TrailFilter _trailFilter;

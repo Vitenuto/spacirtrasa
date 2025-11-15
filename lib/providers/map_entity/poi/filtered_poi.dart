@@ -7,7 +7,7 @@ import 'package:spacirtrasa/providers/map_entity/poi/sorted_poi.dart';
 
 part '../../generated/map_entity/poi/filtered_poi.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FilteredPoiProvider extends _$FilteredPoiProvider {
   static final _log = Logger();
   late PoiFilter _poiFilter;

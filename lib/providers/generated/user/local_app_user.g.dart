@@ -33,7 +33,7 @@ final class LocalUserProviderProvider
   LocalUserProvider create() => LocalUserProvider();
 }
 
-String _$localUserProviderHash() => r'aef5b9a964155702ef39e7e931eec5a3c329cfda';
+String _$localUserProviderHash() => r'1deb42580d4c9af9256135a6b599f611b0a36256';
 
 abstract class _$LocalUserProvider extends $AsyncNotifier<AppUser> {
   FutureOr<AppUser> build();

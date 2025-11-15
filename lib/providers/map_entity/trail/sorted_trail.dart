@@ -5,7 +5,7 @@ import 'package:spacirtrasa/providers/map_entity/trail/trail_with_details.dart';
 
 part '../../generated/map_entity/trail/sorted_trail.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SortedTrailProvider extends _$SortedTrailProvider {
   static final _log = Logger();
 

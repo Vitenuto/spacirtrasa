@@ -20,7 +20,7 @@ final class PoiProviderProvider
         argument: null,
         retry: null,
         name: r'poiProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class PoiProviderProvider
   }
 }
 
-String _$poiProviderHash() => r'2d8913e5294624fbc5fde0690c0c84858a9791f5';
+String _$poiProviderHash() => r'6d448c57735ec2c8a4eb3733cb61d7c03bc11fb4';
 
 abstract class _$PoiProvider extends $Notifier<List<Poi>> {
   List<Poi> build();

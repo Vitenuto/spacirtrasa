@@ -22,7 +22,6 @@ import 'package:spacirtrasa/providers/user/firebase_user.dart';
 import 'package:spacirtrasa/services/feedback.dart';
 import 'package:spacirtrasa/services/map_entity/poi.dart';
 import 'package:spacirtrasa/services/map_entity/trail.dart';
-import 'package:spacirtrasa/services/user/auth.dart';
 import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/async_button_handler.dart';
 
@@ -44,6 +43,7 @@ class ProfilePage extends ConsumerWidget {
 
   Widget _buildProfileHeader(WidgetRef ref) {
     final user = ref.watch(firebaseUserProvider);
+    final firebaseUserService = ref.read(firebaseUserProvider.notifier);
 
     return IntrinsicWidth(
       child: Column(
@@ -67,16 +67,23 @@ class ProfilePage extends ConsumerWidget {
                 ],
               ),
           SizedBox(height: 8),
-          _buildSignInOutButton(user != null),
+          _buildSignInOutButton(user != null, firebaseUserService),
         ],
       ),
     );
   }
 
-  OutlinedAsyncButton _buildSignInOutButton(bool isSignedIn) {
+  OutlinedAsyncButton _buildSignInOutButton(
+    bool isSignedIn,
+    FirebaseUserProvider firebaseUserService,
+  ) {
     return OutlinedAsyncButton(
       style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
-      onPressed: () async => isSignedIn ? await signOut() : await signInWithGoogle(),
+      onPressed:
+          () async =>
+              isSignedIn
+                  ? firebaseUserService.handleSignOut()
+                  : await firebaseUserService.handleSignIn(),
       child: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
     );
   }

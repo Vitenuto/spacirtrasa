@@ -5,7 +5,7 @@ import 'package:spacirtrasa/providers/map_entity/trail/trail_with_details.dart';
 
 part '../../generated/map_entity/trail/trail_length_bounds.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class TrailLengthBoundsProvider extends _$TrailLengthBoundsProvider {
   static final _log = Logger();
 

@@ -21,7 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  await FirebaseAppCheck.instance.activate(androidProvider: AndroidProvider.debug);
+  await FirebaseAppCheck.instance.activate(providerAndroid: AndroidDebugProvider());
 
   runApp(
     EasyLocalization(

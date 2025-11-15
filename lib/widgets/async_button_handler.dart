@@ -46,15 +46,23 @@ class _AsyncButtonHandlerState<T> extends State<AsyncButtonHandler<T>> {
     if (isAsync) {
       if (!widget.overlayLoading) {
         setState(() => isLoading = true);
-        await (widget.onPressed as Future Function())();
+        await runOnPressedSafely();
         if (mounted) setState(() => isLoading = false);
       } else {
         _showOverlayLoading(context);
-        await (widget.onPressed as Future Function())();
+        await runOnPressedSafely();
         if (context.mounted) _hideOverlayLoading(context);
       }
     } else {
       widget.onPressed();
+    }
+  }
+
+  Future<dynamic> runOnPressedSafely() async {
+    try {
+      return await (widget.onPressed as Future Function())();
+    } catch (e) {
+      // Ignore exceptions here, they should be handled by the caller
     }
   }
 
@@ -92,7 +100,7 @@ class OutlinedAsyncButton extends StatelessWidget {
       child: child,
       builder:
           ({required onPressed, required child, style}) =>
-          OutlinedButton(onPressed: onPressed, style: style, child: child),
+              OutlinedButton(onPressed: onPressed, style: style, child: child),
     );
   }
 }
@@ -112,7 +120,7 @@ class ElevatedAsyncButton extends StatelessWidget {
       child: child,
       builder:
           ({required onPressed, required child, style}) =>
-          ElevatedButton(onPressed: onPressed, style: style, child: child),
+              ElevatedButton(onPressed: onPressed, style: style, child: child),
     );
   }
 }

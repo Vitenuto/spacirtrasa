@@ -4,7 +4,7 @@ import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 
 part '../../generated/map_entity/poi/selected_poi.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedPoiProvider extends _$SelectedPoiProvider {
   static final _log = Logger();
 

@@ -41,7 +41,7 @@ final class AppUserProviderProvider
   }
 }
 
-String _$appUserProviderHash() => r'413f798b1ce95aff3cf25eae4597a13e10fdd08e';
+String _$appUserProviderHash() => r'f75efab9249cd8c55e233386fe03b288fd833ea7';
 
 abstract class _$AppUserProvider extends $Notifier<AppUser> {
   AppUser build();
