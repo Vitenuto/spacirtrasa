@@ -20,7 +20,7 @@ final class FilteredTrailProviderProvider
         argument: null,
         retry: null,
         name: r'filteredTrailProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class FilteredTrailProviderProvider
 }
 
 String _$filteredTrailProviderHash() =>
-    r'1d23857dc4349f18dee11cb3adcc91bd6ae13196';
+    r'cd175d230a7882ffe21085910ee1083a1e627d00';
 
 abstract class _$FilteredTrailProvider
     extends $Notifier<List<TrailWithDetails>> {

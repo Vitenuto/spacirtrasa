@@ -20,7 +20,7 @@ final class PoiWithDistanceProviderProvider
         argument: null,
         retry: null,
         name: r'poiWithDistanceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class PoiWithDistanceProviderProvider
 }
 
 String _$poiWithDistanceProviderHash() =>
-    r'229056f9f4a4a8cdb597ee44d79484ac9196f4ab';
+    r'0381f48b35652ffbe4a95c8639ef700bc61e23c0';
 
 abstract class _$PoiWithDistanceProvider
     extends $Notifier<List<PoiWithDistance>> {

@@ -21,7 +21,7 @@ final class TrailWithDetailsProviderProvider
         argument: null,
         retry: null,
         name: r'trailWithDetailsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -43,7 +43,7 @@ final class TrailWithDetailsProviderProvider
 }
 
 String _$trailWithDetailsProviderHash() =>
-    r'16f439b87ea54a2a5452cac06eb01a8b4914ad2c';
+    r'b372b0f6091cebb19bbbc2704298dff9337703cb';
 
 abstract class _$TrailWithDetailsProvider
     extends $Notifier<List<TrailWithDetails>> {

@@ -4,7 +4,7 @@ import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 
 part '../../generated/map_entity/trail/selected_trail.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedTrailProvider extends _$SelectedTrailProvider {
   static final _log = Logger();
 

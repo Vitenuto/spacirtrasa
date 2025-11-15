@@ -45,8 +45,9 @@ Future<AppUser> setFinishedTrail(AppUser appUser, String trailId) async {
   return appUser.copyWith(finishedTrails: newFinishedTrails);
 }
 
-final emptyAppUser = AppUser(
-  id: localUserId,
+AppUser getEmptyAppUser({String? id}) => AppUser(
+  id: id ?? localUserId,
+  isAdmin: false,
   favoritePoiIds: [],
   favoriteTrailIds: [],
   finishedTrails: [],

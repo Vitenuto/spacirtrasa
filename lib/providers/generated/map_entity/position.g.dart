@@ -20,7 +20,7 @@ final class PositionProviderProvider
         argument: null,
         retry: null,
         name: r'positionProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class PositionProviderProvider
   }
 }
 
-String _$positionProviderHash() => r'64a5cf3264b50041071fc60fd282845ba3fe213f';
+String _$positionProviderHash() => r'235e5813c7164d1d3c49a9ec6132017c21586020';
 
 abstract class _$PositionProvider extends $Notifier<Position?> {
   Position? build();

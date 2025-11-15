@@ -20,7 +20,7 @@ final class TrailLengthBoundsProviderProvider
         argument: null,
         retry: null,
         name: r'trailLengthBoundsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class TrailLengthBoundsProviderProvider
 }
 
 String _$trailLengthBoundsProviderHash() =>
-    r'986b008f06dcf1c486e671fe00712e5463acbcf2';
+    r'f075450799402905f777870bb12a51970da9eca6';
 
 abstract class _$TrailLengthBoundsProvider
     extends $Notifier<(double, double)?> {

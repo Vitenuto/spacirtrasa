@@ -10,7 +10,7 @@ import 'package:spacirtrasa/utils/converters.dart';
 
 part '../../generated/map_entity/poi/poi_with_distance.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class PoiWithDistanceProvider extends _$PoiWithDistanceProvider {
   static final _log = Logger();
   late LatLng? _currentPosition;

@@ -5,7 +5,7 @@ import 'package:spacirtrasa/services/map_entity/poi.dart';
 
 part '../../generated/map_entity/poi/poi.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class PoiProvider extends _$PoiProvider {
   static final _log = Logger();
 

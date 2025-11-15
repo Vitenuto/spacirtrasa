@@ -20,7 +20,7 @@ final class PoiFilterProviderProvider
         argument: null,
         retry: null,
         name: r'poiFilterProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class PoiFilterProviderProvider
   }
 }
 
-String _$poiFilterProviderHash() => r'3d67ae696c0870f0a4e77913a3e01bdfa821c332';
+String _$poiFilterProviderHash() => r'998614b0c2f0017d885b94379d156bd28261faf4';
 
 abstract class _$PoiFilterProvider extends $Notifier<PoiFilter> {
   PoiFilter build();
