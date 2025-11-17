@@ -14,6 +14,9 @@ import 'package:spacirtrasa/utils/utils.dart';
 
 part '../generated/user/app_user.g.dart';
 
+/// AppUser provider that listens to both Firebase and local user providers.
+/// If Firebase user is available, it takes precedence over the local user, however
+/// at the beginning, automatically the local user is used until a Firebase user is available.
 @Riverpod(keepAlive: true)
 class AppUserProvider extends _$AppUserProvider {
   bool _isLocal = true;
@@ -27,12 +30,10 @@ class AppUserProvider extends _$AppUserProvider {
   }
 
   void _prepareFirebaseAppUserSubscription() {
-    final firebaseAppUserSubscription = ref.listen(firebaseAppUserProvider, (
-      _,
-      firebaseAppUserNew,
-    ) {
-      _onFirebaseAppUserUpdate(firebaseAppUserNew);
-    });
+    final firebaseAppUserSubscription = ref.listen(
+      firebaseAppUserProvider,
+      (_, firebaseAppUserNew) => _onFirebaseAppUserUpdate(firebaseAppUserNew),
+    );
     ref.onDispose(() => firebaseAppUserSubscription.close());
   }
 
@@ -46,6 +47,7 @@ class AppUserProvider extends _$AppUserProvider {
     ref.onDispose(() => localAppUserSubscription.close());
   }
 
+  /// If the firebase user is null, switch to local user.
   void _onFirebaseAppUserUpdate(AppUser? user) async {
     if (user == null) {
       _isLocal = true;

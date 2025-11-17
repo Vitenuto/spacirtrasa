@@ -11,7 +11,7 @@ part '../generated/user/firebase_app_user.g.dart';
 class FirebaseAppUserProvider extends _$FirebaseAppUserProvider {
   @override
   AppUser? build() {
-    logger.t("Building FirebaseUser provider...");
+    logger.t("Building FirebaseAppUser provider...");
     final firebaseUser = ref.watch(firebaseUserProvider);
     _setUpFirebaseListener(firebaseUser);
     return null;
@@ -21,6 +21,9 @@ class FirebaseAppUserProvider extends _$FirebaseAppUserProvider {
   Future<void> _setUpFirebaseListener(User? firebaseUser) async {
     final firebaseAppUserStream = await mapFirebaseUserToAppUserStream(firebaseUser);
     final firebaseAppUserListener = firebaseAppUserStream.listen((appUser) {
+      if (state == null && appUser == null) {
+        return;
+      }
       logger.i("Firebase AppUser updated: $appUser");
       state = appUser;
     });
