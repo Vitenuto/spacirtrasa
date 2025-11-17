@@ -13,40 +13,57 @@ const List<String> _scopes = <String>['email'];
 @Riverpod(keepAlive: true)
 class FirebaseUserProvider extends _$FirebaseUserProvider {
   static final _signIn = GoogleSignIn.instance;
+  static final _firebaseAuth = FirebaseAuth.instance;
+  StreamSubscription<GoogleSignInAuthenticationEvent>? _authenticationEventsSubscription;
 
   @override
   User? build() {
-    logger.i("Building AuthService provider...");
-    _initializeGoogleSignIn();
+    logger.t("Building FirebaseUser provider...");
+    final authStateChangesSubscription = _firebaseAuth.authStateChanges().listen((User? user) {
+      logger.i("AuthStateChanged (thus updating firebaseUser state) with user: $user");
+      state = user;
+    });
+    ref.onDispose(() => authStateChangesSubscription.cancel());
     return null;
   }
 
   Future<void> _initializeGoogleSignIn() async {
+    if (_authenticationEventsSubscription != null) {
+      // Already initialized
+      return;
+    }
     logger.t("Initializing Google Sign-In...");
-    unawaited(
-      _signIn.initialize().then((_) {
-        _signIn.authenticationEvents
-            .listen(_handleAuthenticationEvent)
-            .onError(_handleAuthenticationError);
-
-        /// This example always uses the stream-based approach to determining
-        /// which UI state to show, rather than using the future returned here,
-        /// if any, to conditionally skip directly to the signed-in state.
-        _signIn.attemptLightweightAuthentication();
-      }),
+    await _signIn.initialize();
+    _authenticationEventsSubscription = _signIn.authenticationEvents.listen(
+      _handleAuthenticationEvent,
     );
+    _authenticationEventsSubscription!.onError(_handleAuthenticationError);
+    ref.onDispose(_authenticationEventsSubscription!.cancel);
   }
 
-  Future<void> _handleAuthenticationEvent(GoogleSignInAuthenticationEvent event) async {
+  Future<User?> _handleAuthenticationEvent(GoogleSignInAuthenticationEvent event) async {
     final GoogleSignInAccount? user = switch (event) {
       GoogleSignInAuthenticationEventSignIn() => event.user,
       GoogleSignInAuthenticationEventSignOut() => null,
     };
     if (user == null) {
-      state = null;
-      return;
+      return null;
     }
 
+    // Proceed with firebase sign-in using Google credentials
+    OAuthCredential credential = await _getCredentials(user);
+    return await _signFirebaseUserIn(credential);
+  }
+
+  Future<User?> _signFirebaseUserIn(OAuthCredential credential) async {
+    final firebaseUserCredential = await _firebaseAuth.signInWithCredential(credential);
+    final firebaseUser = firebaseUserCredential.user;
+
+    createAppUserIfNeeded(firebaseUser!.uid); // Ensure AppUser exists in Firestore
+    return firebaseUser;
+  }
+
+  Future<OAuthCredential> _getCredentials(GoogleSignInAccount user) async {
     final GoogleSignInClientAuthorization? authorization = await user.authorizationClient
         .authorizationForScopes(_scopes);
 
@@ -54,13 +71,7 @@ class FirebaseUserProvider extends _$FirebaseUserProvider {
       accessToken: authorization?.accessToken,
       idToken: user.authentication.idToken,
     );
-
-    final firebaseUserCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-    final firebaseUser = firebaseUserCredential.user;
-
-    createAppUserIfNeeded(firebaseUser!.uid); // Ensure AppUser exists in Firestore
-    logger.t("Successfully obtained firebase user");
-    state = firebaseUser;
+    return credential;
   }
 
   Future<void> _handleAuthenticationError(Object e) async {
@@ -69,12 +80,14 @@ class FirebaseUserProvider extends _$FirebaseUserProvider {
   }
 
   Future<void> handleSignIn() async {
-    final user = await _signIn.attemptLightweightAuthentication();
-    logger.i("Signing user in, signed user: $user");
+    logger.i("Signing user in...");
+    await _initializeGoogleSignIn();
+    await _signIn.attemptLightweightAuthentication();
   }
 
   Future<void> handleSignOut() async {
     logger.i("Signing-out user: ${state?.email}");
     await _signIn.signOut();
+    await _firebaseAuth.signOut();
   }
 }
