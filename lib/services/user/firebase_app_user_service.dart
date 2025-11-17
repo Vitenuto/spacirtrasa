@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/services/user/app_user_service.dart';
 import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 const usersCollectionId = 'USERS';
 final _firestore = FirebaseFirestore.instance;
-final _log = Logger();
 
 final appUserCollection = _firestore
     .collection(usersCollectionId)
@@ -31,7 +30,7 @@ Future<void> createAppUserIfNeeded(String userId) async {
   if (appUser == null) {
     final newUser = getEmptyAppUser(id: userId);
     await setUser(newUser);
-    _log.t("New user is successfully created: $newUser");
+    logger.t("New user is successfully created: $newUser");
   }
 }
 

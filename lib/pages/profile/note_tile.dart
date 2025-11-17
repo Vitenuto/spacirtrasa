@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/models/note.dart';
 import 'package:spacirtrasa/pages/pois/poi_detail.dart';
 import 'package:spacirtrasa/pages/trails/trail_detail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 class NoteTile extends ConsumerWidget {
-  static final log = Logger();
   final Note note;
 
   const NoteTile({super.key, required this.note});
 
   @override
   ListTile build(BuildContext context, WidgetRef ref) {
-    log.t("Building NoteTile for note: $note");
+    logger.t("Building NoteTile for note: $note");
     String? title;
     VoidCallback? openDetail;
     Icon? icon;

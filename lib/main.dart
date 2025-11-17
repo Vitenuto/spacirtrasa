@@ -6,13 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/firebase_options.dart';
 import 'package:spacirtrasa/generated/assets.gen.dart';
 import 'package:spacirtrasa/services/router.dart';
 
 void main() async {
-  Logger.level = Level.debug;
   await dotenv.load(fileName: ".env");
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

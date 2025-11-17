@@ -1,32 +1,31 @@
 import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/providers/map_entity/position_permission_status.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/pinned_trail.dart';
 import 'package:spacirtrasa/providers/user/app_user.dart';
 import 'package:spacirtrasa/services/map_entity/position.dart';
 import 'package:spacirtrasa/utils/constants.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../generated/map_entity/position.g.dart';
 
 @Riverpod(keepAlive: true)
 class PositionProvider extends _$PositionProvider {
-  static final _log = Logger();
   StreamSubscription<Position>? _positionSubscription;
 
   @override
   Position? build() {
     final serviceStatus = ref.watch(positionPermissionStatusProvider);
     if (serviceStatus == ServiceStatus.disabled) {
-      _log.w("ServiceStatus is $serviceStatus, canceling position");
+      logger.w("ServiceStatus is $serviceStatus, canceling position");
       _positionSubscription?.cancel();
 
       return null;
     }
 
-    _log.t("Building Position provider...");
+    logger.t("Building Position provider...");
     _init();
     return null;
   }
@@ -39,7 +38,7 @@ class PositionProvider extends _$PositionProvider {
 
   void _onPositionUpdate(Position position) {
     if (position.isNotEqual(state)) {
-      _log.t("New position: $position");
+      logger.t("New position: $position");
       state = position;
 
       _checkIsFinishedTrail(position);

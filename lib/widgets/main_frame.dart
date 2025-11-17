@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/pages/home/main.dart';
 import 'package:spacirtrasa/pages/pois/main.dart';
 import 'package:spacirtrasa/pages/profile/main.dart';
@@ -20,7 +19,6 @@ class MainFrame extends StatefulWidget {
 
 class _MainFrameState extends State<MainFrame> {
   int _currentIndex = 0;
-  final log = Logger();
 
   static List<MyCustomBottomNavBarItem> tabs = [
     MyCustomBottomNavBarItem(

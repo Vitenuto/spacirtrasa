@@ -1,13 +1,11 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:logger/logger.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 class PositionService {
   static const String _kLocationServicesDisabledMessage = 'Location services are disabled.';
   static const String _kPermissionDeniedMessage = 'Location permission denied.';
   static const String _kPermissionDeniedForeverMessage = 'Location permission denied forever.';
   static const String _kPermissionGrantedMessage = 'Location permission granted.';
-
-  static final _log = Logger();
   static final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
 
   // Need to check for permissions before, otherwise exception may be thrown
@@ -23,7 +21,7 @@ class PositionService {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      _log.w(_kLocationServicesDisabledMessage);
+      logger.w(_kLocationServicesDisabledMessage);
       return false;
     }
 
@@ -36,20 +34,20 @@ class PositionService {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        _log.w(_kPermissionDeniedMessage);
+        logger.w(_kPermissionDeniedMessage);
         return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      _log.w(_kPermissionDeniedForeverMessage);
+      logger.w(_kPermissionDeniedForeverMessage);
       return false;
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    _log.i(_kPermissionGrantedMessage);
+    logger.i(_kPermissionGrantedMessage);
     return true;
   }
 }

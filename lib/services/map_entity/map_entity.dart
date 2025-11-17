@@ -5,12 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
 import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 abstract class MapEntityService<T extends MapEntity> {
-  final log = Logger();
   final _firestore = FirebaseFirestore.instance;
   final String _entityCollectionId;
   final T Function(Map<String, dynamic>) _fromJson;
@@ -38,8 +37,8 @@ abstract class MapEntityService<T extends MapEntity> {
 
   Future<T?> persistEntity(T entity) async {
     var newEntity = (await (await _entityCollection.add(entity)).get()).data();
-    if (newEntity == null) log.e("Failed to persist $entity to the database");
-    log.i("New $T was created: $newEntity");
+    if (newEntity == null) logger.e("Failed to persist $entity to the database");
+    logger.i("New $T was created: $newEntity");
     return newEntity;
   }
 
@@ -47,18 +46,18 @@ abstract class MapEntityService<T extends MapEntity> {
 
   Future<void> removeEntity(T entity) async {
     await _entityCollection.doc(entity.id).delete();
-    log.i("Removed $entity from the database");
+    logger.i("Removed $entity from the database");
   }
 
   Future<void> removeEntities(List<T> entities) async {
     await Future.wait(entities.map(removeEntity));
-    log.i("Removed ${entities.length} ${T}s from the database");
+    logger.i("Removed ${entities.length} ${T}s from the database");
   }
 
   Future<String?> exportEntities(List<MapEntity> entities) async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
     if (selectedDirectory == null) {
-      log.w("User canceled the folder picking, no export is done");
+      logger.w("User canceled the folder picking, no export is done");
       return null;
     }
 
@@ -69,14 +68,14 @@ abstract class MapEntityService<T extends MapEntity> {
     final File file = File('$selectedDirectory/${T}s_export_$dateTimeString.json');
     await file.writeAsString(jsonString);
 
-    log.i("Exported ${entities.length} ${T}s to $selectedDirectory");
+    logger.i("Exported ${entities.length} ${T}s to $selectedDirectory");
     return selectedDirectory;
   }
 
   Future<int> importEntities() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result == null) {
-      log.w("User canceled the file picking, no import is done");
+      logger.w("User canceled the file picking, no import is done");
       return 0;
     }
 
@@ -94,18 +93,18 @@ abstract class MapEntityService<T extends MapEntity> {
         toastLength: Toast.LENGTH_LONG,
         msg: 'services.map_entity.map_entity_service.import-failed.$T'.tr(args: [e.message]),
       );
-      log.e("FormatException during $T import", error: e);
+      logger.e("FormatException during $T import", error: e);
       return 0;
     } catch (e, stack) {
       Fluttertoast.showToast(
         toastLength: Toast.LENGTH_LONG,
         msg: 'services.map_entity.map_entity_service.import-failed-general.$T'.tr(),
       );
-      log.e("Error during $T import", error: e, stackTrace: stack);
+      logger.e("Error during $T import", error: e, stackTrace: stack);
       return 0;
     }
 
-    log.i("${entities.length} ${T}s are successfully imported");
+    logger.i("${entities.length} ${T}s are successfully imported");
     return entities.length;
   }
 

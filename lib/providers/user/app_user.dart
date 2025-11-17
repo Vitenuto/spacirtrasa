@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
@@ -11,17 +10,17 @@ import 'package:spacirtrasa/providers/user/firebase_app_user.dart';
 import 'package:spacirtrasa/providers/user/local_app_user.dart';
 import 'package:spacirtrasa/services/user/app_user_service.dart' as appUserService;
 import 'package:spacirtrasa/services/user/firebase_app_user_service.dart' as firebaseAppUserService;
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../generated/user/app_user.g.dart';
 
 @Riverpod(keepAlive: true)
 class AppUserProvider extends _$AppUserProvider {
-  final _log = Logger();
   bool _isLocal = true;
 
   @override
   AppUser build() {
-    _log.t("Building AppUser provider...");
+    logger.t("Building AppUser provider...");
     _prepareFirebaseAppUserSubscription();
     _prepareLocalAppUserSubscription();
     return appUserService.getEmptyAppUser();
@@ -51,31 +50,31 @@ class AppUserProvider extends _$AppUserProvider {
     if (user == null) {
       _isLocal = true;
       state = await ref.read(localUserProvider.future);
-      _log.t("Got null user from Firebase, switching to local user: $state");
+      logger.t("Got null user from Firebase, switching to local user: $state");
       return;
     }
     _isLocal = false;
-    _log.t("Got firebase user update: $user");
+    logger.t("Got firebase user update: $user");
     state = user;
   }
 
   Future<void> setNote(Note note) async {
-    _log.t("Setting note: ${note.mapEntityId}, for user: ${state.id}");
+    logger.t("Setting note: ${note.mapEntityId}, for user: ${state.id}");
     await setUser(await appUserService.setNote(state, note));
   }
 
   Future<void> setFavoritePoi(String poiId) async {
-    _log.t("Setting favorite POI: $poiId, for user: ${state.id}");
+    logger.t("Setting favorite POI: $poiId, for user: ${state.id}");
     await setUser(await appUserService.setFavoritePoi(state, poiId));
   }
 
   Future<void> setFavoriteTrail(String trailId) async {
-    _log.t("Setting favorite Trail: $trailId, for user: ${state.id}");
+    logger.t("Setting favorite Trail: $trailId, for user: ${state.id}");
     await setUser(await appUserService.setFavoriteTrail(state, trailId));
   }
 
   Future<void> setFinishedTrail(Trail trail) async {
-    _log.i("Setting finished Trail: ${trail.id}, for user: ${state.id}");
+    logger.i("Setting finished Trail: ${trail.id}, for user: ${state.id}");
     await setUser(await appUserService.setFinishedTrail(state, trail.id));
     Fluttertoast.showToast(
       msg: 'trail-added-to-finished'.tr(args: [trail.title]),

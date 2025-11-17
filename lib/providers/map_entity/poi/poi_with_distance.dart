@@ -1,23 +1,22 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi_with_distance.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/position.dart';
 import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../../generated/map_entity/poi/poi_with_distance.g.dart';
 
 @Riverpod(keepAlive: true)
 class PoiWithDistanceProvider extends _$PoiWithDistanceProvider {
-  static final _log = Logger();
   late LatLng? _currentPosition;
 
   @override
   List<PoiWithDistance> build() {
-    _log.t("Building PoiWithDistance provider...");
+    logger.t("Building PoiWithDistance provider...");
     final pois = ref.watch(poiProvider);
     _currentPosition = ref.watch(positionProvider)?.toLatLng();
     return pois.map(_toPoiWithDistance).toList();

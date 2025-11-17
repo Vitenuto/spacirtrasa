@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/selected_poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
@@ -29,7 +28,6 @@ class ExpandableList extends ConsumerStatefulWidget {
 }
 
 class _SnapListState extends ConsumerState<ExpandableList> {
-  final log = Logger();
   final ScrollController _scrollController = ScrollController();
 
   bool dragStartedAtTop = false;
@@ -143,7 +141,7 @@ class _SnapListState extends ConsumerState<ExpandableList> {
         widget.items.indexWhere((item) => item.isSelected) + 1; // +1 to account for the title
     if (listIndex <= 1) return; // Skip snapping to the first item
 
-    log.t('Snapping to index: ${listIndex - 1}');
+    logger.t('Snapping to index: ${listIndex - 1}');
     isSnapping = true;
     await handleSnap(_scrollController, listIndex);
     isSnapping = false;
