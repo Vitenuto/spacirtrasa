@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/providers/expanded.dart';
 import 'package:spacirtrasa/utils/constants.dart';
 import 'package:spacirtrasa/widgets/map_entity_list/expandable_list.dart';
@@ -11,9 +10,7 @@ class ExpandableSheet extends ConsumerWidget {
   final List<ListItem> items;
   final Widget Function(bool) filterBuilder;
 
-  final log = Logger();
-
-  ExpandableSheet({
+  const ExpandableSheet({
     super.key,
     required this.listTitle,
     required this.items,

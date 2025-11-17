@@ -1,17 +1,15 @@
-import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_filter.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../../generated/map_entity/trail/trail_filter.g.dart';
 
 @Riverpod(keepAlive: true)
 class TrailFilterProvider extends _$TrailFilterProvider {
-  static final _log = Logger();
-
   @override
   TrailFilter build() {
-    _log.t("Building TrailFilter provider...");
+    logger.t("Building TrailFilter provider...");
     return TrailFilter(
       flag: null,
       bounds: (double.negativeInfinity, double.infinity),

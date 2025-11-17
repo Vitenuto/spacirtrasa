@@ -8,7 +8,6 @@ import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:logger/logger.dart';
 import 'package:spacirtrasa/models/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/providers/map_entity/is_following.dart';
@@ -20,6 +19,7 @@ import 'package:spacirtrasa/providers/map_entity/trail/selected_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/utils/constants.dart';
 import 'package:spacirtrasa/utils/converters.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 import 'package:spacirtrasa/widgets/map_skeleton.dart';
 import 'package:spacirtrasa/widgets/poi_marker_popup.dart';
 
@@ -33,7 +33,6 @@ class MainMap extends ConsumerStatefulWidget {
 }
 
 class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin {
-  final log = Logger();
   final PopupController _popupLayerController = PopupController();
   late final _animatedMapController = AnimatedMapController(vsync: this);
   late final StreamController<double?> _alignPositionStreamController;
@@ -46,6 +45,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
 
   @override
   void dispose() {
+    logger.t("Disposing MainMap...");
     _animatedMapController.dispose();
     _alignPositionStreamController.close();
     super.dispose();
@@ -53,6 +53,7 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    logger.t("Building MainMap...");
     ref.listen(selectedTrailProvider, (_, selectedTrail) => _onSelectedTrail(selectedTrail));
     ref.listen(selectedPoiProvider, (_, selectedPoi) => _onSelectedPoi(selectedPoi));
     final permissionStatus = ref.watch(positionPermissionStatusProvider);
@@ -68,7 +69,8 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
           alignPositionOnUpdate: isFollowing,
         ),
         _buildMarkerLayer(),
-        if (ServiceStatus.disabled != permissionStatus) _buildLocationButton(context), // TODO do not show if user is out of bounds
+        if (ServiceStatus.disabled != permissionStatus) _buildLocationButton(context),
+        // TODO do not show if user is out of bounds
       ],
     );
   }
@@ -184,9 +186,10 @@ class _MainMapState extends ConsumerState<MainMap> with TickerProviderStateMixin
     final pois = ref.watch(poiProvider);
     final selectedPoi = ref.watch(selectedPoiProvider);
     return pois.map((poi) {
-      final isSelected = selectedPoi?.id == poi.id;
+        final isSelected = selectedPoi?.id == poi.id;
 
-      return PoiMarker(poi: poi, isSelected: isSelected);
-    }).toList()..sort((a, b) => a.isSelected ? 1 : 0);
+        return PoiMarker(poi: poi, isSelected: isSelected);
+      }).toList()
+      ..sort((a, b) => a.isSelected ? 1 : 0);
   }
 }

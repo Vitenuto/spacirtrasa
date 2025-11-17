@@ -8,6 +8,7 @@ import 'package:gpx/gpx.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_flag.dart';
 import 'package:spacirtrasa/services/map_entity/map_entity.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 class TrailService extends MapEntityService<Trail> {
   static const trailsCollectionId = 'TRAILS';
@@ -218,7 +219,7 @@ class TrailService extends MapEntityService<Trail> {
   Future<int> importEntities() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result == null) {
-      log.w("User canceled the folder picking, no export is done");
+      logger.w("User canceled the folder picking, no export is done");
       return 0;
     }
 
@@ -227,11 +228,11 @@ class TrailService extends MapEntityService<Trail> {
       Fluttertoast.showToast(
         msg: 'services.map_entity.map_entity_service.import-failed.unsupported-file'.tr(),
       );
-      log.w("Unsupported file type for import: $fileExtension");
+      logger.w("Unsupported file type for import: $fileExtension");
       return 0;
     }
     if (fileExtension == 'json') {
-      log.i("User selected a JSON file for import");
+      logger.i("User selected a JSON file for import");
       return super.importEntitiesFromJsonFile(result);
     }
 
@@ -246,18 +247,18 @@ class TrailService extends MapEntityService<Trail> {
         toastLength: Toast.LENGTH_LONG,
         msg: 'services.map_entity.map_entity_service.import-failed.$Trail'.tr(args: [e.message]),
       );
-      log.e("FormatException during $Trail import", error: e);
+      logger.e("FormatException during $Trail import", error: e);
       return 0;
     } catch (e, stack) {
       Fluttertoast.showToast(
         toastLength: Toast.LENGTH_LONG,
         msg: 'services.map_entity.map_entity_service.import-failed-general.$Trail'.tr(),
       );
-      log.e("Error during $Trail import", error: e, stackTrace: stack);
+      logger.e("Error during $Trail import", error: e, stackTrace: stack);
       return 0;
     }
 
-    log.i("$Trail is successfully imported");
+    logger.i("$Trail is successfully imported");
     return 1;
   }
 
