@@ -1,4 +1,3 @@
-import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/app_user.dart';
 import 'package:spacirtrasa/models/map_entity/map_entity.dart';
@@ -7,16 +6,15 @@ import 'package:spacirtrasa/models/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/providers/map_entity/poi/poi.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail.dart';
 import 'package:spacirtrasa/providers/user/app_user.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../generated/map_entity/favorite_map_entity.g.dart';
 
 @riverpod
 class FavoriteMapEntityProvider extends _$FavoriteMapEntityProvider {
-  static final _log = Logger();
-
   @override
   List<MapEntity> build() {
-    _log.t("Building MapEntity provider...");
+    logger.t("Building MapEntity provider...");
     final pois = ref.watch(poiProvider);
     final trails = ref.watch(trailProvider);
     final appUser = ref.watch(appUserProvider);

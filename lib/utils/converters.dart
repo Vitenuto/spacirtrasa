@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:logger/logger.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 class FirestoreConverters {
-  static final _log = Logger();
-
   static T Function(DocumentSnapshot<Map<String, dynamic>>, SnapshotOptions?) fromFirestore<T>(
     T Function(Map<String, dynamic>) fromJson,
   ) {
@@ -14,7 +12,7 @@ class FirestoreConverters {
       try {
         return fromJson({'id': snapshot.id, ...(snapshot.data() ?? {})});
       } catch (e) {
-        _log.e(
+        logger.e(
           "Unable to parse '$T' from firestore object having id: ${snapshot.id} and data: ${snapshot.data()}",
         );
         rethrow;

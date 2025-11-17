@@ -6,7 +6,22 @@ import 'package:logger/logger.dart';
 
 import 'constants.dart';
 
-final log = Logger();
+Logger get logger => Log.instance;
+
+class Log extends Logger {
+  Log._()
+    : super(
+        level: Level.all,
+        printer: PrettyPrinter(
+          methodCount: 1,
+          errorMethodCount: 8,
+          lineLength: 120,
+          colors: true,
+          printEmojis: true,
+        ),
+      );
+  static final instance = Log._();
+}
 
 void showFullDialog(BuildContext context, Widget child) {
   showDialog<String>(

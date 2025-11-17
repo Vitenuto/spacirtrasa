@@ -1,20 +1,19 @@
-import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_filter.dart';
 import 'package:spacirtrasa/models/map_entity/trail/trail_with_details.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/sorted_trail.dart';
 import 'package:spacirtrasa/providers/map_entity/trail/trail_filter.dart';
+import 'package:spacirtrasa/utils/utils.dart';
 
 part '../../generated/map_entity/trail/filtered_trail.g.dart';
 
 @Riverpod(keepAlive: true)
 class FilteredTrailProvider extends _$FilteredTrailProvider {
-  static final _log = Logger();
   late TrailFilter _trailFilter;
 
   @override
   List<TrailWithDetails> build() {
-    _log.t("Building FilteredTrail provider...");
+    logger.t("Building FilteredTrail provider...");
     final trails = ref.watch(sortedTrailProvider);
     _trailFilter = ref.watch(trailFilterProvider);
     return trails.where(_matchesFilter).toList();
