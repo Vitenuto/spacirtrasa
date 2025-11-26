@@ -13,7 +13,7 @@ class VillagePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final markdown = ref.watch(aboutVillageTextProvider);
+    final markdown = ref.watch(aboutVillageTextProvider(context.locale.languageCode));
 
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 8),
@@ -28,7 +28,8 @@ class VillagePage extends ConsumerWidget {
             OutlinedButton.icon(
               icon: const Icon(Icons.directions_bus),
               label: Text('village.bus-connections'.tr()),
-              onPressed: () => launchUrl(Uri.parse("https://www.idsjmk.cz/connection-finder/search")),
+              onPressed:
+                  () => launchUrl(Uri.parse("https://www.idsjmk.cz/connection-finder/search")),
             ),
             OutlinedButton.icon(
               icon: const Icon(Icons.newspaper),

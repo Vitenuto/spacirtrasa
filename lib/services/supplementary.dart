@@ -6,14 +6,24 @@ final _firestore = FirebaseFirestore.instance;
 
 final _supplementariesCollection = _firestore.collection(supplementariesCollectionId);
 
-Stream<String> getHomeTextStream() {
-  return _supplementariesCollection.doc('home_text').snapshots().map((docSnapshot) => docSnapshot.data()?['text'] as String? ?? '');
+Stream<String> getHomeTextStream(String languageCode) {
+  return _supplementariesCollection
+      .doc('home_text')
+      .snapshots()
+      .map((docSnapshot) => docSnapshot.data()?[languageCode] as String? ?? '');
 }
 
-Stream<String> getAboutVillageTextStream() {
-  return _supplementariesCollection.doc('about_village_text').snapshots().map((docSnapshot) => docSnapshot.data()?['text'] as String? ?? '');
+Stream<String> getAboutVillageTextStream(String languageCode) {
+  return _supplementariesCollection
+      .doc('about_village_text')
+      .snapshots()
+      .map((docSnapshot) => docSnapshot.data()?[languageCode] as String? ?? '');
 }
 
-final homeTextProvider = StreamProvider<String>((_) => getHomeTextStream());
+final homeTextProvider = StreamProvider.family<String, String>(
+  (_, languageCode) => getHomeTextStream(languageCode),
+);
 
-final aboutVillageTextProvider = StreamProvider<String>((_) => getAboutVillageTextStream());
+final aboutVillageTextProvider = StreamProvider.family<String, String>(
+  (_, languageCode) => getAboutVillageTextStream(languageCode),
+);
