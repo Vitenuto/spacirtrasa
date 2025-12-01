@@ -209,8 +209,8 @@ return $default(_that.trailId,_that.finishedAt);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _FinishedTrail implements FinishedTrail {
-  const _FinishedTrail({@JsonKey(name: 'trail_id') required this.trailId, @JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) required this.finishedAt});
+class _FinishedTrail extends FinishedTrail {
+   _FinishedTrail({@JsonKey(name: 'trail_id') required this.trailId, @JsonKey(name: 'finished_at', fromJson: dateFromJson, toJson: dateToJson) required this.finishedAt}): super._();
   factory _FinishedTrail.fromJson(Map<String, dynamic> json) => _$FinishedTrailFromJson(json);
 
 @override@JsonKey(name: 'trail_id') final  String trailId;
