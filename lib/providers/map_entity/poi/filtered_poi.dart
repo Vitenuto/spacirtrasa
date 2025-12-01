@@ -22,7 +22,7 @@ class FilteredPoiProvider extends _$FilteredPoiProvider {
   bool _matchesFilter(PoiWithDistance poiWithDistance) {
     if (_poiFilter.searchText.isNotEmpty) {
       final searchText = _poiFilter.searchText.toLowerCase();
-      if (!poiWithDistance.poi.title.toLowerCase().contains(searchText)) {
+      if (!poiWithDistance.poi.titleLocalized.toLowerCase().contains(searchText)) {
         logger.t("POI ${poiWithDistance.poi.title} does not match search text: $searchText");
         return false;
       }

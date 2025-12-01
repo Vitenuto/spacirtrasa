@@ -25,7 +25,10 @@ class PoiDetail extends ConsumerWidget {
     final appUser = ref.watch(appUserProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(poi.title), actions: _buildAppBarActions(appUser, ref, context)),
+      appBar: AppBar(
+        title: Text(poi.titleLocalized),
+        actions: _buildAppBarActions(appUser, ref, context),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(8),
         children: [
@@ -37,7 +40,7 @@ class PoiDetail extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 8),
-          MarkdownBody(data: poi.markdownData),
+          MarkdownBody(data: poi.markdownDataLocalized),
           _buildEditableNoteField(ref, appUser),
         ],
       ),

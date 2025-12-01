@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Trail {
 
- String get id; String get title; String get markdownData;@GeoPointConverter() List<GeoPoint> get path; TrailFlag get flag;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
+ String get id; Map<String, String> get title; Map<String, String> get markdownData;@GeoPointConverter() List<GeoPoint> get path; TrailFlag get flag;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
 /// Create a copy of Trail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $TrailCopyWith<Trail> get copyWith => _$TrailCopyWithImpl<Trail>(this as Trail, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trail&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trail&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.title, title)&&const DeepCollectionEquality().equals(other.markdownData, markdownData)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,markdownData,const DeepCollectionEquality().hash(path),flag,createdAt);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(title),const DeepCollectionEquality().hash(markdownData),const DeepCollectionEquality().hash(path),flag,createdAt);
 
 @override
 String toString() {
@@ -48,7 +48,7 @@ abstract mixin class $TrailCopyWith<$Res>  {
   factory $TrailCopyWith(Trail value, $Res Function(Trail) _then) = _$TrailCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, TrailFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
+ String id, Map<String, String> title, Map<String, String> markdownData,@GeoPointConverter() List<GeoPoint> path, TrailFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -69,8 +69,8 @@ class _$TrailCopyWithImpl<$Res>
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
-as String,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as List<GeoPoint>,flag: null == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
 as TrailFlag,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as Timestamp,
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String markdownData, @GeoPointConverter()  List<GeoPoint> path,  TrailFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Map<String, String> title,  Map<String, String> markdownData, @GeoPointConverter()  List<GeoPoint> path,  TrailFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Trail() when $default != null:
 return $default(_that.id,_that.title,_that.markdownData,_that.path,_that.flag,_that.createdAt);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.title,_that.markdownData,_that.path,_that.flag,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String markdownData, @GeoPointConverter()  List<GeoPoint> path,  TrailFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Map<String, String> title,  Map<String, String> markdownData, @GeoPointConverter()  List<GeoPoint> path,  TrailFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Trail():
 return $default(_that.id,_that.title,_that.markdownData,_that.path,_that.flag,_that.createdAt);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.title,_that.markdownData,_that.path,_that.flag,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String markdownData, @GeoPointConverter()  List<GeoPoint> path,  TrailFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Map<String, String> title,  Map<String, String> markdownData, @GeoPointConverter()  List<GeoPoint> path,  TrailFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Trail() when $default != null:
 return $default(_that.id,_that.title,_that.markdownData,_that.path,_that.flag,_that.createdAt);case _:
@@ -214,12 +214,24 @@ return $default(_that.id,_that.title,_that.markdownData,_that.path,_that.flag,_t
 @JsonSerializable()
 
 class _Trail extends Trail {
-   _Trail({required this.id, required this.title, required this.markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required this.flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _path = path,super._();
+   _Trail({required this.id, required final  Map<String, String> title, required final  Map<String, String> markdownData, @GeoPointConverter() required final  List<GeoPoint> path, required this.flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _title = title,_markdownData = markdownData,_path = path,super._();
   factory _Trail.fromJson(Map<String, dynamic> json) => _$TrailFromJson(json);
 
 @override final  String id;
-@override final  String title;
-@override final  String markdownData;
+ final  Map<String, String> _title;
+@override Map<String, String> get title {
+  if (_title is EqualUnmodifiableMapView) return _title;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_title);
+}
+
+ final  Map<String, String> _markdownData;
+@override Map<String, String> get markdownData {
+  if (_markdownData is EqualUnmodifiableMapView) return _markdownData;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_markdownData);
+}
+
  final  List<GeoPoint> _path;
 @override@GeoPointConverter() List<GeoPoint> get path {
   if (_path is EqualUnmodifiableListView) return _path;
@@ -243,12 +255,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trail&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trail&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._title, _title)&&const DeepCollectionEquality().equals(other._markdownData, _markdownData)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,markdownData,const DeepCollectionEquality().hash(_path),flag,createdAt);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_title),const DeepCollectionEquality().hash(_markdownData),const DeepCollectionEquality().hash(_path),flag,createdAt);
 
 @override
 String toString() {
@@ -263,7 +275,7 @@ abstract mixin class _$TrailCopyWith<$Res> implements $TrailCopyWith<$Res> {
   factory _$TrailCopyWith(_Trail value, $Res Function(_Trail) _then) = __$TrailCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String markdownData,@GeoPointConverter() List<GeoPoint> path, TrailFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
+ String id, Map<String, String> title, Map<String, String> markdownData,@GeoPointConverter() List<GeoPoint> path, TrailFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -283,9 +295,9 @@ class __$TrailCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? path = null,Object? flag = null,Object? createdAt = null,}) {
   return _then(_Trail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
-as String,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self._title : title // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,markdownData: null == markdownData ? _self._markdownData : markdownData // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
 as List<GeoPoint>,flag: null == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
 as TrailFlag,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as Timestamp,

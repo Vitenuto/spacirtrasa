@@ -17,13 +17,16 @@ class PoiListItem extends ListItem {
   String get id => poiWithDistance.poi.id;
 
   @override
-  String get title => poiWithDistance.poi.title;
+  String get title => poiWithDistance.poi.titleLocalized;
 
   @override
-  String? get subtitle => poiWithDistance.distance != null ? '(${(poiWithDistance.distance! / 1000).toStringAsFixed(2)} km)' : null;
+  String? get subtitle =>
+      poiWithDistance.distance != null
+          ? '(${(poiWithDistance.distance! / 1000).toStringAsFixed(2)} km)'
+          : null;
 
   @override
-  String get description => poiWithDistance.poi.markdownLessData;
+  String get description => poiWithDistance.poi.markdownLessDataLocalized;
 
   @override
   String? get imageUrl => poiWithDistance.poi.imgUrl;

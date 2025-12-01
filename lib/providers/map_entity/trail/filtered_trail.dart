@@ -22,7 +22,7 @@ class FilteredTrailProvider extends _$FilteredTrailProvider {
   bool _matchesFilter(TrailWithDetails trailWithDetails) {
     if (_trailFilter.searchText.isNotEmpty) {
       final searchText = _trailFilter.searchText.toLowerCase();
-      if (!trailWithDetails.trail.title.toLowerCase().contains(searchText)) {
+      if (!trailWithDetails.trail.titleLocalized.toLowerCase().contains(searchText)) {
         return false;
       }
     }

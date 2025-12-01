@@ -178,12 +178,12 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
               ),
               direction: _isSelectionMode ? DismissDirection.none : DismissDirection.startToEnd,
               confirmDismiss: (_) async {
-                return await _showConfirmDeleteDialog(context, itemName: mapEntity.title);
+                return await _showConfirmDeleteDialog(context, itemName: mapEntity.titleLocalized);
               },
               onDismissed: (_) async => _removeEntity(mapEntity),
               child: ListTile(
-                title: Text(mapEntity.title),
-                subtitle: Text('created'.tr(args: [mapEntity.createdAt.toDate().toString()])),
+                title: Text(mapEntity.titleLocalized),
+                subtitle: Text('created'.tr(args: [mapEntity.createdAtFormatted])),
                 trailing:
                     _isSelectionMode
                         ? Checkbox(
@@ -236,7 +236,7 @@ class _ManageEntitiesState<T extends MapEntity> extends ConsumerState<ManageEnti
   Future<void> _removeEntity(MapEntity mapEntity) async {
     await widget.entityService.removeEntity(mapEntity);
     Fluttertoast.showToast(
-      msg: 'profile.manage_entities.delete-success-single.$T'.tr(args: [mapEntity.title]),
+      msg: 'profile.manage_entities.delete-success-single.$T'.tr(args: [mapEntity.titleLocalized]),
     );
   }
 

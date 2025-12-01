@@ -42,7 +42,7 @@ final class TrailLengthBoundsProviderProvider
 }
 
 String _$trailLengthBoundsProviderHash() =>
-    r'f075450799402905f777870bb12a51970da9eca6';
+    r'59ff20c5eb0755f94a8b795c49d14a752bb3b00a';
 
 abstract class _$TrailLengthBoundsProvider
     extends $Notifier<(double, double)?> {

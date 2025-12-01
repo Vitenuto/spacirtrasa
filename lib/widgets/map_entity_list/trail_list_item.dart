@@ -17,13 +17,13 @@ class TrailListItem extends ListItem {
   String get id => trailWithDistance.trail.id;
 
   @override
-  String get title => trailWithDistance.trail.title;
+  String get title => trailWithDistance.trail.titleLocalized;
 
   @override
   String get subtitle => '(${(trailWithDistance.length / 1000).toStringAsFixed(2)} km)';
 
   @override
-  String get description => trailWithDistance.trail.markdownLessData;
+  String get description => trailWithDistance.trail.markdownLessDataLocalized;
 
   @override
   String? get imageUrl => null;

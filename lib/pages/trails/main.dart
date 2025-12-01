@@ -57,9 +57,9 @@ class TrailsPage extends ConsumerWidget {
   void setPinnedTrail(WidgetRef ref, Trail trail) {
     final isPinned = ref.read(pinnedTrailProvider.notifier).togglePinned(trail);
     if (isPinned) {
-      Fluttertoast.showToast(msg: 'trails.pinned'.tr(args: [trail.title]));
+      Fluttertoast.showToast(msg: 'trails.pinned'.tr(args: [trail.titleLocalized]));
     } else {
-      Fluttertoast.showToast(msg: 'trails.unpinned'.tr(args: [trail.title]));
+      Fluttertoast.showToast(msg: 'trails.unpinned'.tr(args: [trail.titleLocalized]));
     }
   }
 }

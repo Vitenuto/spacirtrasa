@@ -42,7 +42,7 @@ final class SelectedPoiProviderProvider
 }
 
 String _$selectedPoiProviderHash() =>
-    r'e1415f12130ecbb33405725aaef178157b64bb48';
+    r'1aea7f0d2f15994419d73b9bb4692c5d3f4bb0f2';
 
 abstract class _$SelectedPoiProvider extends $Notifier<Poi?> {
   Poi? build();

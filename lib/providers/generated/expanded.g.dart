@@ -41,7 +41,7 @@ final class ExpandedProviderProvider
   }
 }
 
-String _$expandedProviderHash() => r'68f0380fa3355ffe4a97acee8341bf2415161c7b';
+String _$expandedProviderHash() => r'dd4a812bdccc23aab7681bb18d7b908aa0a957b2';
 
 abstract class _$ExpandedProvider extends $Notifier<bool> {
   bool build();

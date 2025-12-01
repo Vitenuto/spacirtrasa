@@ -28,11 +28,11 @@ class PoiMarkerPopup extends StatelessWidget {
                 child: Image.network(poi.imgUrl, width: 200),
               ),
               Text(
-                poi.title,
+                poi.titleLocalized,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(poi.markdownLessData, maxLines: 3, overflow: TextOverflow.ellipsis),
+              Text(poi.markdownLessDataLocalized, maxLines: 3, overflow: TextOverflow.ellipsis),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -43,7 +43,7 @@ class PoiMarkerPopup extends StatelessWidget {
                         () => MapsLauncher.launchCoordinates(
                           poi.location.latitude,
                           poi.location.longitude,
-                          poi.title,
+                          poi.titleLocalized,
                         ),
                   ),
                   IconButton.filledTonal(
@@ -78,9 +78,7 @@ class PoiMarker extends Marker {
                 Icon(
                   Icons.location_on,
                   size: 60,
-                  color: isSelected
-                      ? Colors.red.withAlpha(220)
-                      : poi.flag.color.withAlpha(220),
+                  color: isSelected ? Colors.red.withAlpha(220) : poi.flag.color.withAlpha(220),
                   fill: 1,
                 ),
                 Positioned(

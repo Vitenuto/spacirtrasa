@@ -45,7 +45,7 @@ final class PositionPermissionStatusProviderProvider
 }
 
 String _$positionPermissionStatusProviderHash() =>
-    r'3aae8acf0173d271f74bd471b9aaf5f14b0b59ab';
+    r'8c027ae53dba346a7e3808d562afe2327f47070c';
 
 abstract class _$PositionPermissionStatusProvider
     extends $Notifier<ServiceStatus?> {

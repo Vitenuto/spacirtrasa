@@ -42,7 +42,7 @@ final class FirebaseAppUserProviderProvider
 }
 
 String _$firebaseAppUserProviderHash() =>
-    r'e9667dc830715b958b39a5c8a40c3ed3eae64267';
+    r'24df7f38c12f2a78c58d4336f8b3e671aeafe387';
 
 abstract class _$FirebaseAppUserProvider extends $Notifier<AppUser?> {
   AppUser? build();

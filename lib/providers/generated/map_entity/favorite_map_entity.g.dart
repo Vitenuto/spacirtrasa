@@ -42,7 +42,7 @@ final class FavoriteMapEntityProviderProvider
 }
 
 String _$favoriteMapEntityProviderHash() =>
-    r'7d888a14bb05c9a37ede5208cc26c31dacbaf9e4';
+    r'265e488fae0d3dccaa4d22691080408c9e8ca5c5';
 
 abstract class _$FavoriteMapEntityProvider extends $Notifier<List<MapEntity>> {
   List<MapEntity> build();

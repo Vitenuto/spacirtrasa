@@ -8,12 +8,21 @@ part of '../../user/app_user.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// AppUser provider that listens to both Firebase and local user providers.
+/// If Firebase user is available, it takes precedence over the local user, however
+/// at the beginning, automatically the local user is used until a Firebase user is available.
 
 @ProviderFor(AppUserProvider)
 const appUserProvider = AppUserProviderProvider._();
 
+/// AppUser provider that listens to both Firebase and local user providers.
+/// If Firebase user is available, it takes precedence over the local user, however
+/// at the beginning, automatically the local user is used until a Firebase user is available.
 final class AppUserProviderProvider
     extends $NotifierProvider<AppUserProvider, AppUser> {
+  /// AppUser provider that listens to both Firebase and local user providers.
+  /// If Firebase user is available, it takes precedence over the local user, however
+  /// at the beginning, automatically the local user is used until a Firebase user is available.
   const AppUserProviderProvider._()
     : super(
         from: null,
@@ -41,7 +50,11 @@ final class AppUserProviderProvider
   }
 }
 
-String _$appUserProviderHash() => r'f75efab9249cd8c55e233386fe03b288fd833ea7';
+String _$appUserProviderHash() => r'4c47ff77fd085726025d20cfda234d485691900e';
+
+/// AppUser provider that listens to both Firebase and local user providers.
+/// If Firebase user is available, it takes precedence over the local user, however
+/// at the beginning, automatically the local user is used until a Firebase user is available.
 
 abstract class _$AppUserProvider extends $Notifier<AppUser> {
   AppUser build();

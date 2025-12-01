@@ -14,9 +14,9 @@ abstract class Poi extends MapEntity with _$Poi {
 
   factory Poi({
     required String id,
-    required String title,
+    required Map<String, String> title,
+    required Map<String, String> markdownData,
     required String imgUrl,
-    required String markdownData,
     @GeoPointConverter() required GeoPoint location,
     required PoiFlag flag,
     @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)

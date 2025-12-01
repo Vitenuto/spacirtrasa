@@ -42,7 +42,7 @@ final class PoiWithDistanceProviderProvider
 }
 
 String _$poiWithDistanceProviderHash() =>
-    r'0381f48b35652ffbe4a95c8639ef700bc61e23c0';
+    r'4497e5caa544660a41ee2087644f7df1b40556c4';
 
 abstract class _$PoiWithDistanceProvider
     extends $Notifier<List<PoiWithDistance>> {

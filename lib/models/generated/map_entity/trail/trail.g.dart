@@ -8,8 +8,8 @@ part of '../../../map_entity/trail/trail.dart';
 
 _Trail _$TrailFromJson(Map<String, dynamic> json) => _Trail(
   id: json['id'] as String,
-  title: json['title'] as String,
-  markdownData: json['markdownData'] as String,
+  title: Map<String, String>.from(json['title'] as Map),
+  markdownData: Map<String, String>.from(json['markdownData'] as Map),
   path:
       (json['path'] as List<dynamic>)
           .map(
