@@ -23,18 +23,18 @@ class FavoriteTile extends ConsumerWidget {
 
     return ListTile(
       leading:
-      mapEntity.imgUrl != null
-          ? ClipRRect(
-        borderRadius: BorderRadius.circular(4.0),
-        child: Image.network(mapEntity.imgUrl!),
-      )
-          : null,
+          mapEntity.imgUrl != null
+              ? ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: Image.network(mapEntity.imgUrl!),
+              )
+              : null,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text(mapEntity.title), mapEntity.icon],
+        children: [Text(mapEntity.titleLocalized), mapEntity.icon],
       ),
       subtitle: Text(
-        mapEntity.markdownLessData,
+        mapEntity.markdownLessDataLocalized,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),

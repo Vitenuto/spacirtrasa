@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Poi {
 
- String get id; String get title; String get imgUrl; String get markdownData;@GeoPointConverter() GeoPoint get location; PoiFlag get flag;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
+ String get id; Map<String, String> get title; Map<String, String> get markdownData; String get imgUrl;@GeoPointConverter() GeoPoint get location; PoiFlag get flag;@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp get createdAt;
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PoiCopyWith<Poi> get copyWith => _$PoiCopyWithImpl<Poi>(this as Poi, _$identity
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&(identical(other.location, location) || other.location == location)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Poi&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.title, title)&&const DeepCollectionEquality().equals(other.markdownData, markdownData)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.location, location) || other.location == location)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,imgUrl,markdownData,location,flag,createdAt);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(title),const DeepCollectionEquality().hash(markdownData),imgUrl,location,flag,createdAt);
 
 @override
 String toString() {
-  return 'Poi(id: $id, title: $title, imgUrl: $imgUrl, markdownData: $markdownData, location: $location, flag: $flag, createdAt: $createdAt)';
+  return 'Poi(id: $id, title: $title, markdownData: $markdownData, imgUrl: $imgUrl, location: $location, flag: $flag, createdAt: $createdAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PoiCopyWith<$Res>  {
   factory $PoiCopyWith(Poi value, $Res Function(Poi) _then) = _$PoiCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, PoiFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
+ String id, Map<String, String> title, Map<String, String> markdownData, String imgUrl,@GeoPointConverter() GeoPoint location, PoiFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -65,12 +65,12 @@ class _$PoiCopyWithImpl<$Res>
 
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? imgUrl = null,Object? markdownData = null,Object? location = null,Object? flag = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? imgUrl = null,Object? location = null,Object? flag = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullable_to_non_nullable
-as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullable_to_non_nullable
 as String,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as GeoPoint,flag: null == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
 as PoiFlag,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -159,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String imgUrl,  String markdownData, @GeoPointConverter()  GeoPoint location,  PoiFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Map<String, String> title,  Map<String, String> markdownData,  String imgUrl, @GeoPointConverter()  GeoPoint location,  PoiFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Poi() when $default != null:
-return $default(_that.id,_that.title,_that.imgUrl,_that.markdownData,_that.location,_that.flag,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.markdownData,_that.imgUrl,_that.location,_that.flag,_that.createdAt);case _:
   return orElse();
 
 }
@@ -180,10 +180,10 @@ return $default(_that.id,_that.title,_that.imgUrl,_that.markdownData,_that.locat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String imgUrl,  String markdownData, @GeoPointConverter()  GeoPoint location,  PoiFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Map<String, String> title,  Map<String, String> markdownData,  String imgUrl, @GeoPointConverter()  GeoPoint location,  PoiFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Poi():
-return $default(_that.id,_that.title,_that.imgUrl,_that.markdownData,_that.location,_that.flag,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.markdownData,_that.imgUrl,_that.location,_that.flag,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +200,10 @@ return $default(_that.id,_that.title,_that.imgUrl,_that.markdownData,_that.locat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String imgUrl,  String markdownData, @GeoPointConverter()  GeoPoint location,  PoiFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Map<String, String> title,  Map<String, String> markdownData,  String imgUrl, @GeoPointConverter()  GeoPoint location,  PoiFlag flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)  Timestamp createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Poi() when $default != null:
-return $default(_that.id,_that.title,_that.imgUrl,_that.markdownData,_that.location,_that.flag,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.markdownData,_that.imgUrl,_that.location,_that.flag,_that.createdAt);case _:
   return null;
 
 }
@@ -215,13 +215,25 @@ return $default(_that.id,_that.title,_that.imgUrl,_that.markdownData,_that.locat
 @JsonSerializable()
 
 class _Poi extends Poi {
-   _Poi({required this.id, required this.title, required this.imgUrl, required this.markdownData, @GeoPointConverter() required this.location, required this.flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): super._();
+   _Poi({required this.id, required final  Map<String, String> title, required final  Map<String, String> markdownData, required this.imgUrl, @GeoPointConverter() required this.location, required this.flag, @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) required this.createdAt}): _title = title,_markdownData = markdownData,super._();
   factory _Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
 
 @override final  String id;
-@override final  String title;
+ final  Map<String, String> _title;
+@override Map<String, String> get title {
+  if (_title is EqualUnmodifiableMapView) return _title;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_title);
+}
+
+ final  Map<String, String> _markdownData;
+@override Map<String, String> get markdownData {
+  if (_markdownData is EqualUnmodifiableMapView) return _markdownData;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_markdownData);
+}
+
 @override final  String imgUrl;
-@override final  String markdownData;
 @override@GeoPointConverter() final  GeoPoint location;
 @override final  PoiFlag flag;
 @override@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) final  Timestamp createdAt;
@@ -239,16 +251,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.markdownData, markdownData) || other.markdownData == markdownData)&&(identical(other.location, location) || other.location == location)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Poi&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._title, _title)&&const DeepCollectionEquality().equals(other._markdownData, _markdownData)&&(identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl)&&(identical(other.location, location) || other.location == location)&&(identical(other.flag, flag) || other.flag == flag)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,imgUrl,markdownData,location,flag,createdAt);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_title),const DeepCollectionEquality().hash(_markdownData),imgUrl,location,flag,createdAt);
 
 @override
 String toString() {
-  return 'Poi(id: $id, title: $title, imgUrl: $imgUrl, markdownData: $markdownData, location: $location, flag: $flag, createdAt: $createdAt)';
+  return 'Poi(id: $id, title: $title, markdownData: $markdownData, imgUrl: $imgUrl, location: $location, flag: $flag, createdAt: $createdAt)';
 }
 
 
@@ -259,7 +271,7 @@ abstract mixin class _$PoiCopyWith<$Res> implements $PoiCopyWith<$Res> {
   factory _$PoiCopyWith(_Poi value, $Res Function(_Poi) _then) = __$PoiCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String imgUrl, String markdownData,@GeoPointConverter() GeoPoint location, PoiFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
+ String id, Map<String, String> title, Map<String, String> markdownData, String imgUrl,@GeoPointConverter() GeoPoint location, PoiFlag flag,@JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson) Timestamp createdAt
 });
 
 
@@ -276,12 +288,12 @@ class __$PoiCopyWithImpl<$Res>
 
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? imgUrl = null,Object? markdownData = null,Object? location = null,Object? flag = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? markdownData = null,Object? imgUrl = null,Object? location = null,Object? flag = null,Object? createdAt = null,}) {
   return _then(_Poi(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullable_to_non_nullable
-as String,markdownData: null == markdownData ? _self.markdownData : markdownData // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self._title : title // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,markdownData: null == markdownData ? _self._markdownData : markdownData // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,imgUrl: null == imgUrl ? _self.imgUrl : imgUrl // ignore: cast_nullable_to_non_nullable
 as String,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as GeoPoint,flag: null == flag ? _self.flag : flag // ignore: cast_nullable_to_non_nullable
 as PoiFlag,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable

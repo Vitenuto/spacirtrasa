@@ -19,7 +19,7 @@ class TrailService extends MapEntityService<Trail> {
   Future<void> addDummy() async {
     final newTrail = Trail(
       id: 'WillBeReplacedByUniqueOneAutomatically',
-      title: 'DummyTrail',
+      title: {"cs": 'DummyTrail - CZ', "en": 'Dummy Trail - EN'},
       createdAt: Timestamp.now(),
       flag: TrailFlag.tourist,
       path: [
@@ -27,189 +27,20 @@ class TrailService extends MapEntityService<Trail> {
         GeoPoint(49.112675, 16.517288),
         GeoPoint(49.112801, 16.517348),
       ],
-      markdownData: """## Dummy Trail
+      markdownData: {
+        "cs": """## Dummy Trail CZ
     ![Kočka](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsPgWByMU--c3_sMuzFpY3be_4E6SiLFk8w&s)
-    Jedná se o zkušební stezku pro ukázku aplikace. Je možné si ho nechat vyexportovat a tak vidět jeho JSON podobu.
+    Jedná se o zkušební stezku pro ukázku aplikace.
     Stezku lze naimportovat ať za pomocí JSON formátu, a nebo pomocí GPX formátu, který lze získat např. v aplikaci www.gpx.studio
     Značky lze specifikovat přidáním do hranatých závorek na první řádek popisu stezky. Dostupné značky jsou: [stroller, tourist, hill]
-    
-    Takový GPX formát pak vypadá:
-    ```gpx
-    <?xml version="1.0" encoding="UTF-8"?>
-      <gpx creator="https://gpx.studio" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
-      <metadata>
-        <name>Cestička</name>
-        <desc>[tourist]Test of Markdown description
-    ![Kočka](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsPgWByMU--c3_sMuzFpY3be_4E6SiLFk8w&amp;s)</desc>
-        <author>
-          <name>gpx.studio</name>
-          <link href="https://gpx.studio"/>
-        </author>
-       </metadata>
-      <trk>
-        <name>Cestička</name>
-        <trkseg>
-          <trkpt lat="49.11266" lon="16.517277">
-            <ele>303.75</ele>
-          </trkpt>
-          <trkpt lat="49.112675" lon="16.517288">
-            <ele>304</ele>
-          </trkpt>
-          <trkpt lat="49.112801" lon="16.517348">
-            <ele>304.5</ele>
-          </trkpt>
-          <trkpt lat="49.113332" lon="16.517732">
-            <ele>306.25</ele>
-          </trkpt>
-          <trkpt lat="49.113472" lon="16.517877">
-            <ele>305.75</ele>
-          </trkpt>
-          <trkpt lat="49.113891" lon="16.518487">
-            <ele>304.75</ele>
-          </trkpt>
-          <trkpt lat="49.113827" lon="16.518648">
-            <ele>304.5</ele>
-          </trkpt>
-          <trkpt lat="49.113926" lon="16.518919">
-            <ele>304.5</ele>
-          </trkpt>
-          <trkpt lat="49.114203" lon="16.518824">
-            <ele>305</ele>
-          </trkpt>
-          <trkpt lat="49.114482" lon="16.518854">
-            <ele>305.5</ele>
-          </trkpt>
-          <trkpt lat="49.114897" lon="16.519002">
-            <ele>306.5</ele>
-          </trkpt>
-          <trkpt lat="49.115001" lon="16.519069">
-            <ele>306.75</ele>
-          </trkpt>
-          <trkpt lat="49.115032" lon="16.519119">
-            <ele>307</ele>
-          </trkpt>
-          <trkpt lat="49.115033" lon="16.519182">
-            <ele>307</ele>
-          </trkpt>
-          <trkpt lat="49.114801" lon="16.521112">
-            <ele>306</ele>
-          </trkpt>
-          <trkpt lat="49.114807" lon="16.521117">
-            <ele>306</ele>
-          </trkpt>
-          <trkpt lat="49.114801" lon="16.521112">
-            <ele>306</ele>
-          </trkpt>
-          <trkpt lat="49.115033" lon="16.519182">
-            <ele>307</ele>
-          </trkpt>
-          <trkpt lat="49.115032" lon="16.519119">
-            <ele>307</ele>
-          </trkpt>
-          <trkpt lat="49.115001" lon="16.519069">
-            <ele>306.75</ele>
-          </trkpt>
-          <trkpt lat="49.114897" lon="16.519002">
-            <ele>306.5</ele>
-          </trkpt>
-          <trkpt lat="49.115258" lon="16.516227">
-            <ele>307.75</ele>
-          </trkpt>
-          <trkpt lat="49.115802" lon="16.514028">
-            <ele>311</ele>
-          </trkpt>
-          <trkpt lat="49.115813" lon="16.513986">
-            <ele>311.25</ele>
-          </trkpt>
-          <trkpt lat="49.114303" lon="16.512633">
-            <ele>315.75</ele>
-          </trkpt>
-          <trkpt lat="49.113681" lon="16.512073">
-            <ele>316.5</ele>
-          </trkpt>
-          <trkpt lat="49.113619" lon="16.512142">
-            <ele>316</ele>
-          </trkpt>
-          <trkpt lat="49.11359" lon="16.512176">
-            <ele>316</ele>
-          </trkpt>
-          <trkpt lat="49.11264" lon="16.513988">
-            <ele>311.5</ele>
-          </trkpt>
-          <trkpt lat="49.112526" lon="16.514205">
-            <ele>310.75</ele>
-          </trkpt>
-          <trkpt lat="49.112402" lon="16.514437">
-            <ele>309.75</ele>
-          </trkpt>
-          <trkpt lat="49.111586" lon="16.515954">
-            <ele>303.75</ele>
-          </trkpt>
-          <trkpt lat="49.111519" lon="16.516051">
-            <ele>302.75</ele>
-          </trkpt>
-          <trkpt lat="49.111446" lon="16.516157">
-            <ele>301.75</ele>
-          </trkpt>
-          <trkpt lat="49.111288" lon="16.516451">
-            <ele>299.5</ele>
-          </trkpt>
-          <trkpt lat="49.111224" lon="16.51637">
-            <ele>299.5</ele>
-          </trkpt>
-          <trkpt lat="49.111288" lon="16.516451">
-            <ele>299.5</ele>
-          </trkpt>
-          <trkpt lat="49.111446" lon="16.516157">
-            <ele>301.75</ele>
-          </trkpt>
-          <trkpt lat="49.111458" lon="16.516285">
-            <ele>301.25</ele>
-          </trkpt>
-          <trkpt lat="49.111497" lon="16.516329">
-            <ele>301.25</ele>
-          </trkpt>
-          <trkpt lat="49.111607" lon="16.516433">
-            <ele>301</ele>
-          </trkpt>
-          <trkpt lat="49.112301" lon="16.517038">
-            <ele>302.5</ele>
-          </trkpt>
-          <trkpt lat="49.112658" lon="16.517277">
-            <ele>304</ele>
-          </trkpt>
-        </trkseg>
-      </trk>
-    </gpx>
-    ```
-    
-    JSON formát potom:
-    ```json
-    [
-      {
-        "id": "MmCM7dI7hHYiCe3MkLpd",
-        "title": "DummyTrail",
-        "markdownData": "## Dummy Trail\n    ![Kočka](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsPgWByMU--c3_sMuzFpY3be_4E6SiLFk8w&s)\n    Jedná se o zkušební Trail pro ukázku aplikace. Je možné si ho nechat vyexportovat a tak vidět jeho JSON podobu. \n    \n    ```json\n    TODO\n    ```\n    ",
-        "path": [
-          {
-            "lat": 49.11266,
-            "lng": 16.517277
-          },
-          {
-            "lat": 49.112675,
-            "lng": 16.517288
-          },
-          {
-            "lat": 49.112801,
-            "lng": 16.517348
-          }
-        ],
-        "flag": tourist",
-        "created_at": 1745497455462
-      }
-    ]
-    ```
-    """,
+   """,
+        "en": """## Dummy Trail EN
+    ![Kočka](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsPgWByMU--c3_sMuzFpY3be_4E6SiLFk8w&s)
+    Jedná se o zkušební stezku pro ukázku aplikace.
+    Stezku lze naimportovat ať za pomocí JSON formátu, a nebo pomocí GPX formátu, který lze získat např. v aplikaci www.gpx.studio
+    Značky lze specifikovat přidáním do hranatých závorek na první řádek popisu stezky. Dostupné značky jsou: [stroller, tourist, hill]
+   """,
+      },
     );
 
     await persistEntity(newTrail);
@@ -276,9 +107,9 @@ class TrailService extends MapEntityService<Trail> {
     final (flag, markdownData) = _parseFlagAndDescription(gpx.metadata?.desc);
     return Trail(
       id: "",
-      title: gpx.metadata!.name!,
+      title: {"cs": gpx.metadata!.name!},
       createdAt: Timestamp.fromDate(createdAt),
-      markdownData: markdownData,
+      markdownData: {"cs": markdownData},
       flag: flag,
       path: geoPoints,
     );

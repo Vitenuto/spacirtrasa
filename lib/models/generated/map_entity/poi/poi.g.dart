@@ -8,9 +8,9 @@ part of '../../../map_entity/poi/poi.dart';
 
 _Poi _$PoiFromJson(Map<String, dynamic> json) => _Poi(
   id: json['id'] as String,
-  title: json['title'] as String,
+  title: Map<String, String>.from(json['title'] as Map),
+  markdownData: Map<String, String>.from(json['markdownData'] as Map),
   imgUrl: json['imgUrl'] as String,
-  markdownData: json['markdownData'] as String,
   location: const GeoPointConverter().fromJson(
     json['location'] as Map<String, dynamic>,
   ),
@@ -21,8 +21,8 @@ _Poi _$PoiFromJson(Map<String, dynamic> json) => _Poi(
 Map<String, dynamic> _$PoiToJson(_Poi instance) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
-  'imgUrl': instance.imgUrl,
   'markdownData': instance.markdownData,
+  'imgUrl': instance.imgUrl,
   'location': const GeoPointConverter().toJson(instance.location),
   'flag': _$PoiFlagEnumMap[instance.flag]!,
   'created_at': dateToJson(instance.createdAt),

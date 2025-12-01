@@ -41,7 +41,7 @@ final class PositionProviderProvider
   }
 }
 
-String _$positionProviderHash() => r'235e5813c7164d1d3c49a9ec6132017c21586020';
+String _$positionProviderHash() => r'57d3313e6d2b2e2e46bc81ccd6ae6f8d86140620';
 
 abstract class _$PositionProvider extends $Notifier<Position?> {
   Position? build();

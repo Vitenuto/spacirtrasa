@@ -41,7 +41,7 @@ final class SortedPoiProviderProvider
   }
 }
 
-String _$sortedPoiProviderHash() => r'a1ddd5c2623c9bc5a46eb8dc90b928872053a800';
+String _$sortedPoiProviderHash() => r'3fe2a4686163f26353c6cff567b3a789f27f7665';
 
 abstract class _$SortedPoiProvider extends $Notifier<List<PoiWithDistance>> {
   List<PoiWithDistance> build();

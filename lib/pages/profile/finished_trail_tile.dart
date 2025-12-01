@@ -18,7 +18,7 @@ class FinishedTrailTile extends ConsumerWidget {
     trail = trails.where((trail) => trail.id == finishedTrail.trailId).firstOrNull;
 
     return ListTile(
-      title: Text(trail?.title ?? 'object-doesnt-exists-anymore'.tr()),
+      title: Text(trail?.titleLocalized ?? 'object-doesnt-exists-anymore'.tr()),
       subtitle: Text(finishedTrail.finishedAt.toDate().toString()),
       onTap: trail != null ? () => showTrailDetail(context, trail!) : null,
     );

@@ -42,7 +42,7 @@ final class TrailFilterProviderProvider
 }
 
 String _$trailFilterProviderHash() =>
-    r'f30bd45f0759a010ee2bc1e9239bb3b1ac584db6';
+    r'4ccb45b65bce0d8e4d7edc8a0c4440987a38a096';
 
 abstract class _$TrailFilterProvider extends $Notifier<TrailFilter> {
   TrailFilter build();

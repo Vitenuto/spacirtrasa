@@ -42,7 +42,7 @@ final class SelectedTrailProviderProvider
 }
 
 String _$selectedTrailProviderHash() =>
-    r'e91ba6fb5e0b885f50d04fa3c7ea0816d8c6e403';
+    r'47c7704877b6042077ae7d165199df772d5949c3';
 
 abstract class _$SelectedTrailProvider extends $Notifier<Trail?> {
   Trail? build();

@@ -22,7 +22,7 @@ class NoteTile extends ConsumerWidget {
     if (note.type == MapEntityType.poi) {
       final pois = ref.watch(poiProvider);
       final poi = pois.where((poi) => poi.id == note.mapEntityId).firstOrNull;
-      title = poi?.title;
+      title = poi?.titleLocalized;
       if (poi != null) {
         openDetail = () => showPoiDetail(context, poi);
         icon = poi.icon;
@@ -30,7 +30,7 @@ class NoteTile extends ConsumerWidget {
     } else {
       final trails = ref.watch(trailProvider);
       final trail = trails.where((trail) => trail.id == note.mapEntityId).firstOrNull;
-      title = trail?.title;
+      title = trail?.titleLocalized;
       if (trail != null) {
         openDetail = () => showTrailDetail(context, trail);
         icon = trail.icon;

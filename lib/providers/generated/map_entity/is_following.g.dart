@@ -42,7 +42,7 @@ final class IsFollowingProviderProvider
 }
 
 String _$isFollowingProviderHash() =>
-    r'b3d2e3d3b00511862fdafd085808858d0fb3e1d3';
+    r'9dd5024e675e12cdf0e30a6b0711f78d993f6493';
 
 abstract class _$IsFollowingProvider extends $Notifier<AlignOnUpdate> {
   AlignOnUpdate build();

@@ -16,8 +16,8 @@ abstract class Trail extends MapEntity with _$Trail {
 
   factory Trail({
     required String id,
-    required String title,
-    required String markdownData,
+    required Map<String, String> title,
+    required Map<String, String> markdownData,
     @GeoPointConverter() required List<GeoPoint> path,
     required TrailFlag flag,
     @JsonKey(name: 'created_at', fromJson: dateFromJson, toJson: dateToJson)

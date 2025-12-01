@@ -42,7 +42,7 @@ final class SortedTrailProviderProvider
 }
 
 String _$sortedTrailProviderHash() =>
-    r'd5e5ffb3a9c0fafbabf9c422021f96824342e206';
+    r'68bd08f8402f71f70fd02c2fea9ebf643b103fa7';
 
 abstract class _$SortedTrailProvider extends $Notifier<List<TrailWithDetails>> {
   List<TrailWithDetails> build();

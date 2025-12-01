@@ -24,10 +24,16 @@ class TrailDetail extends ConsumerWidget {
     final appUser = ref.watch(appUserProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(trail.title), actions: _buildAppBarActions(appUser, ref, context)),
+      appBar: AppBar(
+        title: Text(trail.titleLocalized),
+        actions: _buildAppBarActions(appUser, ref, context),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(8),
-        children: [MarkdownBody(data: trail.markdownData), _buildEditableNoteField(ref, appUser)],
+        children: [
+          MarkdownBody(data: trail.markdownDataLocalized),
+          _buildEditableNoteField(ref, appUser),
+        ],
       ),
     );
   }

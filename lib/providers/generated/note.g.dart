@@ -41,7 +41,7 @@ final class NoteProviderProvider
   }
 }
 
-String _$noteProviderHash() => r'6edcad0e4c30c872824e17e699bb3990bc9ec711';
+String _$noteProviderHash() => r'e38d2b7b35da85e7890d0baa891fed80a08aefef';
 
 abstract class _$NoteProvider extends $Notifier<List<Note>> {
   List<Note> build();

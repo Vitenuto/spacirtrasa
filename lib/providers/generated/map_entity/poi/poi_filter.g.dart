@@ -41,7 +41,7 @@ final class PoiFilterProviderProvider
   }
 }
 
-String _$poiFilterProviderHash() => r'998614b0c2f0017d885b94379d156bd28261faf4';
+String _$poiFilterProviderHash() => r'80c1f4d350c35a60a8608ba827b8ba3c6cffed69';
 
 abstract class _$PoiFilterProvider extends $Notifier<PoiFilter> {
   PoiFilter build();
