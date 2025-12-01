@@ -42,7 +42,7 @@ final class FinishedTrailsProviderProvider
 }
 
 String _$finishedTrailsProviderHash() =>
-    r'aaeeb55e73d4624383edf8f72e70a81050ca1bb3';
+    r'17b0e93d36a196e55ef23c47361cc3e6fc6b4378';
 
 abstract class _$FinishedTrailsProvider extends $Notifier<List<FinishedTrail>> {
   List<FinishedTrail> build();

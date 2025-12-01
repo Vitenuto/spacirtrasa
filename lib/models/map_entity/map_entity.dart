@@ -30,6 +30,8 @@ abstract class MapEntity {
 
   Timestamp get createdAt;
 
+  String get createdAtFormatted => DateFormat.yMMMd().add_Hms().format(createdAt.toDate());
+
   Icon get icon;
 
   Map<String, dynamic> toJson();

@@ -17,6 +17,7 @@ profile.my-ratings,My ratings,Moje hodnocení
 profile.my-notes,My notes,Moje poznámky
 profile.no-notes,"No saved notes yet, you can add them by filling note in the trail or interest's detail","Zatím nemáte uložené žádné poznámky, můžete je přidat vyplněním poznámky v detailu trasy nebo zajímavosti"
 profile.my-completed-trails,Completed trails,Absolvované trasy
+profile.my-completed-trails.finished,Finished at {},Absolvovaná {}
 profile.no-completed-trails,"No completed trails yet. Trails should be added automatically to completed, whenever you select/pin a trail and physically be on that trail.","Zatím žádné dokončené stezky. Stezky by měly být automaticky přidány k dokončeným, kdykoli si vyberete/označíte stezku a fyzicky se na ní nacházíte."
 profile.admin-section,Admin section,Admin sekce
 profile.manage-poi,Manage POIs,Správa zajímavostí
