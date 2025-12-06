@@ -42,7 +42,7 @@ final class FirebaseUserProviderProvider
 }
 
 String _$firebaseUserProviderHash() =>
-    r'bd0b418fc2f0bf0eb7ab32b5660299895fd9233f';
+    r'3ad91ebdcb96ccf7bf2727d80b9e7b8938176190';
 
 abstract class _$FirebaseUserProvider extends $Notifier<User?> {
   User? build();

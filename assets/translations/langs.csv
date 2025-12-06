@@ -10,6 +10,10 @@ logging.none,Continue without signing in,Pokračovat bez prihlášení
 logging.anonymous.warning,Limited functionality,Omezená funkčnost
 logging.anonymous.warning.description,"By continuing without logging in, you will lose features such as adding favourites, notes,...","Pokračováním bez přihlášení přijdete o funkce jako je přidávání oblíbených, poznámek,..."
 profile.sign-out,Sign out,Odhlásit se
+profile.hold-to-remove-user,Hold to remove user,Podržením odstraníte uživatele
+profile.remove-user-error,"Error while removing user data, please sign-out and sign-in and do it again","Problém při odstraňování uživatelských dat, prosím odhlaste se a znovu přihlaste a zkuste to znovu"
+profile.remove-user-success,User data successfully removed,Uživatelská data byla úspěšně odstraněna
+profile.remove-user-confirmation.title,Do you really want to delete user data?,Opravdu chcete odstranit uživatelská data?
 profile.sign-in,Sign in through Google,Přihlásit se přes Google
 profile.my-favorites,My favorites,Moje oblíbené
 profile.no-favorites,"No favorites, add them by clicking on the heart in the trail or interest's detail","Žádné oblíbené, přidejte si je kliknutím na srdíčko v detailu trasy nebo zajímavosti"
