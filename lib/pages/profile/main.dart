@@ -34,68 +34,25 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Column(
-        spacing: 8,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [_buildProfileHeader(ref), _buildButtons(context, ref)],
+        children: [_Header(), SizedBox(height: 8), _Body()],
       ),
     );
   }
+}
 
-  Widget _buildProfileHeader(WidgetRef ref) {
-    final user = ref.watch(firebaseUserProvider);
-    final firebaseUserService = ref.read(firebaseUserProvider.notifier);
+class _Body extends ConsumerWidget {
+  const _Body();
 
-    return IntrinsicWidth(
-      child: Column(
-        children: [
-          user == null
-              ? SizedBox()
-              : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundColor: Colors.grey[300], // Placeholder background
-                    backgroundImage: user.photoURL != null ? NetworkImage(user.photoURL!) : null,
-                    child:
-                        user.photoURL == null
-                            ? Icon(Icons.person, size: 40, color: Colors.white)
-                            : null,
-                  ),
-                  SizedBox(height: 8),
-                  Text(user.displayName ?? user.email ?? user.uid, style: TextStyle(fontSize: 24)),
-                ],
-              ),
-          SizedBox(height: 8),
-          _buildSignInOutButton(user != null, firebaseUserService),
-        ],
-      ),
-    );
-  }
-
-  OutlinedAsyncButton _buildSignInOutButton(
-    bool isSignedIn,
-    FirebaseUserProvider firebaseUserService,
-  ) {
-    return OutlinedAsyncButton(
-      style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
-      onPressed:
-          () async =>
-              isSignedIn
-                  ? firebaseUserService.handleSignOut()
-                  : await firebaseUserService.handleSignIn(),
-      child: isSignedIn ? Text("profile.sign-out").tr() : Text("profile.sign-in").tr(),
-    );
-  }
-
-  Widget _buildButtons(BuildContext context, WidgetRef ref) {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(appUserProvider);
 
     return IntrinsicWidth(
       child: Column(
         spacing: 8,
         children: [
-          SizedBox(width: 256),
+          Divider(),
           _buildBodyButton(
             "profile.my-favorites".tr(),
             () => showFullDialog(
@@ -191,5 +148,104 @@ class ProfilePage extends ConsumerWidget {
             ],
           ),
     );
+  }
+}
+
+class _Header extends ConsumerWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(firebaseUserProvider);
+    final isLoggedIn = user != null;
+
+    return IntrinsicWidth(
+      child: Column(
+        children: [
+          if (isLoggedIn)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.grey[300], // Placeholder background
+                  child: Icon(Icons.person, size: 40, color: Colors.white),
+                ),
+                SizedBox(width: 8),
+                Text(user.email ?? user.uid, style: TextStyle(fontSize: 24)),
+              ],
+            ),
+          SizedBox(height: 8),
+          isLoggedIn ? _SignOutButton() : _SignInButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class _SignInButton extends ConsumerWidget {
+  const _SignInButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firebaseUserService = ref.read(firebaseUserProvider.notifier);
+
+    return OutlinedAsyncButton(
+      style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
+      onPressed: () async => await firebaseUserService.handleSignIn(),
+      child: Text("profile.sign-in").tr(),
+    );
+  }
+}
+
+class _SignOutButton extends ConsumerWidget {
+  const _SignOutButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firebaseUserService = ref.read(firebaseUserProvider.notifier);
+
+    return OutlinedAsyncButton(
+      style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
+      onPressed: () async => firebaseUserService.handleSignOut(),
+      onLongPress: () async => _handleDeleteUser(context, firebaseUserService),
+      child: Column(
+        children: [
+          Text("profile.sign-out").tr(),
+          Text(
+            "profile.hold-to-remove-user",
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              color: Theme.of(ref.context).colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
+          ).tr(),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _handleDeleteUser(
+    BuildContext context,
+    FirebaseUserProvider firebaseUserService,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text('profile.remove-user-confirmation.title').tr(),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('cancel').tr(),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('delete').tr(),
+              ),
+            ],
+          ),
+    );
+
+    if (confirmed == true) {
+      await firebaseUserService.handleDeleteUser();
+    }
   }
 }

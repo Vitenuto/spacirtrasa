@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:spacirtrasa/services/user/firebase_app_user_service.dart';
@@ -89,5 +91,21 @@ class FirebaseUserProvider extends _$FirebaseUserProvider {
     logger.i("Signing-out user: ${state?.email}");
     await _signIn.signOut();
     await _firebaseAuth.signOut();
+  }
+
+  Future<void> handleDeleteUser() async {
+    logger.t("Deleting user: ${state?.email}");
+    final user = _firebaseAuth.currentUser;
+    if (user != null) {
+      try {
+        await user.delete();
+        await _signIn.signOut();
+        logger.i("User was successfully deleted.");
+        Fluttertoast.showToast(msg: 'profile.remove-user-success'.tr());
+      } catch (e) {
+        logger.e("Error while deleting user: $e");
+        Fluttertoast.showToast(msg: 'profile.remove-user-error'.tr());
+      }
+    }
   }
 }
