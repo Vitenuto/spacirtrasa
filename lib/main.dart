@@ -19,7 +19,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  await FirebaseAppCheck.instance.activate(providerAndroid: AndroidDebugProvider());
+  // While develop use AndroidDebugProvider() and copy logged debug token to the AppCheck setting page at Firebase Console (or disable enforcement of AppCheck)
+  await FirebaseAppCheck.instance.activate(providerAndroid: AndroidPlayIntegrityProvider());
 
   runApp(
     EasyLocalization(

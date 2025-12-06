@@ -11,7 +11,7 @@ Logger get logger => Log.instance;
 class Log extends Logger {
   Log._()
     : super(
-        level: Level.all,
+        level: Level.info,
         printer: PrettyPrinter(
           methodCount: 1,
           errorMethodCount: 8,
