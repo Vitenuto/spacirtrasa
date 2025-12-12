@@ -10,7 +10,7 @@ import 'package:spacirtrasa/utils/utils.dart';
 
 part '../generated/user/firebase_user.g.dart';
 
-const List<String> _scopes = <String>['email'];
+const List<String> _scopes = <String>['id'];
 
 @Riverpod(keepAlive: true)
 class FirebaseUserProvider extends _$FirebaseUserProvider {
@@ -32,18 +32,20 @@ class FirebaseUserProvider extends _$FirebaseUserProvider {
   Future<void> _initializeGoogleSignIn() async {
     if (_authenticationEventsSubscription != null) {
       // Already initialized
+      logger.t("Google Sign-In is already initialized, skipping initialization...");
       return;
     }
     logger.t("Initializing Google Sign-In...");
     await _signIn.initialize();
     _authenticationEventsSubscription = _signIn.authenticationEvents.listen(
       _handleAuthenticationEvent,
+      onError: _handleAuthenticationError,
     );
-    _authenticationEventsSubscription!.onError(_handleAuthenticationError);
     ref.onDispose(_authenticationEventsSubscription!.cancel);
   }
 
   Future<User?> _handleAuthenticationEvent(GoogleSignInAuthenticationEvent event) async {
+    logger.t("Handling authentication event: $event");
     final GoogleSignInAccount? user = switch (event) {
       GoogleSignInAuthenticationEventSignIn() => event.user,
       GoogleSignInAuthenticationEventSignOut() => null,
@@ -84,7 +86,7 @@ class FirebaseUserProvider extends _$FirebaseUserProvider {
   Future<void> handleSignIn() async {
     logger.i("Signing user in...");
     await _initializeGoogleSignIn();
-    await _signIn.attemptLightweightAuthentication();
+    await _signIn.authenticate(scopeHint: _scopes);
   }
 
   Future<void> handleSignOut() async {
