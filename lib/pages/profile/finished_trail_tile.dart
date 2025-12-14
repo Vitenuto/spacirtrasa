@@ -20,7 +20,7 @@ class FinishedTrailTile extends ConsumerWidget {
     return ListTile(
       title: Text(trail?.titleLocalized ?? 'object-doesnt-exists-anymore'.tr()),
       subtitle: Text(
-        'profile.my-completed-trails.finished'.tr(args: [finishedTrail.finishedAtFormatted]),
+        'profile.my-visited-trails.visited'.tr(args: [finishedTrail.finishedAtFormatted]),
       ),
       onTap: trail != null ? () => showTrailDetail(context, trail!) : null,
     );
