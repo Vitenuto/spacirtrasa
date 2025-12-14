@@ -79,7 +79,7 @@ class AppUserProvider extends _$AppUserProvider {
     logger.i("Setting finished Trail: ${trail.id}, for user: ${state.id}");
     await setUser(await appUserService.setFinishedTrail(state, trail.id));
     Fluttertoast.showToast(
-      msg: 'trail-added-to-finished'.tr(args: [trail.titleLocalized]),
+      msg: 'trail-added-to-visited'.tr(args: [trail.titleLocalized]),
       toastLength: Toast.LENGTH_LONG,
     );
   }
