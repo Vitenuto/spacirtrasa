@@ -78,12 +78,12 @@ class _Body extends ConsumerWidget {
             ),
           ),
           _buildBodyButton(
-            "profile.my-completed-trails".tr(),
+            "profile.my-visited-trails".tr(),
             () => showFullDialog(
               context,
               ListScreen<FinishedTrail>(
-                title: "profile.my-completed-trails".tr(),
-                listEmptyInfo: "profile.no-completed-trails".tr(),
+                title: "profile.my-visited-trails".tr(),
+                listEmptyInfo: "profile.no-visited-trails".tr(),
                 provider: finishedTrailsProvider,
                 itemBuilder:
                     (context, finishedTrail) => FinishedTrailTile(finishedTrail: finishedTrail),
